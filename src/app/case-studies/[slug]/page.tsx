@@ -5,9 +5,9 @@ import { CaseStudyDetailClient } from '@/components/case-study-detail-client';
 import { JsonLd } from '@/components/seo/json-ld';
 
 type PageProps = {
-    params: {
+    params: Promise<{
         slug: string;
-    };
+    }>;
 };
 
 export function generateStaticParams() {
@@ -16,8 +16,10 @@ export function generateStaticParams() {
     }));
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
-    const study = caseStudies.find((item) => item.slug === params.slug);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { slug } = await params;
+
+    const study = caseStudies.find((item) => item.slug === slug);
 
     if (!study) {
         return {
@@ -60,8 +62,10 @@ export function generateMetadata({ params }: PageProps): Metadata {
     };
 }
 
-export default function CaseStudyDetailPage({ params }: PageProps) {
-    const study = caseStudies.find((item) => item.slug === params.slug);
+export default async function CaseStudyDetailPage({ params }: PageProps) {
+    const { slug } = await params;
+
+    const study = caseStudies.find((item) => item.slug === slug);
 
     if (!study) {
         return notFound();
