@@ -417,7 +417,7 @@ export default function WebSecurityPage() {
                         <div className="relative">
                             <div className="absolute inset-0 bg-yellow-500/10 blur-[80px] rounded-full" />
                             <SpotlightCard className="relative bg-zinc-950 p-6 border-white/10 font-mono text-sm leading-relaxed overflow-hidden">
-                                <div className="text-zinc-500 mb-2">// Example: Secure Headers Implementation</div>
+                                <div className="text-zinc-500 mb-2">{"// Example: Secure Headers Implementation"}</div>
                                 <div className="text-purple-400">const</div> <div className="text-blue-400 inline">securityHeaders</div> = {'{'}
                                 <div className="pl-4">
                                     <div className="text-green-400">'Content-Security-Policy'</div>: <span className="text-orange-300">'default-src 'self'; script-src...'</span>,
@@ -432,7 +432,7 @@ export default function WebSecurityPage() {
                                     <div className="text-green-400">'X-Content-Type-Options'</div>: <span className="text-orange-300">'nosniff'</span>,
                                 </div>
                                 {'}'};
-                                <div className="mt-4 text-zinc-500">// Result: A+ Security Rating</div>
+                                <div className="mt-4 text-zinc-500">{"// Result: A+ Security Rating"}</div>
                             </SpotlightCard>
                         </div>
                     </div>
