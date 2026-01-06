@@ -36,7 +36,7 @@ export function LightingEffects() {
   }, []);
 
   return (
-    <div ref={containerRef} className="fixed inset-0 pointer-events-none z-10">
+    <div ref={containerRef} className="fixed inset-0 pointer-events-none z-[1]">
       {/* Mouse-following light */}
       <div
         className="absolute w-96 h-96 rounded-full opacity-20 transition-all duration-300 ease-out"
@@ -135,7 +135,7 @@ export function ScrollLighting({ children }: { children: React.ReactNode }) {
     <div className="relative">
       {/* Dynamic lighting overlay */}
       <div
-        className="fixed inset-0 pointer-events-none z-10 transition-all duration-300"
+        className="fixed inset-0 pointer-events-none z-[1] transition-all duration-300"
         style={{
           background: `linear-gradient(180deg, 
             oklch(0.95 0.01 240 / ${0.05 + scrollProgress * 0.1}) 0%, 
@@ -147,7 +147,7 @@ export function ScrollLighting({ children }: { children: React.ReactNode }) {
 
       {/* Side lighting effects */}
       <div
-        className="fixed left-0 top-0 h-full w-96 pointer-events-none z-10 transition-all duration-500"
+        className="fixed left-0 top-0 h-full w-96 pointer-events-none z-[1] transition-all duration-500"
         style={{
           background: `radial-gradient(ellipse at left center, 
             oklch(0.95 0.01 240 / ${0.1 + scrollProgress * 0.1}) 0%, 
@@ -158,7 +158,7 @@ export function ScrollLighting({ children }: { children: React.ReactNode }) {
       />
 
       <div
-        className="fixed right-0 top-0 h-full w-96 pointer-events-none z-10 transition-all duration-500"
+        className="fixed right-0 top-0 h-full w-96 pointer-events-none z-[1] transition-all duration-500"
         style={{
           background: `radial-gradient(ellipse at right center, 
             oklch(0.9 0.01 240 / ${0.1 + scrollProgress * 0.1}) 0%, 

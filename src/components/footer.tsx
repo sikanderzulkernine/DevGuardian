@@ -12,7 +12,7 @@ export function Footer({ className }: FooterProps = {}) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className={`glass border-t border-border/20 hover:border-primary/30 transition-colors mt-20 ${className || ''}`}>
+    <footer className={`relative isolate z-10 glass border-t border-border/20 hover:border-primary/30 transition-colors mt-20 ${className || ''}`}>
       <div className="container mx-auto px-6 py-12">
         {/* Main content columns */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
@@ -178,3 +178,4 @@ export function Footer({ className }: FooterProps = {}) {
     </footer>
   );
 }
+

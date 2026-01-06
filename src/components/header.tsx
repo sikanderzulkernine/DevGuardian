@@ -172,7 +172,7 @@ export function Header() {
   return (
     <>
       <motion.header
-        className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 rounded-2xl border border-border/20 ${isScrolled ? 'w-[90%] max-w-6xl' : 'w-[95%] max-w-7xl'
+        className={`fixed isolate top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 rounded-2xl border border-border/20 ${isScrolled ? 'w-[90%] max-w-6xl' : 'w-[95%] max-w-7xl'
           }`}
         initial="initial"
         animate="animate"
@@ -326,3 +326,4 @@ export function Header() {
     </>
   );
 }
+
