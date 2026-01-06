@@ -148,8 +148,8 @@
 
 /* Glassmorphism utilities */
 .glass {
-    background: rgba(255, 255, 255, 0);
-    /* User requested transparent background */
+    background: oklch(0.12 0.01 240 / 0.6);
+    /* Subtle glass tint for readability */
     backdrop-filter: blur(12.9px);
     -webkit-backdrop-filter: blur(12.9px);
     border: 1px solid rgba(255, 255, 255, 0.1);
