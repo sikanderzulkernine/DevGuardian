@@ -1,5 +1,4 @@
 import React from 'react';
-import { headers } from 'next/headers';
 
 type JsonLdProps = {
   data: Record<string, unknown> | Record<string, unknown>[];
@@ -8,13 +7,10 @@ type JsonLdProps = {
 /**
  * Generic component to inject any JSON-LD schema
  */
-export async function JsonLd({ data }: JsonLdProps) {
-  const nonce = (await headers()).get('x-nonce') ?? undefined;
-
+export function JsonLd({ data }: JsonLdProps) {
   return (
     <script
       type="application/ld+json"
-      nonce={nonce}
       suppressHydrationWarning
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
     />

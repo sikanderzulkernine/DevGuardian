@@ -1,16 +1,14 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
-    const nonce = crypto.randomUUID();
+export function middleware(_request: NextRequest) {
     const isDev = process.env.NODE_ENV === 'development';
     const scriptSrc = [
         "'self'",
         "'unsafe-inline'",
-        "'strict-dynamic'",
-        `'nonce-${nonce}'`,
         'https://challenges.cloudflare.com',
         'https://www.googletagmanager.com',
+        'https://www.google-analytics.com',
         'https://assets.calendly.com',
     ];
 
@@ -34,18 +32,10 @@ export function middleware(request: NextRequest) {
         "connect-src 'self' https://challenges.cloudflare.com https://www.googletagmanager.com https://analytics.google.com https://www.google-analytics.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://calendly.com https://api.calendly.com;",
     ].join(' ').replace(/\s{2,}/g, ' ').trim();
 
-    const requestHeaders = new Headers(request.headers);
-    requestHeaders.set('x-nonce', nonce);
-
-    const response = NextResponse.next({
-        request: {
-            headers: requestHeaders,
-        },
-    });
+    const response = NextResponse.next();
 
     // Security Headers
     response.headers.set('Content-Security-Policy', cspHeader);
-    response.headers.set('x-nonce', nonce);
     response.headers.set('X-DNS-Prefetch-Control', 'on');
     response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
     response.headers.set('X-Frame-Options', 'DENY');
