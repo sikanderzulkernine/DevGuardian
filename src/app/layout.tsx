@@ -9,10 +9,10 @@ import { GlobalJsonLd } from "@/components/seo/json-ld";
 export const metadata: Metadata = {
   metadataBase: new URL('https://devguardian.site'),
   title: {
-    default: "DevGuardian - Secure AI Agents & Cybersecurity",
+    default: "DevGuardian - Your Partner for Secure Online Growth",
     template: "%s | DevGuardian"
   },
-  description: "DevGuardian builds autonomous AI agents and secure web applications. We bridge the gap between rapid innovation and enterprise-grade security.",
+  description: "AI agents, secure web apps, and cybersecurity guidance for modern organizations.",
   keywords: ["AI Agents", "Cybersecurity", "Secure Web Development", "Penetration Testing", "AI Automation"],
   authors: [{ name: "DevGuardian Team" }],
   icons: {
@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     apple: "/logo.png",
   },
   openGraph: {
-    title: "DevGuardian - Secure AI Agents & Cybersecurity",
-    description: "Build boldly. Ship securely. Enterprise infrastructure for the AI era.",
+    title: "DevGuardian- Your Partner for Secure Online Growth",
+    description: "secure web apps, AI agents, and cybersecurity guidance for modern organizations.",
     url: "https://devguardian.site",
     siteName: "DevGuardian",
     locale: 'en_US',
@@ -37,8 +37,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "DevGuardian - Secure AI Agents & Cybersecurity",
-    description: "Build boldly. Ship securely. Enterprise infrastructure for the AI era.",
+    title: "DevGuardian- Your Partner for Secure Online Growth",
+    description: "secure web apps, AI agents, and cybersecurity guidance for modern organizations.",
     images: ["/og-image.webp"],
   },
   robots: {

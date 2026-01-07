@@ -75,10 +75,11 @@ const process = [
     { step: '05', title: 'Launch', description: 'Smooth deployment to production with configured CI/CD pipelines.' },
 ];
 
-const pricing = [
+const projectPackages = [
     {
         name: 'Growth Landing',
         price: '$950+',
+        billing: '/project',
         description: 'High-converting multi-page website for early-stage brands.',
         features: [
             '7-13 Unique Pages',
@@ -89,12 +90,15 @@ const pricing = [
             'Contact Form & Lead Capture',
             'Speed Optimization (100 Lighthouse)',
         ],
+        cta: 'Discuss Project',
     },
     {
         name: 'Business Website',
         price: '$2,100+',
+        billing: '/project',
         description: 'Scalable business website with unlimited CMS pages.',
         popular: true,
+        badge: 'Best Value',
         features: [
             'Unlimited Pages (CMS-managed)',
             'Dynamic Content Management',
@@ -104,10 +108,12 @@ const pricing = [
             'Admin Dashboard',
             'Basic Technical SEO',
         ],
+        cta: 'Discuss Project',
     },
     {
         name: 'Custom Web App',
         price: 'Custom',
+        billing: '',
         description: 'Full-featured SaaS or complex web application.',
         features: [
             'User Authentication (Auth.js)',
@@ -117,6 +123,62 @@ const pricing = [
             'Scalable Cloud Infrastructure',
             'Automated Testing',
         ],
+        cta: 'Discuss Project',
+    },
+];
+
+const maintenancePlans = [
+    {
+        name: 'Standard Care',
+        price: '$130',
+        billing: '/2 months',
+        description: 'Short-term coverage to keep your site stable after launch.',
+        features: [
+            'Core framework or CMS updates',
+            'Security patches for critical issues',
+            'Uptime and performance monitoring',
+            'Monthly backups and restore support',
+            'Minor bug fixes and content updates',
+            'Performance and SEO health check',
+            'Monthly maintenance report',
+        ],
+        cta: 'Choose Standard',
+    },
+    {
+        name: 'Growth Care',
+        price: '$299',
+        billing: '/6 months',
+        description: 'Proactive care for growing sites with priority support.',
+        popular: true,
+        badge: 'Most Popular',
+        features: [
+            'Proactive dependency updates and patching',
+            'Uptime and error monitoring with alerts',
+            'Scheduled backups and restore testing',
+            'Minor bug fixes and content updates',
+            'Priority support queue',
+            'Quarterly performance tune-ups',
+            'SEO and analytics review',
+            'Security hardening checks',
+        ],
+        cta: 'Choose Growth',
+    },
+    {
+        name: 'Premium Care',
+        price: '$550',
+        billing: '/year',
+        description: 'Full-year partnership with continuous optimization and guidance.',
+        features: [
+            'Planned version upgrades and compatibility checks',
+            'Continuous monitoring and incident triage',
+            'Monthly backups and restore testing',
+            'Minor feature tweaks and content updates',
+            'Monthly performance optimization',
+            'Security hardening checks',
+            'Quarterly strategy review',
+            'Priority support queue',
+        ],
+        cta: 'Choose Premium',
     },
 ];
 
@@ -154,11 +216,14 @@ export default function WebDevelopmentPage() {
         serviceType: 'WebDevelopment',
         hasOfferCatalog: {
             '@type': 'OfferCatalog',
-            name: 'Development Packages',
+            name: 'Development and Maintenance Packages',
             itemListElement: [
                 { '@type': 'Offer', name: 'Growth Landing', price: '950', priceCurrency: 'USD' },
                 { '@type': 'Offer', name: 'Business Website', price: '2100', priceCurrency: 'USD' },
-                { '@type': 'Offer', name: 'Custom Web App', price: 'Custom' }
+                { '@type': 'Offer', name: 'Custom Web App', price: 'Custom' },
+                { '@type': 'Offer', name: 'Standard Care (2 Months)', price: '130', priceCurrency: 'USD' },
+                { '@type': 'Offer', name: 'Growth Care (6 Months)', price: '299', priceCurrency: 'USD' },
+                { '@type': 'Offer', name: 'Premium Care (1 Year)', price: '550', priceCurrency: 'USD' }
             ]
         }
     };
@@ -305,20 +370,20 @@ export default function WebDevelopmentPage() {
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-8">
-                            {pricing.map((plan, index) => (
+                            {projectPackages.map((plan, index) => (
                                 <SpotlightCard
                                     key={index}
                                     className={`p-8 flex flex-col bg-zinc-900 border-white/10 ${plan.popular ? 'border-cyan-500/30 ring-1 ring-cyan-500/30' : ''}`}
                                 >
                                     {plan.popular && (
                                         <div className="self-start px-3 py-1 mb-4 text-xs font-semibold text-cyan-400 bg-cyan-400/10 rounded-full border border-cyan-400/20">
-                                            Best Value
+                                            {plan.badge ?? 'Best Value'}
                                         </div>
                                     )}
                                     <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
                                     <div className="mb-4">
                                         <span className="text-4xl font-bold text-white">{plan.price}</span>
-                                        <span className="text-zinc-400">/project</span>
+                                        {plan.billing && <span className="text-zinc-400">{plan.billing}</span>}
                                     </div>
                                     <p className="text-zinc-400 text-sm mb-8">{plan.description}</p>
 
@@ -335,7 +400,51 @@ export default function WebDevelopmentPage() {
                                         className={`w-full ${plan.popular ? 'bg-cyan-600 hover:bg-cyan-500 text-white' : 'bg-white/10 hover:bg-white/20 text-white'}`}
                                         asChild
                                     >
-                                        <Link href="/contact">Discuss Project</Link>
+                                        <Link href="/contact">{plan.cta}</Link>
+                                    </Button>
+                                </SpotlightCard>
+                            ))}
+                        </div>
+
+                        <div className="mt-20 text-center max-w-3xl mx-auto mb-12">
+                            <h3 className="text-2xl md:text-4xl font-bold mb-4 text-white">Maintenance Plans</h3>
+                            <p className="text-lg text-zinc-400">
+                                Ongoing care to keep your site secure, fast, and up to date.
+                            </p>
+                        </div>
+
+                        <div className="grid md:grid-cols-3 gap-8">
+                            {maintenancePlans.map((plan, index) => (
+                                <SpotlightCard
+                                    key={index}
+                                    className={`p-8 flex flex-col bg-zinc-900 border-white/10 ${plan.popular ? 'border-cyan-500/30 ring-1 ring-cyan-500/30' : ''}`}
+                                >
+                                    {plan.popular && (
+                                        <div className="self-start px-3 py-1 mb-4 text-xs font-semibold text-cyan-400 bg-cyan-400/10 rounded-full border border-cyan-400/20">
+                                            {plan.badge ?? 'Best Value'}
+                                        </div>
+                                    )}
+                                    <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
+                                    <div className="mb-4">
+                                        <span className="text-4xl font-bold text-white">{plan.price}</span>
+                                        {plan.billing && <span className="text-zinc-400">{plan.billing}</span>}
+                                    </div>
+                                    <p className="text-zinc-400 text-sm mb-8">{plan.description}</p>
+
+                                    <ul className="space-y-4 mb-8 flex-grow">
+                                        {plan.features.map((feature, i) => (
+                                            <li key={i} className="flex items-start gap-3 text-sm text-zinc-300">
+                                                <CheckCircle className="h-5 w-5 text-cyan-400 shrink-0" />
+                                                <span>{feature}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <Button
+                                        className={`w-full ${plan.popular ? 'bg-cyan-600 hover:bg-cyan-500 text-white' : 'bg-white/10 hover:bg-white/20 text-white'}`}
+                                        asChild
+                                    >
+                                        <Link href="/contact">{plan.cta}</Link>
                                     </Button>
                                 </SpotlightCard>
                             ))}

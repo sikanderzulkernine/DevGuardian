@@ -75,23 +75,26 @@ const process = [
     { step: '05', title: 'Deployment', description: 'Seamless launch and integration into your production environment.' },
 ];
 
-const pricing = [
+const projectPackages = [
     {
         name: 'Starter Agent',
         price: '$950',
+        billing: '/project',
         description: 'Perfect for specific tasks like FAQ support or basic data capture.',
         features: [
             'Custom Knowledge Base Integration',
             'Web-based Chat Interface',
             'Basic CRM Integration',
-            'Monthly Maintenance Support',
+            'Post-launch support (30 days)',
             'Response Time < 2s',
             'Training on Your Data',
         ],
+        cta: 'Get Started',
     },
     {
         name: 'Workflow Automation',
         price: '$2,200',
+        billing: '/project',
         description: 'Multi-step autonomous agents for complex business logic.',
         popular: true,
         features: [
@@ -102,10 +105,12 @@ const pricing = [
             'Priority Support 24/7',
             'Vector Database Setup',
         ],
+        cta: 'Get Started',
     },
     {
         name: 'Enterprise Matrix',
         price: 'Custom',
+        billing: '',
         description: 'Full-scale AI workforce integration for large organizations.',
         features: [
             'Fine-tuned Custom Models (LLaMA/Mistral)',
@@ -115,6 +120,59 @@ const pricing = [
             'Full Security Compliance (SOC2)',
             'Multi-Agent Orchestration',
         ],
+        cta: 'Contact Sales',
+    },
+];
+
+const maintenancePlans = [
+    {
+        name: 'Standard Care',
+        price: '$150',
+        billing: '/2 months',
+        description: 'Short-term coverage to stabilize production agents after launch.',
+        features: [
+            'Prompt and model tuning',
+            'Monitoring and alerting',
+            'Knowledge base refreshes',
+            'Minor workflow tweaks',
+            'Quality and safety checks',
+            'Usage report and recommendations',
+        ],
+        cta: 'Choose Standard',
+    },
+    {
+        name: 'Growth Care',
+        price: '$450',
+        billing: '/6 months',
+        description: 'Proactive optimization with priority support and tuning.',
+        popular: true,
+        features: [
+            'Proactive tuning and retraining',
+            'Monitoring, alerting, and incident response',
+            'Integration and workflow updates',
+            'Guardrail and safety review',
+            'Priority support queue',
+            'Performance and cost optimization',
+            'Monthly usage report',
+        ],
+        cta: 'Choose Growth',
+    },
+    {
+        name: 'Premium Care',
+        price: '$750',
+        billing: '/year',
+        description: 'Full-year partnership for continuous improvement and guidance.',
+        features: [
+            'Ongoing model and prompt optimization',
+            'Continuous monitoring and incident triage',
+            'Knowledge base refreshes and expansion',
+            'Workflow upgrades and new intents',
+            'Quarterly system and safety audits',
+            'Monthly analytics and cost optimization',
+            'Dedicated improvement roadmap',
+            'Priority support queue',
+        ],
+        cta: 'Choose Premium',
     },
 ];
 
@@ -336,14 +394,14 @@ export default function AIAgentsPage() {
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
                         <div className="text-center max-w-3xl mx-auto mb-16">
-                            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Transparent Pricing</h2>
+                            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">AI Agent Packages</h2>
                             <p className="text-lg text-zinc-400">
-                                Invest in efficiency. Clear tailored packages for every stage of growth.
+                                Launch the right agent scope with clear project pricing.
                             </p>
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-8">
-                            {pricing.map((plan, index) => (
+                            {projectPackages.map((plan, index) => (
                                 <SpotlightCard
                                     key={index}
                                     className={`p-8 flex flex-col bg-zinc-900 border-white/10 ${plan.popular ? 'border-blue-500/30 ring-1 ring-blue-500/30' : ''}`}
@@ -356,7 +414,7 @@ export default function AIAgentsPage() {
                                     <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
                                     <div className="mb-4">
                                         <span className="text-4xl font-bold text-white">{plan.price}</span>
-                                        {plan.price !== 'Custom' && <span className="text-zinc-400">/project</span>}
+                                        {plan.billing && <span className="text-zinc-400">{plan.billing}</span>}
                                     </div>
                                     <p className="text-zinc-400 text-sm mb-8">{plan.description}</p>
 
@@ -373,7 +431,51 @@ export default function AIAgentsPage() {
                                         className={`w-full ${plan.popular ? 'bg-blue-600 hover:bg-blue-500 text-white' : 'bg-white/10 hover:bg-white/20 text-white'}`}
                                         asChild
                                     >
-                                        <Link href="/contact">{plan.price === 'Custom' ? 'Contact Sales' : 'Get Started'}</Link>
+                                        <Link href="/contact">{plan.cta}</Link>
+                                    </Button>
+                                </SpotlightCard>
+                            ))}
+                        </div>
+
+                        <div className="mt-20 text-center max-w-3xl mx-auto mb-12">
+                            <h3 className="text-2xl md:text-4xl font-bold mb-4 text-white">Maintenance Plans</h3>
+                            <p className="text-lg text-zinc-400">
+                                Keep your agents reliable with 2, 6, or 12-month care plans.
+                            </p>
+                        </div>
+
+                        <div className="grid md:grid-cols-3 gap-8">
+                            {maintenancePlans.map((plan, index) => (
+                                <SpotlightCard
+                                    key={index}
+                                    className={`p-8 flex flex-col bg-zinc-900 border-white/10 ${plan.popular ? 'border-blue-500/30 ring-1 ring-blue-500/30' : ''}`}
+                                >
+                                    {plan.popular && (
+                                        <div className="self-start px-3 py-1 mb-4 text-xs font-semibold text-blue-400 bg-blue-400/10 rounded-full border border-blue-400/20">
+                                            Most Popular
+                                        </div>
+                                    )}
+                                    <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
+                                    <div className="mb-4">
+                                        <span className="text-4xl font-bold text-white">{plan.price}</span>
+                                        {plan.billing && <span className="text-zinc-400">{plan.billing}</span>}
+                                    </div>
+                                    <p className="text-zinc-400 text-sm mb-8">{plan.description}</p>
+
+                                    <ul className="space-y-4 mb-8 flex-grow">
+                                        {plan.features.map((feature, i) => (
+                                            <li key={i} className="flex items-start gap-3 text-sm text-zinc-300">
+                                                <CheckCircle className="h-5 w-5 text-blue-400 shrink-0" />
+                                                <span>{feature}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <Button
+                                        className={`w-full ${plan.popular ? 'bg-blue-600 hover:bg-blue-500 text-white' : 'bg-white/10 hover:bg-white/20 text-white'}`}
+                                        asChild
+                                    >
+                                        <Link href="/contact">{plan.cta}</Link>
                                     </Button>
                                 </SpotlightCard>
                             ))}
