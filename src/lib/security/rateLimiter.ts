@@ -1,4 +1,5 @@
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
 
 // We will use a simple Map with periodic cleanup to avoid memory leaks.
@@ -15,7 +16,11 @@ const MAX_TOKENS = Math.max(Number.parseInt(process.env.RATE_LIMIT_MAX || '', 10
 const WINDOW_MS = Number.parseInt(process.env.RATE_LIMIT_WINDOW_MS || '', 10) || DEFAULT_WINDOW_MS;
 const REFILL_RATE_MS = WINDOW_MS / MAX_TOKENS; // Refill 1 token every (window / max tokens)
 const CLEANUP_INTERVAL_MS = WINDOW_MS;
-const FILE_STORE_PATH = process.env.RATE_FILE_PATH?.trim();
+const IS_NETLIFY = process.env.NETLIFY === 'true';
+const DEFAULT_FILE_STORE_PATH = IS_NETLIFY
+    ? path.join(os.tmpdir(), 'contact-rate-limit.json')
+    : undefined;
+const FILE_STORE_PATH = process.env.RATE_FILE_PATH?.trim() || DEFAULT_FILE_STORE_PATH;
 
 // In-Memory Store (Single Instance in Serverless/Node)
 const store = new Map<string, RateLimitEntry>();
@@ -48,7 +53,11 @@ function applyTokenBucket(entry: RateLimitEntry, now: number) {
 }
 
 function resolveFilePath(filePath: string) {
-    return path.isAbsolute(filePath) ? filePath : path.join(process.cwd(), filePath);
+    if (path.isAbsolute(filePath)) {
+        return filePath;
+    }
+    const baseDir = IS_NETLIFY ? os.tmpdir() : process.cwd();
+    return path.join(baseDir, filePath);
 }
 
 export async function checkRateLimit(ip: string): Promise<{ allowed: boolean; remaining: number }> {

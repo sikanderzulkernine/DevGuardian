@@ -2,7 +2,18 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 
-const LOG_PATH = process.env.LOG_PATH || path.join(os.tmpdir(), 'contact-security.log');
+const IS_NETLIFY = process.env.NETLIFY === 'true';
+const DEFAULT_LOG_PATH = path.join(os.tmpdir(), 'contact-security.log');
+
+function resolveFilePath(filePath: string) {
+    if (path.isAbsolute(filePath)) {
+        return filePath;
+    }
+    const baseDir = IS_NETLIFY ? os.tmpdir() : process.cwd();
+    return path.join(baseDir, filePath);
+}
+
+const LOG_PATH = resolveFilePath(process.env.LOG_PATH || DEFAULT_LOG_PATH);
 
 export function logSecurityEvent(event: string, meta: Record<string, any> = {}) {
     try {
@@ -30,9 +41,9 @@ export function logSecurityEvent(event: string, meta: Record<string, any> = {}) 
             wroteToFile = true;
         } catch (err) {
             // Fallback: if configured path fails, try local temp
-            if (LOG_PATH !== path.join(os.tmpdir(), 'contact-security.log')) {
+            if (LOG_PATH !== DEFAULT_LOG_PATH) {
                 try {
-                    fs.appendFileSync(path.join(os.tmpdir(), 'contact-security.log'), logEntry);
+                    fs.appendFileSync(DEFAULT_LOG_PATH, logEntry);
                     wroteToFile = true;
                 } catch (fallbackError) {
                     // Ignore and fall back to console
