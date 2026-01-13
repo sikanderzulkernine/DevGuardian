@@ -3,6 +3,7 @@ node_modules/
 out/
 
 *.log
+lighthouse_report.html
 
 .env*
 !.env.example

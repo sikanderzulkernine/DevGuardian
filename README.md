@@ -147,13 +147,13 @@ This project includes enterprise-grade security features optimized for cPanel/No
     Create a `.env.local` file (local) or set these in your cPanel "Node.js App" settings:
     ```bash
     # Emali (Resend)
-    RESEND_API_KEY=re_123...
+    RESEND_API_KEY=RESEND_API_KEY_HERE
     EMAIL_FROM="DevGuardian <team@yourdomain.com>"
     CONTACT_TO="team@yourdomain.com"
 
     # Cloudflare Turnstile
-    NEXT_PUBLIC_TURNSTILE_SITE_KEY=0x4AAAA...
-    TURNSTILE_SECRET_KEY=0x4AAAA...
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY=TURNSTILE_SITE_KEY_HERE
+    TURNSTILE_SECRET_KEY=TURNSTILE_SECRET_KEY_HERE
 
     # Security Limits
     RATE_LIMIT_MAX=5
