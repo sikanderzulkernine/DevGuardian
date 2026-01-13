@@ -67,7 +67,7 @@ export function Hero() {
       return () => cancelIdle?.(idleId);
     }
 
-    timeoutId = window.setTimeout(() => setShowGL(true), 2500);
+    timeoutId = window.setTimeout(() => setShowGL(true), 0);
     return () => {
       if (timeoutId !== null) {
         window.clearTimeout(timeoutId);

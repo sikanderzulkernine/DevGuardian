@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   poweredByHeader: false, // Security: Hide Next.js header
   reactStrictMode: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
   images: {
     remotePatterns: [
       {
@@ -73,6 +76,9 @@ const withPWA = require("next-pwa")({
   disable: process.env.NODE_ENV === "development",
   register: true,
   skipWaiting: true,
+  // Optimization: specific limits to avoid caching huge files on initial load
+  maximumFileSizeToCacheInBytes: 50000, // ~50KB
+
   // Important: We use src/app/manifest.ts, so we don't need next-pwa to manage it.
   // We just need the SW generation.
 });
