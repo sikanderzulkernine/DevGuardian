@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CalendlyButton } from "./calendly-button";
 import { LightingEffects, ScrollLightingOverlay } from "./lighting-effects";
 import { Badge } from "./ui/badge";
@@ -56,36 +56,52 @@ export function Hero() {
   const [hovering, setHovering] = useState(false);
   const [showGL, setShowGL] = useState(false);
   const [quality, setQuality] = useState<GlQuality>(DEFAULT_QUALITY);
+  const [canUseGL, setCanUseGL] = useState(false);
+  const [isInView, setIsInView] = useState(true);
+  const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let timeoutId: number | null = null;
-    const idleCallback = (window as Window & { requestIdleCallback?: (cb: () => void, options?: { timeout: number }) => number }).requestIdleCallback;
-    const cancelIdle = (window as Window & { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback;
-
-    if (idleCallback) {
-      const idleId = idleCallback(() => setShowGL(true), { timeout: 1200 });
-      return () => cancelIdle?.(idleId);
+    const node = heroRef.current;
+    if (!node) {
+      return;
     }
 
-    // RESTORED: 2000ms delay to prevent TBT (Total Blocking Time) explosion.
-    timeoutId = window.setTimeout(() => setShowGL(true), 2000);
-    return () => {
-      if (timeoutId !== null) {
-        window.clearTimeout(timeoutId);
-      }
-    };
+    if (!("IntersectionObserver" in window)) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { rootMargin: "200px 0px" }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const mobileQuery = window.matchMedia("(max-width: 768px)");
     const coarsePointerQuery = window.matchMedia("(pointer: coarse)");
+    const connection = (navigator as Navigator & {
+      connection?: {
+        effectiveType?: string;
+        saveData?: boolean;
+        addEventListener?: (type: "change", listener: () => void) => void;
+        removeEventListener?: (type: "change", listener: () => void) => void;
+      };
+    }).connection;
 
     const updateQuality = () => {
       const deviceMemory = "deviceMemory" in navigator ? (navigator as Navigator & { deviceMemory?: number }).deviceMemory : undefined;
       const hardwareConcurrency = navigator.hardwareConcurrency ?? 8;
       const isLowPower = (deviceMemory ?? 8) <= 4 || hardwareConcurrency <= 4;
       const isMobile = mobileQuery.matches || coarsePointerQuery.matches;
+      const saveData = connection?.saveData ?? false;
+      const effectiveType = connection?.effectiveType;
+      const isSlowConnection = effectiveType === "slow-2g" || effectiveType === "2g" || effectiveType === "3g";
 
       if (reducedMotionQuery.matches) {
         setQuality(REDUCED_QUALITY);
@@ -94,23 +110,98 @@ export function Hero() {
       } else {
         setQuality(DEFAULT_QUALITY);
       }
+
+      setCanUseGL(!reducedMotionQuery.matches && !isMobile && !isLowPower && !saveData && !isSlowConnection);
     };
 
     updateQuality();
     reducedMotionQuery.addEventListener("change", updateQuality);
     mobileQuery.addEventListener("change", updateQuality);
     coarsePointerQuery.addEventListener("change", updateQuality);
+    connection?.addEventListener?.("change", updateQuality);
 
     return () => {
       reducedMotionQuery.removeEventListener("change", updateQuality);
       mobileQuery.removeEventListener("change", updateQuality);
       coarsePointerQuery.removeEventListener("change", updateQuality);
+      connection?.removeEventListener?.("change", updateQuality);
     };
   }, []);
+
+  useEffect(() => {
+    if (!canUseGL) {
+      setShowGL(false);
+      return;
+    }
+
+    let timeoutId: number | null = null;
+    let idleId: number | null = null;
+    let hasScheduled = false;
+
+    const requestIdle = (window as Window & {
+      requestIdleCallback?: (cb: () => void, options?: { timeout: number }) => number;
+    }).requestIdleCallback;
+    const cancelIdle = (window as Window & { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback;
+
+    const enable = () => {
+      setShowGL(true);
+    };
+
+    const scheduleEnable = () => {
+      if (hasScheduled) {
+        return;
+      }
+      hasScheduled = true;
+
+      if (requestIdle) {
+        idleId = requestIdle(() => enable(), { timeout: 1200 });
+        return;
+      }
+
+      timeoutId = window.setTimeout(() => enable(), 1200);
+    };
+
+    const events: Array<keyof WindowEventMap> = [
+      "pointerdown",
+      "keydown",
+      "touchstart",
+      "scroll",
+    ];
+
+    function addListeners() {
+      events.forEach((event) =>
+        window.addEventListener(event, handleInteraction, {
+          passive: true,
+          once: true,
+        })
+      );
+    }
+
+    function removeListeners() {
+      events.forEach((event) => window.removeEventListener(event, handleInteraction));
+    }
+
+    function handleInteraction() {
+      scheduleEnable();
+      removeListeners();
+    }
+
+    addListeners();
+
+    return () => {
+      removeListeners();
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId);
+      }
+      if (idleId !== null) {
+        cancelIdle?.(idleId);
+      }
+    };
+  }, [canUseGL]);
   return (
-    <div className="flex flex-col h-svh items-center relative -mt-24">
+    <div ref={heroRef} className="flex flex-col h-svh items-center relative -mt-24">
       <div className="absolute inset-0 z-0">
-        {showGL ? <GL hovering={hovering} quality={quality} /> : null}
+        {showGL && isInView ? <GL hovering={hovering} quality={quality} /> : null}
       </div>
       <ScrollLightingOverlay position="absolute" />
       <LightingEffects position="absolute" />

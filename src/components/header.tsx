@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { Menu, Shield, Cpu, Globe, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -131,11 +130,6 @@ export function Header() {
     };
   }, []);
 
-  const logoVariants = {
-    initial: { scale: 1, rotate: 0 },
-    hover: { scale: 1.05, rotate: 5 },
-  };
-
   const clearCloseTimeout = useCallback(() => {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
@@ -224,31 +218,26 @@ export function Header() {
 
   return (
     <>
-      <motion.header
-        className={`fixed isolate top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 rounded-2xl border border-border/20 ${isScrolled ? 'w-[90%] max-w-6xl' : 'w-[95%] max-w-7xl'
-          }`}
-        initial="initial"
-        animate="animate"
-        whileHover={isScrolled ? {} : { scale: 1.02 }}
+      <header
+        className={`fixed isolate top-4 left-1/2 transform -translate-x-1/2 z-50 rounded-2xl border border-border/20 transition-all duration-300 ${isScrolled ? 'w-[90%] max-w-6xl' : 'w-[95%] max-w-7xl'
+          } ${isScrolled ? '' : 'hover:scale-[1.02]'} transition-transform`}
       >
         <div className={`header-glass hover:border-primary/30 transition-colors rounded-2xl px-6 py-4 ${isOverLight ? 'header-glass-strong' : ''}`}>
           <nav className="flex items-center justify-between">
             {/* Logo */}
-            <motion.div variants={logoVariants} whileHover="hover">
-              <Link href="/" className="flex items-center space-x-2 group">
-                <div className="relative w-8 h-8">
-                  <Image
-                    src="/logo.webp"
-                    alt="DevGuardian Logo"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <span className="text-xl font-bold transition-colors text-foreground group-hover:text-primary">
-                  DevGuardian
-                </span>
-              </Link>
-            </motion.div>
+            <Link href="/" className="flex items-center space-x-2 group">
+              <div className="relative w-8 h-8 transition-transform duration-200 ease-out group-hover:scale-[1.05] group-hover:rotate-[5deg]">
+                <Image
+                  src="/logo.webp"
+                  alt="DevGuardian Logo"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <span className="text-xl font-bold transition-colors text-foreground group-hover:text-primary">
+                DevGuardian
+              </span>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
@@ -372,7 +361,7 @@ export function Header() {
             </Sheet>
           </nav>
         </div>
-      </motion.header>
+      </header>
 
       {/* Spacer for fixed header */}
       <div className="h-24" />

@@ -1,8 +1,7 @@
 import dynamic from 'next/dynamic';
 import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
 import { Hero } from '@/components/hero';
-import { GlobalContact } from '@/components/global-contact';
+import { LazyMount } from '@/components/lazy-mount';
 
 const SectionDivider = () => (
   <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
@@ -29,28 +28,52 @@ const TestimonialsSection = dynamic(() => import('@/components/testimonials').th
 const FAQ = dynamic(() => import('@/components/faq').then((mod) => mod.FAQ), {
   loading: () => null,
 });
+const GlobalContact = dynamic(() => import('@/components/global-contact').then((mod) => mod.GlobalContact), {
+  loading: () => null,
+});
+const Footer = dynamic(() => import('@/components/footer').then((mod) => mod.Footer), {
+  loading: () => null,
+});
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
       <Header />
       <Hero />
-      <StatsSection />
-      <SectionDivider />
-      <ServicesSection />
-      <SectionDivider />
-      <WhyChooseUsSection />
-      <SectionDivider />
-      <ProcessSection />
-      <SectionDivider />
-      <CaseStudiesSection />
-      <SectionDivider />
-      <TestimonialsSection />
-      <SectionDivider />
-      <FAQ />
-      <SectionDivider />
-      <GlobalContact />
-      <Footer />
+      <LazyMount>
+        <StatsSection />
+        <SectionDivider />
+      </LazyMount>
+      <LazyMount>
+        <ServicesSection />
+        <SectionDivider />
+      </LazyMount>
+      <LazyMount>
+        <WhyChooseUsSection />
+        <SectionDivider />
+      </LazyMount>
+      <LazyMount>
+        <ProcessSection />
+        <SectionDivider />
+      </LazyMount>
+      <LazyMount>
+        <CaseStudiesSection />
+        <SectionDivider />
+      </LazyMount>
+      <LazyMount>
+        <TestimonialsSection />
+        <SectionDivider />
+      </LazyMount>
+      <LazyMount>
+        <FAQ />
+        <SectionDivider />
+      </LazyMount>
+      <LazyMount>
+        <GlobalContact />
+      </LazyMount>
+      <LazyMount>
+        <Footer />
+      </LazyMount>
     </div>
   );
 }
