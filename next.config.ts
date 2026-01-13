@@ -64,4 +64,19 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// @ts-expect-error - next-pwa does not have types
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+// @ts-expect-error - next-pwa does not have types
+const withPWA = require("next-pwa")({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+  register: true,
+  skipWaiting: true,
+  // Important: We use src/app/manifest.ts, so we don't need next-pwa to manage it.
+  // We just need the SW generation.
+});
+
+export default withBundleAnalyzer(withPWA(nextConfig));
