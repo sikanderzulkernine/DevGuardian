@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "next-themes";
 import { BackToTop } from "@/components/back-to-top";
 import { GlobalJsonLd } from "@/components/seo/json-ld";
+import { GoogleTagManager } from "@/components/google-tag-manager";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://devguardian.site'),
@@ -54,8 +54,6 @@ export const metadata: Metadata = {
   },
 };
 
-
-
 export const viewport: Viewport = {
   themeColor: "#000000",
 };
@@ -68,30 +66,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Google Tag Manager */}
-        <Script id="google-tag-manager" strategy="lazyOnload">
-          {`
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-T5MJ5MRQ');
-          `}
-        </Script>
-        {/* End Google Tag Manager */}
+        {/* Delayed GTM */}
       </head>
       <body
         className={`font-sans antialiased bg-background text-foreground`}
       >
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-T5MJ5MRQ"
-            height="0"
-            width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
-          />
-        </noscript>
+        <GoogleTagManager gtmId="GTM-T5MJ5MRQ" />
         <GlobalJsonLd />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           {children}
