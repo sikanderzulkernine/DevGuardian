@@ -67,7 +67,8 @@ export function Hero() {
       return () => cancelIdle?.(idleId);
     }
 
-    timeoutId = window.setTimeout(() => setShowGL(true), 0);
+    // RESTORED: 2000ms delay to prevent TBT (Total Blocking Time) explosion.
+    timeoutId = window.setTimeout(() => setShowGL(true), 2000);
     return () => {
       if (timeoutId !== null) {
         window.clearTimeout(timeoutId);
