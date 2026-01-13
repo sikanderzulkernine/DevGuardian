@@ -64,12 +64,10 @@ const nextConfig: NextConfig = {
   },
 };
 
-// @ts-expect-error - next-pwa does not have types
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
-// @ts-expect-error - next-pwa does not have types
 const withPWA = require("next-pwa")({
   dest: "public",
   disable: process.env.NODE_ENV === "development",
