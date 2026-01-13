@@ -4,12 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { CardLighting } from '@/components/lighting-effects';
 import { TurnstileWidget } from '@/components/TurnstileWidget';
 
 interface ContactFormProps {
@@ -146,22 +145,21 @@ export function ContactForm({
 
   const inputClass = variant === 'solid'
     ? "bg-zinc-950 border-white/10 text-white placeholder:text-zinc-500 focus:bg-zinc-900 transition-colors"
-    : "glass border-border/20";
+    : "bg-zinc-900/60 border-white/10 text-white placeholder:text-zinc-500 focus:bg-zinc-900/80 transition-colors";
 
-  const Wrapper = variant === 'solid' ? 'div' : Card;
+  const Wrapper = 'div';
   const wrapperProps = variant === 'solid'
-    ? { className: "flex flex-col gap-6 rounded-xl border border-white/10 bg-zinc-900 backdrop-blur-md py-6 shadow-sm overflow-hidden transition-colors" }
-    : { className: "border-border/20" };
+    ? { className: "card-solid flex flex-col gap-6 rounded-xl border py-6 overflow-hidden transition-colors" }
+    : { className: "card-solid flex flex-col gap-6 rounded-3xl border py-6 overflow-hidden transition-colors" };
 
   return (
-    <CardLighting>
-      <Wrapper {...wrapperProps}>
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">{title}</CardTitle>
-          {subtitle && <CardDescription className="text-muted-foreground">{subtitle}</CardDescription>}
-        </CardHeader>
-        <CardContent className="p-6">
-          <form onSubmit={handleSubmit} className="space-y-6">
+    <Wrapper {...wrapperProps}>
+      <CardHeader>
+        <CardTitle className="text-2xl font-bold">{title}</CardTitle>
+        {subtitle && <CardDescription className="text-muted-foreground">{subtitle}</CardDescription>}
+      </CardHeader>
+      <CardContent className="p-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
 
             {/* Honeypot Field (Hidden) */}
             <div className="hidden" aria-hidden="true">
@@ -259,9 +257,8 @@ export function ContactForm({
                 </>
               )}
             </Button>
-          </form>
-        </CardContent>
-      </Wrapper>
-    </CardLighting>
+        </form>
+      </CardContent>
+    </Wrapper>
   );
 }

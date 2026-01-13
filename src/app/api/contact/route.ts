@@ -9,9 +9,10 @@ export const dynamic = 'force-dynamic'; // Ensure no caching
 export async function POST(req: NextRequest) {
     const forwardedFor = req.headers.get('x-forwarded-for');
     const ip =
+        req.headers.get('x-nf-client-connection-ip') ||
         req.headers.get('cf-connecting-ip') ||
-        (forwardedFor ? forwardedFor.split(',')[0].trim() : null) ||
         req.headers.get('x-real-ip') ||
+        (forwardedFor ? forwardedFor.split(',')[0].trim() : null) ||
         'unknown';
 
     // 1. Rate Limit

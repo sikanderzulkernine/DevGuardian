@@ -184,10 +184,7 @@ export default function ResponsibleDisclosurePage() {
 
             <GlobalContact variant="solid" />
 
-            {/* Gradient Line Separator */}
-            <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-
-            <Footer className="!mt-0 !border-t-0" />
+            <Footer />
         </div>
     );
 }

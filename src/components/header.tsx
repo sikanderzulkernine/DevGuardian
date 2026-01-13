@@ -3,8 +3,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Shield, Cpu, Globe, Lock, ChevronDown } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Menu, Shield, Cpu, Globe, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import {
@@ -46,36 +46,89 @@ const services = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDarkText, setIsDarkText] = useState(false);
+  const [isOverLight, setIsOverLight] = useState(false);
   const [activeMenu, setActiveMenu] = useState('');
   const [isPointerInsideServices, setIsPointerInsideServices] = useState(false);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const servicesMenuValue = 'services';
-  const closeDelayMs = 3000;
+  const closeDelayMs = 1500;
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+    let frameId: number | null = null;
 
-      const header = document.querySelector('header');
-      if (header) {
-        const headerRect = header.getBoundingClientRect();
-        const headerCenterY = headerRect.top + headerRect.height / 2;
-        const lightSections = document.querySelectorAll('.light-section');
-        let isOverLight = false;
-        lightSections.forEach((section) => {
-          const rect = section.getBoundingClientRect();
-          if (headerCenterY >= rect.top && headerCenterY <= rect.bottom) {
-            isOverLight = true;
-          }
-        });
-        setIsDarkText(isOverLight);
-      }
+    const handleScroll = () => {
+      if (frameId !== null) return;
+      frameId = window.requestAnimationFrame(() => {
+        frameId = null;
+        setIsScrolled(window.scrollY > 20);
+      });
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Check on mount
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const header = document.querySelector('header');
+    const lightSections = Array.from(
+      document.querySelectorAll<HTMLElement>('.light-section')
+    );
+
+    if (!header || lightSections.length === 0) {
+      setIsOverLight(false);
+      return;
+    }
+
+    const activeSections = new Set<Element>();
+    let observer: IntersectionObserver | null = null;
+
+    const observeSections = () => {
+      observer?.disconnect();
+      activeSections.clear();
+
+      const headerRect = header.getBoundingClientRect();
+      const bandHeight = Math.max(6, Math.round(headerRect.height * 0.2));
+      const bandTop = headerRect.top + headerRect.height / 2 - bandHeight / 2;
+      const topMargin = -Math.max(0, Math.floor(bandTop));
+      const bottomMargin = -Math.max(
+        0,
+        Math.floor(window.innerHeight - bandTop - bandHeight)
+      );
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              activeSections.add(entry.target);
+            } else {
+              activeSections.delete(entry.target);
+            }
+          });
+          setIsOverLight(activeSections.size > 0);
+        },
+        {
+          root: null,
+          rootMargin: `${topMargin}px 0px ${bottomMargin}px 0px`,
+          threshold: 0,
+        }
+      );
+
+      lightSections.forEach((section) => observer?.observe(section));
+    };
+
+    observeSections();
+    window.addEventListener('resize', observeSections);
+
+    return () => {
+      window.removeEventListener('resize', observeSections);
+      observer?.disconnect();
+    };
   }, []);
 
   const logoVariants = {
@@ -178,20 +231,20 @@ export function Header() {
         animate="animate"
         whileHover={isScrolled ? {} : { scale: 1.02 }}
       >
-        <div className={`glass hover:border-primary/30 transition-colors rounded-2xl px-6 py-4 ${isDarkText ? 'bg-white/80 border-black/10' : ''}`}>
+        <div className={`header-glass hover:border-primary/30 transition-colors rounded-2xl px-6 py-4 ${isOverLight ? 'header-glass-strong' : ''}`}>
           <nav className="flex items-center justify-between">
             {/* Logo */}
             <motion.div variants={logoVariants} whileHover="hover">
               <Link href="/" className="flex items-center space-x-2 group">
                 <div className="relative w-8 h-8">
                   <Image
-                    src="/logo.png"
+                    src="/logo.webp"
                     alt="DevGuardian Logo"
                     fill
-                    className={`object-contain ${isDarkText ? 'brightness-0' : ''}`}
+                    className="object-contain"
                   />
                 </div>
-                <span className={`text-xl font-bold transition-colors ${isDarkText ? 'text-black' : 'text-foreground group-hover:text-primary'}`}>
+                <span className="text-xl font-bold transition-colors text-foreground group-hover:text-primary">
                   DevGuardian
                 </span>
               </Link>
@@ -206,7 +259,7 @@ export function Header() {
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuLink asChild>
-                      <Link href="/" className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 ${isDarkText ? 'text-black hover:bg-black/10' : ''}`}>
+                      <Link href="/" className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
                         Home
                       </Link>
                     </NavigationMenuLink>
@@ -214,7 +267,7 @@ export function Header() {
 
                   <NavigationMenuItem value={servicesMenuValue}>
                     <NavigationMenuTrigger
-                      className={`bg-transparent hover:bg-accent ${isDarkText ? 'text-black hover:bg-black/10' : ''}`}
+                      className="bg-transparent hover:bg-accent"
                       onPointerEnter={openServicesMenu}
                       onPointerLeave={handleMenuPointerLeave}
                       onClick={openServicesMenu}
@@ -253,7 +306,7 @@ export function Header() {
 
                   <NavigationMenuItem>
                     <NavigationMenuLink asChild>
-                      <Link href="/about" className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 ${isDarkText ? 'text-black hover:bg-black/10' : ''}`}>
+                      <Link href="/about" className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
                         About
                       </Link>
                     </NavigationMenuLink>
@@ -270,10 +323,10 @@ export function Header() {
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild className="md:hidden">
                 <Button variant="ghost" size="icon">
-                  <Menu className={`h-5 w-5 ${isDarkText ? 'text-black' : ''}`} />
+                  <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="glass border-border/20 p-6">
+              <SheetContent side="right" className="header-glass p-6">
                 <div className="flex flex-col space-y-6 mt-12 px-2">
                   <Link
                     href="/"

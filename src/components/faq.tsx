@@ -63,10 +63,10 @@ export function FAQ({ items = defaultFaqs, title = "Frequently Asked Questions",
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 relative z-10">
+                    <h2 className="fluid-h2 font-bold mb-4 relative z-10">
                         {title}
                     </h2>
-                    <p className="text-2xl text-foreground/80 max-w-2xl mx-auto text-glow-dark">
+                    <p className="fluid-lead text-foreground/80 max-w-2xl mx-auto text-glow-dark">
                         {description}
                     </p>
                 </motion.div>

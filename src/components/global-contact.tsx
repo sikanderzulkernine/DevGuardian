@@ -19,8 +19,8 @@ export function GlobalContact({ variant = 'default' }: GlobalContactProps) {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 relative z-10">Request a Consultation</h2>
-                    <p className="text-2xl text-foreground/80 max-w-2xl mx-auto text-glow-dark">
+                    <h2 className="fluid-h2 font-bold mb-4 relative z-10">Request a Consultation</h2>
+                    <p className="fluid-lead text-foreground/80 max-w-2xl mx-auto text-glow-dark">
                         Use the form below to connect with our team.
                     </p>
                 </motion.div>

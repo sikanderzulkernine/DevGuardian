@@ -27,7 +27,7 @@ export function GlobalJsonLd() {
     '@id': 'https://devguardian.site/#organization',
     name: 'DevGuardian',
     url: 'https://devguardian.site',
-    logo: 'https://devguardian.site/logo.png',
+    logo: 'https://devguardian.site/logo.webp',
     email: 'team@devguardian.site',
     description: 'Premier agency for AI Agents, Cybersecurity audits, and Secure Web Development.',
     address: {

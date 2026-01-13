@@ -12,7 +12,8 @@ export function Footer({ className }: FooterProps = {}) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className={`relative isolate z-10 glass border-t border-border/20 hover:border-primary/30 transition-colors mt-20 ${className || ''}`}>
+    <footer className={`relative isolate z-10 glass transition-colors ${className || ''}`}>
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
       <div className="container mx-auto px-6 py-12">
         {/* Main content columns */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
@@ -21,7 +22,7 @@ export function Footer({ className }: FooterProps = {}) {
             <div className="flex items-center space-x-3">
               <div className="relative w-8 h-8">
                 <Image
-                  src="/logo.png"
+                  src="/logo.webp"
                   alt="DevGuardian Logo"
                   fill
                   className="object-contain"

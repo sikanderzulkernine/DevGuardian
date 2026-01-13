@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -17,8 +19,8 @@ export function CaseStudiesSection() {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 relative z-10">Selected Case Studies</h2>
-                    <p className="text-2xl text-foreground/80 max-w-2xl mx-auto text-glow-dark">
+                    <h2 className="fluid-h2 font-bold mb-4 relative z-10">Selected Case Studies</h2>
+                    <p className="fluid-lead text-foreground/80 max-w-2xl mx-auto text-glow-dark">
                         Real-world examples of how we deliver value to our clients
                     </p>
                 </motion.div>

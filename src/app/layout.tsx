@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   keywords: ["AI Agents", "Cybersecurity", "Secure Web Development", "Penetration Testing", "AI Automation"],
   authors: [{ name: "DevGuardian Team" }],
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: "/logo.webp",
+    apple: "/logo.webp",
   },
   openGraph: {
     title: "DevGuardian- Your Partner for Secure Online Growth",
@@ -62,9 +62,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
         {/* Google Tag Manager */}
-        <Script id="google-tag-manager" strategy="afterInteractive">
+        <Script id="google-tag-manager" strategy="lazyOnload">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

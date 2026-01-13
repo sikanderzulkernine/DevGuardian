@@ -171,6 +171,28 @@
     border: 1px solid oklch(0.25 0.01 240 / 0.15);
 }
 
+.card-solid {
+    background: rgba(6, 8, 12, 0.92);
+    border-color: rgba(255, 255, 255, 0.12);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* Header glass for readable nav across light and dark sections */
+.header-glass {
+    background: rgba(8, 10, 16, 0.58);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(16px) saturate(160%);
+}
+
+.header-glass-strong {
+    background: rgba(8, 10, 16, 0.78);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
 /* Glow effects */
 .glow-primary {
     box-shadow: 0 0 20px oklch(0.95 0.01 240 / 0.3),
@@ -310,10 +332,9 @@
 }
 
 #webgl {
-    top: 0;
-    left: 0;
-    position: fixed;
-    height: 100svh;
+    position: absolute;
+    inset: 0;
+    height: 100%;
     width: 100%;
     z-index: 0;
     pointer-events: none;
@@ -324,15 +345,24 @@
     height: 100%;
 }
 
+@layer utilities {
+    .fluid-h1 {
+        font-size: clamp(2.25rem, 6vw, 3.75rem);
+    }
 
+    .fluid-h2 {
+        font-size: clamp(2rem, 4.5vw, 3rem);
+    }
 
+    .fluid-h3 {
+        font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+    }
 
+    .fluid-h4 {
+        font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+    }
 
-
-
-
-
-
-
-
-
+    .fluid-lead {
+        font-size: clamp(1rem, 2.2vw, 1.5rem);
+    }
+}

@@ -25,7 +25,7 @@ export function CaseStudyCard({ study, index, delay = 0.1 }: CaseStudyCardProps)
                 className="h-full"
             >
                 <Link href={`/case-studies/${study.slug}`} className="block h-full group">
-                    <Card className="border-border/20 overflow-hidden h-full flex flex-col hover:border-primary/50 transition-colors duration-300">
+                    <Card className="card-solid overflow-hidden h-full flex flex-col hover:border-primary/50 transition-colors duration-300">
                         <div className="relative h-48 overflow-hidden bg-zinc-900 border-b border-border/10">
                             <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent z-10" />
                             <Image

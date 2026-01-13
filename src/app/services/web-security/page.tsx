@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { GlobalContact } from '@/components/global-contact';
-import { SpotlightCard } from '@/components/ui/spotlight-card';
+import { SurfaceCard } from '@/components/ui/surface-card';
 import { TestimonialsSection } from '@/components/testimonials';
 import { FeaturedCaseStudies } from '@/components/featured-case-studies';
 
@@ -15,6 +15,7 @@ import { CountUp } from '@/components/ui/count-up';
 import { CompanyMarquee } from '@/components/company-marquee';
 import Link from 'next/link';
 import { JsonLd } from '@/components/seo/json-ld';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
     title: 'Web Security Services & WAF Protection',
@@ -188,17 +189,17 @@ export default function WebSecurityPage() {
                         <Badge variant="outline" className="mb-6 px-4 py-1 text-sm font-medium rounded-full text-yellow-400 border-yellow-400/20 bg-yellow-400/5">
                             Application Hardening
                         </Badge>
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-white">
+                        <h1 className="fluid-h1 font-bold tracking-tight mb-6 text-white">
                             Fortify Your Web Apps <br className="hidden md:block" />
                             <span className="text-white">
                                 Against Modern Threats
                             </span>
                         </h1>
-                        <p className="text-lg md:text-xl text-white max-w-3xl mx-auto mb-10 leading-relaxed">
+                        <p className="fluid-lead text-white max-w-3xl mx-auto mb-10 leading-relaxed">
                             Security isn't just a feature; it's the foundation of trust. We help you build and maintain
                             resilient web applications that withstand attacks and keep user data safe.
                         </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                             <CalendlyButton size="lg" className="bg-white text-black hover:bg-zinc-200">
                                 Book a call
                             </CalendlyButton>
@@ -236,15 +237,15 @@ export default function WebSecurityPage() {
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
                         <div className="text-center max-w-3xl mx-auto mb-16">
-                            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Proactive Defense</h2>
-                            <p className="text-lg text-zinc-400">
+                            <h2 className="fluid-h2 font-bold mb-6 text-white">Proactive Defense</h2>
+                            <p className="fluid-lead text-zinc-400">
                                 Stop attacks at the edge and within the code. We implement defense-in-depth strategies.
                             </p>
                         </div>
 
                         <div className="grid md:grid-cols-2 gap-6">
                             {features.map((feature, index) => (
-                                <SpotlightCard key={index} className="p-8 bg-zinc-900 border-white/10">
+                                <SurfaceCard key={index} className="p-8 bg-zinc-900 border-white/10">
                                     <div className="mb-6 p-3 bg-white/5 w-fit rounded-lg border border-white/10">
                                         {feature.icon}
                                     </div>
@@ -252,7 +253,7 @@ export default function WebSecurityPage() {
                                     <p className="text-zinc-400 leading-relaxed">
                                         {feature.description}
                                     </p>
-                                </SpotlightCard>
+                                </SurfaceCard>
                             ))}
                         </div>
                     </div>
@@ -264,7 +265,7 @@ export default function WebSecurityPage() {
                 {/* Process Section */}
                 <section className="py-24 bg-zinc-900/50">
                     <div className="container px-6 mx-auto">
-                        <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center text-white">Hardening Process</h2>
+                        <h2 className="fluid-h2 font-bold mb-16 text-center text-white">Hardening Process</h2>
                         <div className="grid md:grid-cols-5 gap-4">
                             {process.map((item, index) => (
                                 <div key={index} className="relative group">
@@ -289,8 +290,8 @@ export default function WebSecurityPage() {
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
                         <div className="text-center max-w-3xl mx-auto mb-16">
-                            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Trust & Safety</h2>
-                            <p className="text-lg text-zinc-400">
+                            <h2 className="fluid-h2 font-bold mb-6 text-white">Trust & Safety</h2>
+                            <p className="fluid-lead text-zinc-400">
                                 Companies that trust us to keep their applications secure.
                             </p>
                         </div>
@@ -316,20 +317,26 @@ export default function WebSecurityPage() {
                                     img: "/clients/client-6.webp"
                                 }
                             ].map((testimonial, index) => (
-                                <SpotlightCard key={index} className="p-8 bg-zinc-900 border-white/10 flex flex-col">
+                                <SurfaceCard key={index} className="p-8 bg-zinc-900 border-white/10 flex flex-col">
                                     <div className="flex-grow mb-6">
                                         <p className="text-zinc-300 italic">"{testimonial.quote}"</p>
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <div className="w-10 h-10 rounded-full overflow-hidden bg-white/10">
-                                            <img src={testimonial.img} alt={testimonial.name} className="w-full h-full object-cover" />
+                                            <Image
+                                                src={testimonial.img}
+                                                alt={testimonial.name}
+                                                width={40}
+                                                height={40}
+                                                className="w-full h-full object-cover"
+                                            />
                                         </div>
                                         <div>
                                             <div className="font-semibold text-white">{testimonial.name}</div>
                                             <div className="text-xs text-zinc-500">{testimonial.role}</div>
                                         </div>
                                     </div>
-                                </SpotlightCard>
+                                </SurfaceCard>
                             ))}
                         </div>
                     </div>
@@ -343,34 +350,37 @@ export default function WebSecurityPage() {
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
                         <div className="text-center max-w-3xl mx-auto mb-16">
-                            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Security Packages</h2>
-                            <p className="text-lg text-zinc-400">
+                            <h2 className="fluid-h2 font-bold mb-6 text-white">Security Packages</h2>
+                            <p className="fluid-lead text-zinc-400">
                                 Secure your application today. One-time hardening or ongoing protection.
                             </p>
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-8">
                             {pricing.map((plan, index) => (
-                                <SpotlightCard
+                                <SurfaceCard
                                     key={index}
-                                    className={`p-8 flex flex-col bg-zinc-900 border-white/10 ${plan.popular ? 'border-yellow-500/30 ring-1 ring-yellow-500/30' : ''}`}
+                                    className={`p-8 flex flex-col ${plan.popular
+                                        ? 'bg-white border-yellow-500/60 ring-1 ring-yellow-400/50 shadow-[0_0_30px_rgba(234,179,8,0.35)] light-section'
+                                        : 'bg-zinc-900 border-white/10'
+                                        }`}
                                 >
                                     {plan.popular && (
-                                        <div className="self-start px-3 py-1 mb-4 text-xs font-semibold text-yellow-400 bg-yellow-400/10 rounded-full border border-yellow-400/20">
+                                        <div className="self-start px-3 py-1 mb-4 text-xs font-semibold text-yellow-800 bg-yellow-100 rounded-full border border-yellow-200">
                                             Top Choice
                                         </div>
                                     )}
-                                    <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
+                                    <h3 className={`text-2xl font-bold mb-2 ${plan.popular ? 'text-black' : 'text-white'}`}>{plan.name}</h3>
                                     <div className="mb-4">
-                                        <span className="text-4xl font-bold text-white">{plan.price}</span>
-                                        {plan.price.includes('/') && <span className="text-zinc-400">/month</span>}
-                                        {!plan.price.includes('/') && <span className="text-zinc-400">/one-time</span>}
+                                        <span className={`text-4xl font-bold ${plan.popular ? 'text-black' : 'text-white'}`}>{plan.price}</span>
+                                        {plan.price.includes('/') && <span className={plan.popular ? 'text-zinc-600' : 'text-zinc-400'}>/month</span>}
+                                        {!plan.price.includes('/') && <span className={plan.popular ? 'text-zinc-600' : 'text-zinc-400'}>/one-time</span>}
                                     </div>
-                                    <p className="text-zinc-400 text-sm mb-8">{plan.description}</p>
+                                    <p className={`text-sm mb-8 ${plan.popular ? 'text-zinc-700' : 'text-zinc-400'}`}>{plan.description}</p>
 
                                     <ul className="space-y-4 mb-8 flex-grow">
                                         {plan.features.map((feature, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-sm text-zinc-300">
+                                            <li key={i} className={`flex items-start gap-3 text-sm ${plan.popular ? 'text-zinc-700' : 'text-zinc-300'}`}>
                                                 <CheckCircle className="h-5 w-5 text-yellow-400 shrink-0" />
                                                 <span>{feature}</span>
                                             </li>
@@ -383,7 +393,7 @@ export default function WebSecurityPage() {
                                     >
                                         <Link href="/contact">{plan.price.includes('/') ? 'Start Protection' : 'Secure Now'}</Link>
                                     </Button>
-                                </SpotlightCard>
+                                </SurfaceCard>
                             ))}
                         </div>
                     </div>
@@ -396,7 +406,7 @@ export default function WebSecurityPage() {
                 <section className="py-24 border-t border-white/10">
                     <div className="container px-6 mx-auto grid md:grid-cols-2 gap-12 items-center">
                         <div>
-                            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">Security is in the Code</h2>
+                            <h2 className="fluid-h2 font-bold mb-6 text-white">Security is in the Code</h2>
                             <div className="space-y-6">
                                 <div className="flex gap-4">
                                     <div className="bg-white/10 p-2 h-fit rounded-lg"><FileCode className="h-6 w-6 text-white" /></div>
@@ -416,7 +426,7 @@ export default function WebSecurityPage() {
                         </div>
                         <div className="relative">
                             <div className="absolute inset-0 bg-yellow-500/10 blur-[80px] rounded-full" />
-                            <SpotlightCard className="relative bg-zinc-950 p-6 border-white/10 font-mono text-sm leading-relaxed overflow-hidden">
+                            <SurfaceCard className="relative bg-zinc-950 p-6 border-white/10 font-mono text-sm leading-relaxed overflow-hidden">
                                 <div className="text-zinc-500 mb-2">{"// Example: Secure Headers Implementation"}</div>
                                 <div className="text-purple-400">const</div> <div className="text-blue-400 inline">securityHeaders</div> = {'{'}
                                 <div className="pl-4">
@@ -433,7 +443,7 @@ export default function WebSecurityPage() {
                                 </div>
                                 {'}'};
                                 <div className="mt-4 text-zinc-500">{"// Result: A+ Security Rating"}</div>
-                            </SpotlightCard>
+                            </SurfaceCard>
                         </div>
                     </div>
                 </section>
@@ -444,7 +454,7 @@ export default function WebSecurityPage() {
                 {/* FAQ Section */}
                 <section className="py-24 bg-black relative">
                     <div className="container px-6 mx-auto relative z-10 max-w-4xl">
-                        <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center text-white">Common Questions</h2>
+                        <h2 className="fluid-h2 font-bold mb-12 text-center text-white">Common Questions</h2>
                         <div className="space-y-4">
                             {faqs.map((faq, index) => (
                                 <div key={index} className="bg-zinc-900/50 border border-white/5 rounded-2xl overflow-hidden hover:border-white/10 transition-colors">
@@ -491,11 +501,9 @@ export default function WebSecurityPage() {
                     </div>
                 </section>
 
-                {/* Footer Separator */}
-                <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
             </main>
 
-            <Footer className="!mt-0 !border-t-0" />
+            <Footer />
         </div>
     );
 }

@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { GlobalContact } from '@/components/global-contact';
-import { SpotlightCard } from '@/components/ui/spotlight-card';
+import { SurfaceCard } from '@/components/ui/surface-card';
 import { TestimonialsSection } from '@/components/testimonials';
 import { FeaturedCaseStudies } from '@/components/featured-case-studies';
 
@@ -15,6 +15,7 @@ import { CountUp } from '@/components/ui/count-up';
 import { CompanyMarquee } from '@/components/company-marquee';
 import Link from 'next/link';
 import { JsonLd } from '@/components/seo/json-ld';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
     title: 'AI Agents & Automation Solutions | DevGuardian',
@@ -78,7 +79,7 @@ const process = [
 const projectPackages = [
     {
         name: 'Starter Agent',
-        price: '$950',
+        price: '$750+',
         billing: '/project',
         description: 'Perfect for specific tasks like FAQ support or basic data capture.',
         features: [
@@ -93,7 +94,7 @@ const projectPackages = [
     },
     {
         name: 'Workflow Automation',
-        price: '$2,200',
+        price: '$1,500+',
         billing: '/project',
         description: 'Multi-step autonomous agents for complex business logic.',
         popular: true,
@@ -237,17 +238,17 @@ export default function AIAgentsPage() {
                         <Badge variant="outline" className="mb-6 px-4 py-1 text-sm font-medium rounded-full text-blue-400 border-blue-400/20 bg-blue-400/5">
                             Future of Work
                         </Badge>
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-white">
+                        <h1 className="fluid-h1 font-bold tracking-tight mb-6 text-white">
                             Smarter Workflows with <br className="hidden md:block" />
                             <span className="text-white">
                                 Intelligent AI Agents
                             </span>
                         </h1>
-                        <p className="text-lg md:text-xl text-white max-w-3xl mx-auto mb-10 leading-relaxed">
+                        <p className="fluid-lead text-white max-w-3xl mx-auto mb-10 leading-relaxed">
                             Stop drowning in repetitive tasks. We build autonomous AI agents that handle support,
                             manage data, and execute complex workflows, freeing your team to focus on growth.
                         </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                             <CalendlyButton size="lg" className="bg-white text-black hover:bg-zinc-200">
                                 Book a call
                             </CalendlyButton>
@@ -285,15 +286,15 @@ export default function AIAgentsPage() {
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
                         <div className="text-center max-w-3xl mx-auto mb-16">
-                            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Why Implement AI Agents?</h2>
-                            <p className="text-lg text-zinc-400">
+                            <h2 className="fluid-h2 font-bold mb-6 text-white">Why Implement AI Agents?</h2>
+                            <p className="fluid-lead text-zinc-400">
                                 More than just chatbots. Our agents can reason, take action, and solve problems across your business.
                             </p>
                         </div>
 
                         <div className="grid md:grid-cols-2 gap-6">
                             {features.map((feature, index) => (
-                                <SpotlightCard key={index} className="p-8 bg-zinc-900 border-white/10">
+                                <SurfaceCard key={index} className="p-8 bg-zinc-900 border-white/10">
                                     <div className="mb-6 p-3 bg-white/5 w-fit rounded-lg border border-white/10">
                                         {feature.icon}
                                     </div>
@@ -301,7 +302,7 @@ export default function AIAgentsPage() {
                                     <p className="text-zinc-400 leading-relaxed">
                                         {feature.description}
                                     </p>
-                                </SpotlightCard>
+                                </SurfaceCard>
                             ))}
                         </div>
                     </div>
@@ -315,7 +316,7 @@ export default function AIAgentsPage() {
                 {/* Process Section */}
                 <section className="py-24 bg-zinc-900/50">
                     <div className="container px-6 mx-auto">
-                        <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center text-white">How We Build</h2>
+                        <h2 className="fluid-h2 font-bold mb-16 text-center text-white">How We Build</h2>
                         <div className="grid md:grid-cols-5 gap-4">
                             {process.map((item, index) => (
                                 <div key={index} className="relative group">
@@ -340,8 +341,8 @@ export default function AIAgentsPage() {
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
                         <div className="text-center max-w-3xl mx-auto mb-16">
-                            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Client Feedback</h2>
-                            <p className="text-lg text-zinc-400">
+                            <h2 className="fluid-h2 font-bold mb-6 text-white">Client Feedback</h2>
+                            <p className="fluid-lead text-zinc-400">
                                 See how our AI agents are transforming businesses.
                             </p>
                         </div>
@@ -367,20 +368,26 @@ export default function AIAgentsPage() {
                                     img: "/clients/client-7.webp"
                                 }
                             ].map((testimonial, index) => (
-                                <SpotlightCard key={index} className="p-8 bg-zinc-900 border-white/10 flex flex-col">
+                                <SurfaceCard key={index} className="p-8 bg-zinc-900 border-white/10 flex flex-col">
                                     <div className="flex-grow mb-6">
                                         <p className="text-zinc-300 italic">"{testimonial.quote}"</p>
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <div className="w-10 h-10 rounded-full overflow-hidden bg-white/10">
-                                            <img src={testimonial.img} alt={testimonial.name} className="w-full h-full object-cover" />
+                                            <Image
+                                                src={testimonial.img}
+                                                alt={testimonial.name}
+                                                width={40}
+                                                height={40}
+                                                className="w-full h-full object-cover"
+                                            />
                                         </div>
                                         <div>
                                             <div className="font-semibold text-white">{testimonial.name}</div>
                                             <div className="text-xs text-zinc-500">{testimonial.role}</div>
                                         </div>
                                     </div>
-                                </SpotlightCard>
+                                </SurfaceCard>
                             ))}
                         </div>
                     </div>
@@ -394,33 +401,40 @@ export default function AIAgentsPage() {
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
                         <div className="text-center max-w-3xl mx-auto mb-16">
-                            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">AI Agent Packages</h2>
-                            <p className="text-lg text-zinc-400">
+                            <h2 className="fluid-h2 font-bold mb-6 text-white">AI Agent Packages</h2>
+                            <p className="fluid-lead text-zinc-400">
                                 Launch the right agent scope with clear project pricing.
                             </p>
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-8">
                             {projectPackages.map((plan, index) => (
-                                <SpotlightCard
+                                <SurfaceCard
                                     key={index}
-                                    className={`p-8 flex flex-col bg-zinc-900 border-white/10 ${plan.popular ? 'border-blue-500/30 ring-1 ring-blue-500/30' : ''}`}
+                                    className={`p-8 flex flex-col ${plan.popular
+                                        ? 'bg-white border-blue-500/60 ring-1 ring-blue-400/50 shadow-[0_0_30px_rgba(59,130,246,0.35)] light-section'
+                                        : 'bg-zinc-900 border-white/10'
+                                        }`}
                                 >
                                     {plan.popular && (
-                                        <div className="self-start px-3 py-1 mb-4 text-xs font-semibold text-blue-400 bg-blue-400/10 rounded-full border border-blue-400/20">
+                                        <div className="self-start px-3 py-1 mb-4 text-xs font-semibold text-blue-700 bg-blue-100 rounded-full border border-blue-200">
                                             Most Popular
                                         </div>
                                     )}
-                                    <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
+                                    <h3 className={`text-2xl font-bold mb-2 ${plan.popular ? 'text-black' : 'text-white'}`}>{plan.name}</h3>
                                     <div className="mb-4">
-                                        <span className="text-4xl font-bold text-white">{plan.price}</span>
-                                        {plan.billing && <span className="text-zinc-400">{plan.billing}</span>}
+                                        <span className={`text-4xl font-bold ${plan.popular ? 'text-black' : 'text-white'}`}>{plan.price}</span>
+                                        {plan.billing && (
+                                            <span className={plan.popular ? 'text-zinc-600' : 'text-zinc-400'}>
+                                                {plan.billing}
+                                            </span>
+                                        )}
                                     </div>
-                                    <p className="text-zinc-400 text-sm mb-8">{plan.description}</p>
+                                    <p className={`text-sm mb-8 ${plan.popular ? 'text-zinc-700' : 'text-zinc-400'}`}>{plan.description}</p>
 
                                     <ul className="space-y-4 mb-8 flex-grow">
                                         {plan.features.map((feature, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-sm text-zinc-300">
+                                            <li key={i} className={`flex items-start gap-3 text-sm ${plan.popular ? 'text-zinc-700' : 'text-zinc-300'}`}>
                                                 <CheckCircle className="h-5 w-5 text-blue-400 shrink-0" />
                                                 <span>{feature}</span>
                                             </li>
@@ -433,38 +447,45 @@ export default function AIAgentsPage() {
                                     >
                                         <Link href="/contact">{plan.cta}</Link>
                                     </Button>
-                                </SpotlightCard>
+                                </SurfaceCard>
                             ))}
                         </div>
 
                         <div className="mt-20 text-center max-w-3xl mx-auto mb-12">
-                            <h3 className="text-2xl md:text-4xl font-bold mb-4 text-white">Maintenance Plans</h3>
-                            <p className="text-lg text-zinc-400">
+                            <h3 className="fluid-h3 font-bold mb-4 text-white">Maintenance Plans</h3>
+                            <p className="fluid-lead text-zinc-400">
                                 Keep your agents reliable with 2, 6, or 12-month care plans.
                             </p>
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-8">
                             {maintenancePlans.map((plan, index) => (
-                                <SpotlightCard
+                                <SurfaceCard
                                     key={index}
-                                    className={`p-8 flex flex-col bg-zinc-900 border-white/10 ${plan.popular ? 'border-blue-500/30 ring-1 ring-blue-500/30' : ''}`}
+                                    className={`p-8 flex flex-col ${plan.popular
+                                        ? 'bg-[#f3f3f3] border-blue-500/60 ring-1 ring-blue-400/50 shadow-[0_0_30px_rgba(59,130,246,0.35)] light-section'
+                                        : 'bg-zinc-900 border-white/10'
+                                        }`}
                                 >
                                     {plan.popular && (
-                                        <div className="self-start px-3 py-1 mb-4 text-xs font-semibold text-blue-400 bg-blue-400/10 rounded-full border border-blue-400/20">
+                                        <div className="self-start px-3 py-1 mb-4 text-xs font-semibold text-blue-700 bg-blue-100 rounded-full border border-blue-200">
                                             Most Popular
                                         </div>
                                     )}
-                                    <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
+                                    <h3 className={`text-2xl font-bold mb-2 ${plan.popular ? 'text-black' : 'text-white'}`}>{plan.name}</h3>
                                     <div className="mb-4">
-                                        <span className="text-4xl font-bold text-white">{plan.price}</span>
-                                        {plan.billing && <span className="text-zinc-400">{plan.billing}</span>}
+                                        <span className={`text-4xl font-bold ${plan.popular ? 'text-black' : 'text-white'}`}>{plan.price}</span>
+                                        {plan.billing && (
+                                            <span className={plan.popular ? 'text-zinc-600' : 'text-zinc-400'}>
+                                                {plan.billing}
+                                            </span>
+                                        )}
                                     </div>
-                                    <p className="text-zinc-400 text-sm mb-8">{plan.description}</p>
+                                    <p className={`text-sm mb-8 ${plan.popular ? 'text-zinc-700' : 'text-zinc-400'}`}>{plan.description}</p>
 
                                     <ul className="space-y-4 mb-8 flex-grow">
                                         {plan.features.map((feature, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-sm text-zinc-300">
+                                            <li key={i} className={`flex items-start gap-3 text-sm ${plan.popular ? 'text-zinc-700' : 'text-zinc-300'}`}>
                                                 <CheckCircle className="h-5 w-5 text-blue-400 shrink-0" />
                                                 <span>{feature}</span>
                                             </li>
@@ -477,7 +498,7 @@ export default function AIAgentsPage() {
                                     >
                                         <Link href="/contact">{plan.cta}</Link>
                                     </Button>
-                                </SpotlightCard>
+                                </SurfaceCard>
                             ))}
                         </div>
                     </div>
@@ -490,7 +511,7 @@ export default function AIAgentsPage() {
                 <section className="py-24 border-t border-white/10">
                     <div className="container px-6 mx-auto grid md:grid-cols-2 gap-12 items-center">
                         <div>
-                            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">Real-World Applications</h2>
+                            <h2 className="fluid-h2 font-bold mb-6 text-white">Real-World Applications</h2>
                             <div className="space-y-6">
                                 <div className="flex gap-4">
                                     <div className="bg-white/10 p-2 h-fit rounded-lg"><MessageSquare className="h-6 w-6 text-white" /></div>
@@ -517,7 +538,7 @@ export default function AIAgentsPage() {
                         </div>
                         <div className="relative">
                             <div className="absolute inset-0 bg-blue-500/20 blur-[80px] rounded-full" />
-                            <SpotlightCard className="relative bg-zinc-950 p-8 border-white/10">
+                            <SurfaceCard className="relative bg-zinc-950 p-8 border-white/10">
                                 <div className="space-y-4">
                                     <div className="flex gap-3 items-start">
                                         <div className="bg-zinc-800 p-2 rounded-lg"><Bot className="h-5 w-5 text-white" /></div>
@@ -537,7 +558,7 @@ export default function AIAgentsPage() {
                                         </div>
                                     </div>
                                 </div>
-                            </SpotlightCard>
+                            </SurfaceCard>
                         </div>
                     </div>
                 </section>
@@ -548,7 +569,7 @@ export default function AIAgentsPage() {
                 {/* FAQ Section */}
                 <section className="py-24 bg-black relative">
                     <div className="container px-6 mx-auto relative z-10 max-w-4xl">
-                        <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center text-white">Common Questions</h2>
+                        <h2 className="fluid-h2 font-bold mb-12 text-center text-white">Common Questions</h2>
                         <div className="space-y-4">
                             {faqs.map((faq, index) => (
                                 <div key={index} className="bg-zinc-900/50 border border-white/5 rounded-2xl overflow-hidden hover:border-white/10 transition-colors">
@@ -598,11 +619,9 @@ export default function AIAgentsPage() {
                     </div>
                 </section>
 
-                {/* Footer Separator */}
-                <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
             </main>
 
-            <Footer className="!mt-0 !border-t-0" />
+            <Footer />
         </div >
     );
 }

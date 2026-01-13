@@ -4,7 +4,7 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { ContactForm } from '@/components/contact-form';
 import { FAQ } from '@/components/faq';
-import { SpotlightCard } from '@/components/ui/spotlight-card';
+import { SurfaceCard } from '@/components/ui/surface-card';
 import { Button } from '@/components/ui/button';
 import { CalendlyButton } from '@/components/calendly-button';
 
@@ -35,10 +35,12 @@ export default function ContactPage() {
       <main className="pt-32 pb-20">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
+            <h1 className="fluid-h1 font-bold mb-6 text-white">
               Contact Us
             </h1>
-            <p className="text-xl md:text-2xl text-zinc-400 max-w-3xl mx-auto mb-8">Request a callback to discuss your project and security goals.</p>
+            <p className="fluid-lead text-zinc-400 max-w-3xl mx-auto mb-8">
+              Request a callback to discuss your project and security goals.
+            </p>
             <CalendlyButton size="lg" className="bg-white text-black hover:bg-zinc-200 transition-colors">
               Book a call
             </CalendlyButton>
@@ -47,15 +49,19 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
             {/* Left Column - Contact Form */}
             <div className="w-full">
-              <SpotlightCard className="p-8 md:p-12 shadow-2xl bg-zinc-900 border-white/10">
-                <ContactForm compact={true} title="Send us a message" subtitle="We're here to help with your security and AI needs." />
-              </SpotlightCard>
+              <SurfaceCard className="p-0 border-0 bg-transparent">
+                <ContactForm
+                  compact={true}
+                  title="Send us a message"
+                  subtitle="We're here to help with your security and AI needs."
+                />
+              </SurfaceCard>
             </div>
 
             {/* Right Column - Info */}
             <div className="space-y-12">
               <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-white">Why work with us?</h3>
+                <h3 className="fluid-h3 font-bold text-white">Why work with us?</h3>
                 <p className="text-zinc-400 text-lg">
                   We specialize in building secure, scalable, and intelligent systems. Whether you need a custom AI agent or a complete security audit, our team is ready to deliver.
                 </p>
@@ -70,7 +76,7 @@ export default function ContactPage() {
               </div>
 
               <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-white">Contact Information</h3>
+                <h3 className="fluid-h3 font-bold text-white">Contact Information</h3>
                 <div className="space-y-6"> {/* Increased gap for cleaner look without boxes */}
                   <div className="flex items-center space-x-4">
                     <Mail className="h-5 w-5 text-white" />
@@ -104,10 +110,7 @@ export default function ContactPage() {
 
       <FAQ />
 
-      {/* Gradient Line Separator */}
-      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-
-      <Footer className="!mt-0 !border-t-0" />
+      <Footer />
     </div>
   );
 }

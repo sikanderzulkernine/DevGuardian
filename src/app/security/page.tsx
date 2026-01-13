@@ -5,7 +5,7 @@ import { Footer } from '@/components/footer';
 import { FAQ } from '@/components/faq';
 import { GlobalContact } from '@/components/global-contact';
 import { Shield, Lock, Server, Eye, FileCheck, AlertTriangle } from 'lucide-react';
-import { SpotlightCard } from '@/components/ui/spotlight-card';
+import { SurfaceCard } from '@/components/ui/surface-card';
 
 export const metadata: Metadata = {
     title: 'Security | DevGuardian',
@@ -61,41 +61,41 @@ export default function SecurityPage() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-                        <SpotlightCard className="p-8 bg-zinc-900 border-white/10 h-full">
+                        <SurfaceCard className="p-8 bg-zinc-900 border-white/10 h-full">
                             <Lock className="w-10 h-10 text-white mb-4" />
                             <h3 className="text-xl font-bold text-white mb-2">Data Protection</h3>
                             <p className="text-zinc-400">End-to-end encryption for data in transit and at rest, ensuring your sensitive information remains private.</p>
-                        </SpotlightCard>
+                        </SurfaceCard>
 
-                        <SpotlightCard className="p-8 bg-zinc-900 border-white/10 h-full">
+                        <SurfaceCard className="p-8 bg-zinc-900 border-white/10 h-full">
                             <Server className="w-10 h-10 text-white mb-4" />
                             <h3 className="text-xl font-bold text-white mb-2">Secure Infrastructure</h3>
                             <p className="text-zinc-400">Built on world-class cloud providers with rigorous physical and network security controls.</p>
-                        </SpotlightCard>
+                        </SurfaceCard>
 
-                        <SpotlightCard className="p-8 bg-zinc-900 border-white/10 h-full">
+                        <SurfaceCard className="p-8 bg-zinc-900 border-white/10 h-full">
                             <Eye className="w-10 h-10 text-white mb-4" />
                             <h3 className="text-xl font-bold text-white mb-2">Continuous Monitoring</h3>
                             <p className="text-zinc-400">Continuous monitoring (where applicable) to identify potential threats and anomalies in real-time.</p>
-                        </SpotlightCard>
+                        </SurfaceCard>
 
-                        <SpotlightCard className="p-8 bg-zinc-900 border-white/10 h-full">
+                        <SurfaceCard className="p-8 bg-zinc-900 border-white/10 h-full">
                             <FileCheck className="w-10 h-10 text-white mb-4" />
                             <h3 className="text-xl font-bold text-white mb-2">Compliance</h3>
                             <p className="text-zinc-400">Aligned with industry best practices and security standards to meet regulatory requirements.</p>
-                        </SpotlightCard>
+                        </SurfaceCard>
 
-                        <SpotlightCard className="p-8 bg-zinc-900 border-white/10 h-full">
+                        <SurfaceCard className="p-8 bg-zinc-900 border-white/10 h-full">
                             <AlertTriangle className="w-10 h-10 text-white mb-4" />
                             <h3 className="text-xl font-bold text-white mb-2">Vulnerability Management</h3>
                             <p className="text-zinc-400">Regular security scans and assessments to proactively fix potential weaknesses.</p>
-                        </SpotlightCard>
+                        </SurfaceCard>
 
-                        <SpotlightCard className="p-8 bg-zinc-900 border-white/10 h-full">
+                        <SurfaceCard className="p-8 bg-zinc-900 border-white/10 h-full">
                             <Shield className="w-10 h-10 text-white mb-4" />
                             <h3 className="text-xl font-bold text-white mb-2">Access Control</h3>
                             <p className="text-zinc-400">Strict role-based access control (RBAC) and multi-factor authentication (MFA) for internal systems.</p>
-                        </SpotlightCard>
+                        </SurfaceCard>
                     </div>
 
                     <div className="max-w-4xl mx-auto space-y-12 text-zinc-300 leading-relaxed text-lg">
@@ -139,10 +139,7 @@ export default function SecurityPage() {
 
             <GlobalContact variant="solid" />
 
-            {/* Gradient Line Separator */}
-            <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-
-            <Footer className="!mt-0 !border-t-0" />
+            <Footer />
         </div>
     );
 }

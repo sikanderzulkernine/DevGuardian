@@ -9,7 +9,7 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { ContactForm } from '@/components/contact-form';
 import { GlobalContact } from '@/components/global-contact';
-import { SpotlightCard } from '@/components/ui/spotlight-card';
+import { SurfaceCard } from '@/components/ui/surface-card';
 import { CalendlyButton } from '@/components/calendly-button';
 import { CountUp } from '@/components/ui/count-up';
 
@@ -101,9 +101,6 @@ export default function AboutPage() {
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-white/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-white/5 rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Gradient Line Separator - Top of Website */}
-      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-
       <Header />
 
       <main className="flex-grow relative z-10">
@@ -113,13 +110,13 @@ export default function AboutPage() {
             <Badge variant="outline" className="mb-6 px-4 py-1 text-sm font-medium rounded-full text-white border-white/20 bg-white/5 hover:bg-white/10 transition-colors">
               Who We Are
             </Badge>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-white">
+            <h1 className="fluid-h1 font-bold tracking-tight mb-6 text-white">
               Building the Future, <br className="hidden md:block" />
               <span className="text-white">
                 Securing the Present.
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-zinc-400 max-w-3xl mx-auto mb-10 leading-relaxed">
+            <p className="fluid-lead text-zinc-400 max-w-3xl mx-auto mb-10 leading-relaxed">
               DevGuardian is a premier agency bridging the gap between rapid innovation and ironclad security.
               We empower businesses to grow boldly without compromising on safety.
             </p>
@@ -153,13 +150,13 @@ export default function AboutPage() {
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="space-y-8">
                 <div className="space-y-4">
-                  <h2 className="text-3xl md:text-4xl font-bold text-white">Our Mission</h2>
+                  <h2 className="fluid-h3 font-bold text-white">Our Mission</h2>
                   <p className="text-lg text-zinc-400 leading-relaxed">
                     DevGuardian helps teams build AI-powered web products and protect them from modern threats. We deliver AI agents, secure web development, and cybersecurity practices embedded across design, CI/CD, and production, backed by fast, expert support when critical issues arise.
                   </p>
                 </div>
                 <div className="space-y-4">
-                  <h2 className="text-3xl md:text-4xl font-bold text-white">Our Vision</h2>
+                  <h2 className="fluid-h3 font-bold text-white">Our Vision</h2>
                   <p className="text-lg text-zinc-400 leading-relaxed">
                     A digital world where security is built into every product from day one and automation makes strong protection the default, enabling organizations to innovate and earn lasting customer trust.
                   </p>
@@ -183,8 +180,8 @@ export default function AboutPage() {
 
               <div className="relative">
                 <div className="absolute -inset-4 bg-white/5 rounded-xl opacity-20 blur-xl" />
-                <SpotlightCard className="p-8 md:p-12 shadow-2xl bg-zinc-900 border-white/10">
-                  <h3 className="text-2xl font-semibold mb-6 text-white">Why We Exist</h3>
+                <SurfaceCard className="p-8 md:p-12 shadow-2xl bg-zinc-900 border-white/10">
+                  <h3 className="fluid-h3 font-semibold mb-6 text-white">Why We Exist</h3>
                   <ul className="space-y-6">
                     <li className="flex gap-4">
                       <div className="mt-1 bg-white/10 p-2 rounded-full h-fit border border-white/20">
@@ -214,7 +211,7 @@ export default function AboutPage() {
                       </div>
                     </li>
                   </ul>
-                </SpotlightCard>
+                </SurfaceCard>
               </div>
             </div>
           </div>
@@ -224,7 +221,7 @@ export default function AboutPage() {
         <section className="py-24 md:py-32 relative">
           <div className="container px-6 mx-auto relative z-10">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Our Core Values</h2>
+              <h2 className="fluid-h2 font-bold mb-6 text-white">Our Core Values</h2>
               <p className="text-lg text-zinc-400">
                 The principles that guide our decisions, our code, and our relationships.
               </p>
@@ -232,7 +229,7 @@ export default function AboutPage() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {values.map((value, index) => (
-                <SpotlightCard key={index} className="flex flex-col h-full bg-zinc-900 p-6">
+                <SurfaceCard key={index} className="flex flex-col h-full bg-zinc-900 p-6">
                   <div className="mb-6 text-white">
                     {value.icon}
                   </div>
@@ -240,7 +237,7 @@ export default function AboutPage() {
                   <p className="text-zinc-400 leading-relaxed text-sm">
                     {value.description}
                   </p>
-                </SpotlightCard>
+                </SurfaceCard>
               ))}
             </div>
           </div>
@@ -250,7 +247,7 @@ export default function AboutPage() {
         <section className="pt-24 md:pt-32 pb-12 md:pb-16">
           <div className="container px-6 mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Meet The Team</h2>
+              <h2 className="fluid-h2 font-bold mb-6 text-white">Meet The Team</h2>
               <p className="text-lg text-zinc-400">
                 The security architects, engineers, and strategists behind your protection.
               </p>
@@ -258,7 +255,7 @@ export default function AboutPage() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {team.map((member, index) => (
-                <SpotlightCard key={index} className="group flex flex-col h-full bg-zinc-900 p-5 relative overflow-hidden">
+                <SurfaceCard key={index} className="group flex flex-col h-full bg-zinc-900 p-5 relative overflow-hidden">
                   {/* Briefcase icon positioned absolutely in top-right, stays above content */}
                   <div className="absolute top-3 right-3 opacity-5 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none">
                     <Briefcase className="h-20 w-20 text-white rotate-12" />
@@ -272,7 +269,7 @@ export default function AboutPage() {
                     <div className="w-12 h-1 bg-white/20 mb-3 rounded-full" />
                     <p className="text-zinc-400 text-sm leading-relaxed">{member.bio}</p>
                   </div>
-                </SpotlightCard>
+                </SurfaceCard>
               ))}
             </div>
           </div>
@@ -281,9 +278,9 @@ export default function AboutPage() {
         {/* CTA Section */}
         <section className="py-12 bg-white text-black relative overflow-hidden light-section">
           <div className="container px-6 mx-auto relative z-10">
-            <SpotlightCard className="p-8 md:p-10 text-center bg-white border-none shadow-none" spotlightColor="rgba(0, 0, 0, 0.05)">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 text-black">Ready to Secure Your Future?</h2>
-              <p className="text-xl text-zinc-600 max-w-2xl mx-auto mb-8 font-medium">
+            <SurfaceCard className="p-8 md:p-10 text-center bg-white border-none shadow-none">
+              <h2 className="fluid-h2 font-bold mb-6 text-black">Ready to Secure Your Future?</h2>
+              <p className="fluid-lead text-zinc-600 max-w-2xl mx-auto mb-8 font-medium">
                 From high-converting websites to real-time security and AI agents, we help you grow faster and stay protected 24/7.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -291,7 +288,7 @@ export default function AboutPage() {
                   Book a call
                 </CalendlyButton>
               </div>
-            </SpotlightCard>
+            </SurfaceCard>
           </div>
         </section>
 
@@ -300,7 +297,7 @@ export default function AboutPage() {
           <div className="container px-6 mx-auto relative z-10">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Frequently Asked Questions</h2>
+                <h2 className="fluid-h2 font-bold mb-6 text-white">Frequently Asked Questions</h2>
                 <p className="text-lg text-zinc-400">
                   Learn more about DevGuardian's services, expertise, and how we can help your business
                 </p>
@@ -308,7 +305,7 @@ export default function AboutPage() {
 
               <div className="space-y-4">
                 {/* FAQ 1 */}
-                <SpotlightCard className="bg-zinc-900 border-white/10">
+                <SurfaceCard className="bg-zinc-900 border-white/10">
                   <details className="group">
                     <summary className="flex justify-between items-center cursor-pointer p-6 text-lg font-semibold text-white list-none">
                       What services does DevGuardian offer?
@@ -318,10 +315,10 @@ export default function AboutPage() {
                       DevGuardian specializes in three core areas: AI agent development for business automation, secure web application development with security-first engineering, and comprehensive cybersecurity services including penetration testing, vulnerability assessments, and security audits. We integrate security practices across design, CI/CD pipelines, and production environments.
                     </div>
                   </details>
-                </SpotlightCard>
+                </SurfaceCard>
 
                 {/* FAQ 2 */}
-                <SpotlightCard className="bg-zinc-900 border-white/10">
+                <SurfaceCard className="bg-zinc-900 border-white/10">
                   <details className="group">
                     <summary className="flex justify-between items-center cursor-pointer p-6 text-lg font-semibold text-white list-none">
                       Who are the team members at DevGuardian?
@@ -331,10 +328,10 @@ export default function AboutPage() {
                       Our team includes Sikandar Zulkernine (CEO & Founder) with expertise in cybersecurity, penetration testing, and full-stack development; Jafrin Islam (Head of Cybersecurity Operations) specializing in threat detection and vulnerability analysis; Hasibur Rahman (Lead AI Engineer) focused on AI automation and AI agents; and Fariq Abdullah (Junior Web Developer) providing development support.
                     </div>
                   </details>
-                </SpotlightCard>
+                </SurfaceCard>
 
                 {/* FAQ 3 */}
-                <SpotlightCard className="bg-zinc-900 border-white/10">
+                <SurfaceCard className="bg-zinc-900 border-white/10">
                   <details className="group">
                     <summary className="flex justify-between items-center cursor-pointer p-6 text-lg font-semibold text-white list-none">
                       What makes DevGuardian different from other cybersecurity companies?
@@ -344,10 +341,10 @@ export default function AboutPage() {
                       DevGuardian combines AI-powered solutions with security-first engineering. We don't treat security as an afterthought—it's embedded into every layer from day one. Our team delivers enterprise-grade secure systems with fast, expert support, ensuring that innovation and protection work together seamlessly.
                     </div>
                   </details>
-                </SpotlightCard>
+                </SurfaceCard>
 
                 {/* FAQ 4 */}
-                <SpotlightCard className="bg-zinc-900 border-white/10">
+                <SurfaceCard className="bg-zinc-900 border-white/10">
                   <details className="group">
                     <summary className="flex justify-between items-center cursor-pointer p-6 text-lg font-semibold text-white list-none">
                       How does DevGuardian ensure web applications are secure?
@@ -357,10 +354,10 @@ export default function AboutPage() {
                       We follow "Secure by Design" principles, integrating security practices throughout the development lifecycle. This includes secure coding practices, automated security testing in CI/CD pipelines, regular penetration testing, vulnerability assessments, and continuous monitoring in production. Security is built in, not bolted on.
                     </div>
                   </details>
-                </SpotlightCard>
+                </SurfaceCard>
 
                 {/* FAQ 5 */}
-                <SpotlightCard className="bg-zinc-900 border-white/10">
+                <SurfaceCard className="bg-zinc-900 border-white/10">
                   <details className="group">
                     <summary className="flex justify-between items-center cursor-pointer p-6 text-lg font-semibold text-white list-none">
                       What types of businesses does DevGuardian work with?
@@ -370,10 +367,10 @@ export default function AboutPage() {
                       We work with businesses of all sizes—from startups building their first secure product to established enterprises needing advanced AI automation and security hardening. Our services are tailored to meet the unique needs of each client, whether you need full-scale development, security audits, or ongoing support.
                     </div>
                   </details>
-                </SpotlightCard>
+                </SurfaceCard>
 
                 {/* FAQ 6 */}
-                <SpotlightCard className="bg-zinc-900 border-white/10">
+                <SurfaceCard className="bg-zinc-900 border-white/10">
                   <details className="group">
                     <summary className="flex justify-between items-center cursor-pointer p-6 text-lg font-semibold text-white list-none">
                       How long does it take to complete a security audit or penetration test?
@@ -383,10 +380,10 @@ export default function AboutPage() {
                       The timeline depends on the scope and complexity of your system. A typical security audit or penetration test takes 1-3 weeks, including initial assessment, testing, reporting, and remediation guidance. We provide fast, expert support and work with your timeline to ensure minimal disruption to your operations.
                     </div>
                   </details>
-                </SpotlightCard>
+                </SurfaceCard>
 
                 {/* FAQ 7 */}
-                <SpotlightCard className="bg-zinc-900 border-white/10">
+                <SurfaceCard className="bg-zinc-900 border-white/10">
                   <details className="group">
                     <summary className="flex justify-between items-center cursor-pointer p-6 text-lg font-semibold text-white list-none">
                       How can I get started with DevGuardian?
@@ -396,7 +393,7 @@ export default function AboutPage() {
                       Getting started is simple! Contact us through our contact form or reach out directly to our team. We'll schedule an initial consultation to understand your needs, discuss your goals, and create a tailored plan. Our experts typically respond within 24 hours to discuss how we can help secure and scale your business.
                     </div>
                   </details>
-                </SpotlightCard>
+                </SurfaceCard>
               </div>
             </div>
           </div>
@@ -407,10 +404,7 @@ export default function AboutPage() {
 
       </main>
 
-      {/* Gradient Line Separator */}
-      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-
-      <Footer className="!mt-0 !border-t-0" />
+      <Footer />
     </div>
   );
 }

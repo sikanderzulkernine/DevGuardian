@@ -85,15 +85,15 @@ const TestimonialCard = ({
 
 export function TestimonialsSection() {
     return (
-        <section id="testimonials" className="mb-24">
+        <section id="testimonials" className="py-20">
             <div className="mx-auto max-w-7xl">
                 <div className="mx-auto max-w-[540px]">
                     <div className="flex justify-center"></div>
-                    <h2 className="mt-5 text-center text-4xl md:text-5xl font-bold mb-4 relative z-10">
+                    <h2 className="mt-5 text-center fluid-h2 font-bold mb-4 relative z-10">
                         Client Success Stories
                     </h2>
 
-                    <p className="mt-5 relative z-10 text-center text-2xl text-foreground/80 text-glow-dark">
+                    <p className="mt-5 relative z-10 text-center fluid-lead text-foreground/80 text-glow-dark">
                         Hear what our clients have to say <br className="block md:hidden" /> about working with us
                     </p>
                 </div>
@@ -152,8 +152,8 @@ export function SelectedTestimonialsSection() {
         <section id="testimonials" className="py-20 relative">
             <div className="container mx-auto px-6">
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 relative z-10">Client Success Stories</h2>
-                    <p className="text-2xl text-foreground/80 max-w-2xl mx-auto text-glow-dark">
+                    <h2 className="fluid-h2 font-bold mb-4 relative z-10">Client Success Stories</h2>
+                    <p className="fluid-lead text-foreground/80 max-w-2xl mx-auto text-glow-dark">
                         Hear what our clients have to say about working with us
                     </p>
                 </div>

@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { GlobalContact } from '@/components/global-contact';
-import { SpotlightCard } from '@/components/ui/spotlight-card';
+import { SurfaceCard } from '@/components/ui/surface-card';
 import { TestimonialsSection } from '@/components/testimonials';
 import { FeaturedCaseStudies } from '@/components/featured-case-studies';
 
@@ -15,6 +15,7 @@ import { CountUp } from '@/components/ui/count-up';
 import { CompanyMarquee } from '@/components/company-marquee';
 import Link from 'next/link';
 import { JsonLd } from '@/components/seo/json-ld';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
     title: 'Web Development Services | Next.js & React Experts',
@@ -78,7 +79,7 @@ const process = [
 const projectPackages = [
     {
         name: 'Growth Landing',
-        price: '$950+',
+        price: '$899+',
         billing: '/project',
         description: 'High-converting multi-page website for early-stage brands.',
         features: [
@@ -94,7 +95,7 @@ const projectPackages = [
     },
     {
         name: 'Business Website',
-        price: '$2,100+',
+        price: '$1,500+',
         billing: '/project',
         description: 'Scalable business website with unlimited CMS pages.',
         popular: true,
@@ -218,8 +219,8 @@ export default function WebDevelopmentPage() {
             '@type': 'OfferCatalog',
             name: 'Development and Maintenance Packages',
             itemListElement: [
-                { '@type': 'Offer', name: 'Growth Landing', price: '950', priceCurrency: 'USD' },
-                { '@type': 'Offer', name: 'Business Website', price: '2100', priceCurrency: 'USD' },
+                { '@type': 'Offer', name: 'Growth Landing', price: '899', priceCurrency: 'USD' },
+                { '@type': 'Offer', name: 'Business Website', price: '1500', priceCurrency: 'USD' },
                 { '@type': 'Offer', name: 'Custom Web App', price: 'Custom' },
                 { '@type': 'Offer', name: 'Standard Care (2 Months)', price: '130', priceCurrency: 'USD' },
                 { '@type': 'Offer', name: 'Growth Care (6 Months)', price: '299', priceCurrency: 'USD' },
@@ -255,17 +256,17 @@ export default function WebDevelopmentPage() {
                         <Badge variant="outline" className="mb-6 px-4 py-1 text-sm font-medium rounded-full text-cyan-400 border-cyan-400/20 bg-cyan-400/5">
                             Engineering Excellence
                         </Badge>
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-white">
+                        <h1 className="fluid-h1 font-bold tracking-tight mb-6 text-white">
                             Web Applications Built for <br className="hidden md:block" />
                             <span className="text-white">
                                 Scale & Performance
                             </span>
                         </h1>
-                        <p className="text-lg md:text-xl text-white max-w-3xl mx-auto mb-10 leading-relaxed">
+                        <p className="fluid-lead text-white max-w-3xl mx-auto mb-10 leading-relaxed">
                             We build high-performance websites and applications. Using the latest technologies,
                             we create fast, secure, and SEO-friendly software that drives results.
                         </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                             <CalendlyButton size="lg" className="bg-white text-black hover:bg-zinc-200">
                                 Book a call
                             </CalendlyButton>
@@ -278,7 +279,7 @@ export default function WebDevelopmentPage() {
                     <div className="container px-6 mx-auto">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                             <div>
-                                <div className="text-3xl font-bold text-white mb-1"><CountUp value="100" />/100</div>
+                                <div className="text-3xl font-bold text-white mb-1"><CountUp value="97" />/100</div>
                                 <div className="text-sm text-zinc-500 uppercase tracking-wide">Google Lighthouse</div>
                             </div>
                             <div>
@@ -306,15 +307,15 @@ export default function WebDevelopmentPage() {
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
                         <div className="text-center max-w-3xl mx-auto mb-16">
-                            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Why Choose Our Dev Team?</h2>
-                            <p className="text-lg text-zinc-400">
+                            <h2 className="fluid-h2 font-bold mb-6 text-white">Why Choose Our Dev Team?</h2>
+                            <p className="fluid-lead text-zinc-400">
                                 We combine great design with solid engineering to deliver products that last.
                             </p>
                         </div>
 
                         <div className="grid md:grid-cols-2 gap-6">
                             {features.map((feature, index) => (
-                                <SpotlightCard key={index} className="p-8 bg-zinc-900 border-white/10">
+                                <SurfaceCard key={index} className="p-8 bg-zinc-900 border-white/10">
                                     <div className="mb-6 p-3 bg-white/5 w-fit rounded-lg border border-white/10">
                                         {feature.icon}
                                     </div>
@@ -322,7 +323,7 @@ export default function WebDevelopmentPage() {
                                     <p className="text-zinc-400 leading-relaxed">
                                         {feature.description}
                                     </p>
-                                </SpotlightCard>
+                                </SurfaceCard>
                             ))}
                         </div>
                     </div>
@@ -334,7 +335,7 @@ export default function WebDevelopmentPage() {
                 {/* Process Section */}
                 <section className="py-24 bg-zinc-900/50">
                     <div className="container px-6 mx-auto">
-                        <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center text-white">Development Lifecycle</h2>
+                        <h2 className="fluid-h2 font-bold mb-16 text-center text-white">Development Lifecycle</h2>
                         <div className="grid md:grid-cols-5 gap-4">
                             {process.map((item, index) => (
                                 <div key={index} className="relative group">
@@ -363,33 +364,40 @@ export default function WebDevelopmentPage() {
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
                         <div className="text-center max-w-3xl mx-auto mb-16">
-                            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Development Packages</h2>
-                            <p className="text-lg text-zinc-400">
+                            <h2 className="fluid-h2 font-bold mb-6 text-white">Development Packages</h2>
+                            <p className="fluid-lead text-zinc-400">
                                 Clear milestones and deliverables. Choose the right scope for your project.
                             </p>
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-8">
                             {projectPackages.map((plan, index) => (
-                                <SpotlightCard
+                                <SurfaceCard
                                     key={index}
-                                    className={`p-8 flex flex-col bg-zinc-900 border-white/10 ${plan.popular ? 'border-cyan-500/30 ring-1 ring-cyan-500/30' : ''}`}
+                                    className={`p-8 flex flex-col ${plan.popular
+                                        ? 'bg-white border-cyan-500/60 ring-1 ring-cyan-400/50 shadow-[0_0_30px_rgba(6,182,212,0.35)] light-section'
+                                        : 'bg-zinc-900 border-white/10'
+                                        }`}
                                 >
                                     {plan.popular && (
-                                        <div className="self-start px-3 py-1 mb-4 text-xs font-semibold text-cyan-400 bg-cyan-400/10 rounded-full border border-cyan-400/20">
+                                        <div className="self-start px-3 py-1 mb-4 text-xs font-semibold text-cyan-700 bg-cyan-100 rounded-full border border-cyan-200">
                                             {plan.badge ?? 'Best Value'}
                                         </div>
                                     )}
-                                    <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
+                                    <h3 className={`text-2xl font-bold mb-2 ${plan.popular ? 'text-black' : 'text-white'}`}>{plan.name}</h3>
                                     <div className="mb-4">
-                                        <span className="text-4xl font-bold text-white">{plan.price}</span>
-                                        {plan.billing && <span className="text-zinc-400">{plan.billing}</span>}
+                                        <span className={`text-4xl font-bold ${plan.popular ? 'text-black' : 'text-white'}`}>{plan.price}</span>
+                                        {plan.billing && (
+                                            <span className={plan.popular ? 'text-zinc-600' : 'text-zinc-400'}>
+                                                {plan.billing}
+                                            </span>
+                                        )}
                                     </div>
-                                    <p className="text-zinc-400 text-sm mb-8">{plan.description}</p>
+                                    <p className={`text-sm mb-8 ${plan.popular ? 'text-zinc-700' : 'text-zinc-400'}`}>{plan.description}</p>
 
                                     <ul className="space-y-4 mb-8 flex-grow">
                                         {plan.features.map((feature, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-sm text-zinc-300">
+                                            <li key={i} className={`flex items-start gap-3 text-sm ${plan.popular ? 'text-zinc-700' : 'text-zinc-300'}`}>
                                                 <CheckCircle className="h-5 w-5 text-cyan-400 shrink-0" />
                                                 <span>{feature}</span>
                                             </li>
@@ -402,38 +410,45 @@ export default function WebDevelopmentPage() {
                                     >
                                         <Link href="/contact">{plan.cta}</Link>
                                     </Button>
-                                </SpotlightCard>
+                                </SurfaceCard>
                             ))}
                         </div>
 
                         <div className="mt-20 text-center max-w-3xl mx-auto mb-12">
-                            <h3 className="text-2xl md:text-4xl font-bold mb-4 text-white">Maintenance Plans</h3>
-                            <p className="text-lg text-zinc-400">
+                            <h3 className="fluid-h3 font-bold mb-4 text-white">Maintenance Plans</h3>
+                            <p className="fluid-lead text-zinc-400">
                                 Ongoing care to keep your site secure, fast, and up to date.
                             </p>
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-8">
                             {maintenancePlans.map((plan, index) => (
-                                <SpotlightCard
+                                <SurfaceCard
                                     key={index}
-                                    className={`p-8 flex flex-col bg-zinc-900 border-white/10 ${plan.popular ? 'border-cyan-500/30 ring-1 ring-cyan-500/30' : ''}`}
+                                    className={`p-8 flex flex-col ${plan.popular
+                                        ? 'bg-[#f3f3f3] border-cyan-500/60 ring-1 ring-cyan-400/50 shadow-[0_0_30px_rgba(6,182,212,0.35)] light-section'
+                                        : 'bg-zinc-900 border-white/10'
+                                        }`}
                                 >
                                     {plan.popular && (
-                                        <div className="self-start px-3 py-1 mb-4 text-xs font-semibold text-cyan-400 bg-cyan-400/10 rounded-full border border-cyan-400/20">
+                                        <div className="self-start px-3 py-1 mb-4 text-xs font-semibold text-cyan-700 bg-cyan-100 rounded-full border border-cyan-200">
                                             {plan.badge ?? 'Best Value'}
                                         </div>
                                     )}
-                                    <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
+                                    <h3 className={`text-2xl font-bold mb-2 ${plan.popular ? 'text-black' : 'text-white'}`}>{plan.name}</h3>
                                     <div className="mb-4">
-                                        <span className="text-4xl font-bold text-white">{plan.price}</span>
-                                        {plan.billing && <span className="text-zinc-400">{plan.billing}</span>}
+                                        <span className={`text-4xl font-bold ${plan.popular ? 'text-black' : 'text-white'}`}>{plan.price}</span>
+                                        {plan.billing && (
+                                            <span className={plan.popular ? 'text-zinc-600' : 'text-zinc-400'}>
+                                                {plan.billing}
+                                            </span>
+                                        )}
                                     </div>
-                                    <p className="text-zinc-400 text-sm mb-8">{plan.description}</p>
+                                    <p className={`text-sm mb-8 ${plan.popular ? 'text-zinc-700' : 'text-zinc-400'}`}>{plan.description}</p>
 
                                     <ul className="space-y-4 mb-8 flex-grow">
                                         {plan.features.map((feature, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-sm text-zinc-300">
+                                            <li key={i} className={`flex items-start gap-3 text-sm ${plan.popular ? 'text-zinc-700' : 'text-zinc-300'}`}>
                                                 <CheckCircle className="h-5 w-5 text-cyan-400 shrink-0" />
                                                 <span>{feature}</span>
                                             </li>
@@ -446,7 +461,7 @@ export default function WebDevelopmentPage() {
                                     >
                                         <Link href="/contact">{plan.cta}</Link>
                                     </Button>
-                                </SpotlightCard>
+                                </SurfaceCard>
                             ))}
                         </div>
                     </div>
@@ -462,65 +477,81 @@ export default function WebDevelopmentPage() {
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center opacity-70">
                             {/* Tech Stack Icons */}
                             <div className="text-center group flex flex-col items-center">
-                                <img
+                                <Image
                                     src="https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_light_background.png"
                                     alt="Next.js"
+                                    width={48}
+                                    height={48}
                                     className="h-12 w-auto object-contain mb-3 group-hover:scale-110 transition-transform"
                                 />
                                 <span className="font-semibold text-white">Next.js</span>
                             </div>
                             <div className="text-center group flex flex-col items-center">
-                                <img
+                                <Image
                                     src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
                                     alt="React"
+                                    width={48}
+                                    height={48}
                                     className="h-12 w-auto object-contain mb-3 group-hover:scale-110 transition-transform"
                                 />
                                 <span className="font-semibold text-white">React</span>
                             </div>
                             <div className="text-center group flex flex-col items-center">
-                                <img
+                                <Image
                                     src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
                                     alt="TypeScript"
+                                    width={48}
+                                    height={48}
                                     className="h-12 w-auto object-contain mb-3 group-hover:scale-110 transition-transform"
                                 />
                                 <span className="font-semibold text-white">TypeScript</span>
                             </div>
                             <div className="text-center group flex flex-col items-center">
-                                <img
+                                <Image
                                     src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg"
                                     alt="Tailwind CSS"
+                                    width={48}
+                                    height={48}
                                     className="h-12 w-auto object-contain mb-3 group-hover:scale-110 transition-transform"
                                 />
                                 <span className="font-semibold text-white">Tailwind</span>
                             </div>
                             <div className="text-center group flex flex-col items-center">
-                                <img
+                                <Image
                                     src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
                                     alt="Node.js"
+                                    width={48}
+                                    height={48}
                                     className="h-12 w-auto object-contain mb-3 group-hover:scale-110 transition-transform"
                                 />
                                 <span className="font-semibold text-white">Node.js</span>
                             </div>
                             <div className="text-center group flex flex-col items-center">
-                                <img
+                                <Image
                                     src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg"
                                     alt="Express.js"
+                                    width={48}
+                                    height={48}
                                     className="h-12 w-auto object-contain mb-3 group-hover:scale-110 transition-transform brightness-0 invert"
                                 />
                                 <span className="font-semibold text-white">Express</span>
                             </div>
                             <div className="text-center group flex flex-col items-center">
-                                <img
+                                <Image
                                     src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
                                     alt="PostgreSQL"
+                                    width={48}
+                                    height={48}
                                     className="h-12 w-auto object-contain mb-3 group-hover:scale-110 transition-transform"
                                 />
                                 <span className="font-semibold text-white">PostgreSQL</span>
                             </div>
                             <div className="text-center group flex flex-col items-center">
-                                <img
+                                <Image
                                     src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
                                     alt="MongoDB"
+                                    width={48}
+                                    height={48}
                                     className="h-12 w-auto object-contain mb-3 group-hover:scale-110 transition-transform"
                                 />
                                 <span className="font-semibold text-white">MongoDB</span>
@@ -535,7 +566,7 @@ export default function WebDevelopmentPage() {
                 {/* FAQ Section */}
                 <section className="py-24 bg-black relative">
                     <div className="container px-6 mx-auto relative z-10 max-w-4xl">
-                        <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center text-white">Common Questions</h2>
+                        <h2 className="fluid-h2 font-bold mb-12 text-center text-white">Common Questions</h2>
                         <div className="space-y-4">
                             {faqs.map((faq, index) => (
                                 <div key={index} className="bg-zinc-900/50 border border-white/5 rounded-2xl overflow-hidden hover:border-white/10 transition-colors">
@@ -584,12 +615,9 @@ export default function WebDevelopmentPage() {
                     </div>
                 </section>
 
-                {/* Separator */}
-                <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
-
             </main>
 
-            <Footer className="!mt-0 !border-t-0" />
+            <Footer />
         </div>
     );
 }

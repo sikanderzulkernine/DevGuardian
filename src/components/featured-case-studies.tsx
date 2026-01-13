@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { CardLighting } from '@/components/lighting-effects';
 import Link from 'next/link';
+import Image from 'next/image';
 import { caseStudies as allCaseStudies } from '@/data/case-studies';
 
 // Helper to filter case studies by a specific tag/category or fallback to first 3
@@ -34,6 +35,26 @@ export function FeaturedCaseStudies({ filterTag }: { filterTag?: string }) {
     // Limit to 3 items
     const displayStudies = relevantStudies.slice(0, 3);
 
+    const CaseStudyImage = ({ src, alt }: { src: string; alt: string }) => {
+        const fallbackSrc = `https://placehold.co/600x400/1a1a1a/666666?text=${encodeURIComponent(alt)}`;
+        const [imgSrc, setImgSrc] = useState(src);
+
+        return (
+            <Image
+                src={imgSrc}
+                alt={alt}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-60 group-hover:opacity-100"
+                onError={() => {
+                    if (imgSrc !== fallbackSrc) {
+                        setImgSrc(fallbackSrc);
+                    }
+                }}
+            />
+        );
+    };
+
     return (
         <section className="py-24 bg-zinc-900/30 relative">
             <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50 absolute top-0 left-0" />
@@ -59,14 +80,7 @@ export function FeaturedCaseStudies({ filterTag }: { filterTag?: string }) {
                                     <Link href={`/case-studies/${study.slug}`} className="block flex-grow">
                                         <div className="relative h-48 overflow-hidden">
                                             <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 to-transparent z-10" />
-                                            <img
-                                                src={study.image}
-                                                alt={study.title}
-                                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-60 group-hover:opacity-100"
-                                                onError={(e) => {
-                                                    e.currentTarget.src = `https://placehold.co/600x400/1a1a1a/666666?text=${encodeURIComponent(study.title)}`;
-                                                }}
-                                            />
+                                            <CaseStudyImage src={study.image} alt={study.title} />
                                         </div>
                                         <CardHeader>
                                             <div className="flex flex-wrap gap-2 mb-3 mt-4">
