@@ -65,7 +65,7 @@ export const GL = ({ hovering, quality }: { hovering: boolean; quality?: GlQuali
           manualTime={config.manualTime}
           introspect={hovering}
         />
-        <Effects multisampling={0} disableGamma>
+        <Effects disableGamma>
           <shaderPass
             args={[VignetteShader]}
             uniforms-darkness-value={config.vignetteDarkness}
