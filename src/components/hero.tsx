@@ -105,13 +105,15 @@ export function Hero() {
 
       if (reducedMotionQuery.matches) {
         setQuality(REDUCED_QUALITY);
-      } else if (isMobile || isLowPower) {
+      } else if (isLowPower || saveData || isSlowConnection) {
+        setQuality(REDUCED_QUALITY);
+      } else if (isMobile) {
         setQuality(MOBILE_QUALITY);
       } else {
         setQuality(DEFAULT_QUALITY);
       }
 
-      setCanUseGL(!reducedMotionQuery.matches && !isMobile && !isLowPower && !saveData && !isSlowConnection);
+      setCanUseGL(!reducedMotionQuery.matches);
     };
 
     updateQuality();
@@ -136,7 +138,6 @@ export function Hero() {
 
     let timeoutId: number | null = null;
     let idleId: number | null = null;
-    let hasScheduled = false;
 
     const requestIdle = (window as Window & {
       requestIdleCallback?: (cb: () => void, options?: { timeout: number }) => number;
@@ -147,49 +148,13 @@ export function Hero() {
       setShowGL(true);
     };
 
-    const scheduleEnable = () => {
-      if (hasScheduled) {
-        return;
-      }
-      hasScheduled = true;
-
-      if (requestIdle) {
-        idleId = requestIdle(() => enable(), { timeout: 1200 });
-        return;
-      }
-
+    if (requestIdle) {
+      idleId = requestIdle(() => enable(), { timeout: 1200 });
+    } else {
       timeoutId = window.setTimeout(() => enable(), 1200);
-    };
-
-    const events: Array<keyof WindowEventMap> = [
-      "pointerdown",
-      "keydown",
-      "touchstart",
-      "scroll",
-    ];
-
-    function addListeners() {
-      events.forEach((event) =>
-        window.addEventListener(event, handleInteraction, {
-          passive: true,
-          once: true,
-        })
-      );
     }
-
-    function removeListeners() {
-      events.forEach((event) => window.removeEventListener(event, handleInteraction));
-    }
-
-    function handleInteraction() {
-      scheduleEnable();
-      removeListeners();
-    }
-
-    addListeners();
 
     return () => {
-      removeListeners();
       if (timeoutId !== null) {
         window.clearTimeout(timeoutId);
       }
