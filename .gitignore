@@ -6,7 +6,6 @@ out/
 lighthouse_report.html
 
 .env*
-!.env.example
 
 .secure/
 .DS_Store
