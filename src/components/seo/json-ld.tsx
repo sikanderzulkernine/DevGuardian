@@ -1,4 +1,5 @@
 import React from 'react';
+import { absoluteUrl, contactEmail, siteName, siteUrl } from '@/lib/site';
 
 type JsonLdProps = {
   data: Record<string, unknown> | Record<string, unknown>[];
@@ -24,11 +25,11 @@ export function GlobalJsonLd() {
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    '@id': 'https://devguardian.site/#organization',
-    name: 'DevGuardian',
-    url: 'https://devguardian.site',
-    logo: 'https://devguardian.site/logo.webp',
-    email: 'team@devguardian.site',
+    '@id': absoluteUrl('/#organization'),
+    name: siteName,
+    url: siteUrl,
+    logo: absoluteUrl('/logo.webp'),
+    email: contactEmail,
     description: 'Premier agency for AI Agents, Cybersecurity audits, and Secure Web Development.',
     address: {
       '@type': 'PostalAddress',
@@ -44,7 +45,7 @@ export function GlobalJsonLd() {
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
-      email: 'team@devguardian.site',
+      email: contactEmail,
       areaServed: 'Worldwide',
       availableLanguage: ['English'],
     },
@@ -53,11 +54,11 @@ export function GlobalJsonLd() {
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': 'https://devguardian.site/#website',
-    url: 'https://devguardian.site',
-    name: 'DevGuardian',
+    '@id': absoluteUrl('/#website'),
+    url: siteUrl,
+    name: siteName,
     publisher: {
-      '@id': 'https://devguardian.site/#organization',
+      '@id': absoluteUrl('/#organization'),
     },
   };
 

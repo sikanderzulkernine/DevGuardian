@@ -1,12 +1,10 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import { ArrowLeft, CheckCircle, Clock, Users, Building, Shield, Target } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
-import { LightingEffects, ScrollLighting, CardLighting } from '@/components/lighting-effects';
+import { LightingEffects } from '@/components/lighting-effects';
+import { CardLighting } from '@/components/card-lighting';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { CaseStudy } from '@/data/case-studies';
@@ -17,8 +15,7 @@ type CaseStudyDetailClientProps = {
 
 export function CaseStudyDetailClient({ study }: CaseStudyDetailClientProps) {
     return (
-        <ScrollLighting>
-            <div className="min-h-screen bg-black text-foreground relative overflow-hidden">
+        <div className="min-h-screen bg-black text-foreground relative overflow-hidden">
                 <Header />
                 <LightingEffects />
 
@@ -29,12 +26,7 @@ export function CaseStudyDetailClient({ study }: CaseStudyDetailClientProps) {
                         </Link>
 
                         {/* Header Section */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                            className="mb-12"
-                        >
+                        <div className="mb-12 reveal-up">
                             <div className="flex flex-wrap gap-2 mb-4">
                                 {study.tags.map((tag, i) => (
                                     <Badge key={i} variant="outline" className="border-primary/20 text-primary">
@@ -46,15 +38,10 @@ export function CaseStudyDetailClient({ study }: CaseStudyDetailClientProps) {
                             {study.subtitle && (
                                 <p className="text-2xl text-muted-foreground mb-6">{study.subtitle}</p>
                             )}
-                        </motion.div>
+                        </div>
 
                         {/* Meta Grid */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.1 }}
-                            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
-                        >
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 reveal-up">
                             <CardLighting>
                                 <Card className="h-full border-border/20 bg-background/50">
                                     <CardHeader className="pb-2">
@@ -98,7 +85,7 @@ export function CaseStudyDetailClient({ study }: CaseStudyDetailClientProps) {
                                     </CardContent>
                                 </Card>
                             </CardLighting>
-                        </motion.div>
+                        </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                             {/* Main Content Column */}
@@ -247,6 +234,5 @@ export function CaseStudyDetailClient({ study }: CaseStudyDetailClientProps) {
 
                 <Footer />
             </div>
-        </ScrollLighting>
     );
 }

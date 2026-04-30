@@ -16,6 +16,9 @@ import {
 export const metadata: Metadata = {
     title: 'Careers | DevGuardian',
     description: 'Join the team building the future of secure AI. View open positions at DevGuardian.',
+    alternates: {
+        canonical: '/careers',
+    },
 };
 
 const careersFaqs = [

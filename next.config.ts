@@ -1,10 +1,80 @@
+import bundleAnalyzer from "@next/bundle-analyzer";
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
+const scriptSrc = [
+  "'self'",
+  "'unsafe-inline'",
+  "https://challenges.cloudflare.com",
+  "https://www.googletagmanager.com",
+  "https://www.google-analytics.com",
+  "https://assets.calendly.com",
+];
+
+if (isDev) {
+  scriptSrc.push("'unsafe-eval'");
+}
+
+const baseCsp = [
+  "default-src 'self'",
+  `script-src ${scriptSrc.join(" ")}`,
+  "style-src 'self' 'unsafe-inline' https://assets.calendly.com",
+  "img-src 'self' blob: data: https://www.googletagmanager.com https://www.google-analytics.com https://stats.g.doubleclick.net https://assets.calendly.com https://assets.vercel.com https://cdn.jsdelivr.net https://upload.wikimedia.org",
+  "font-src 'self' data: https://assets.calendly.com",
+  "connect-src 'self' https://challenges.cloudflare.com https://www.googletagmanager.com https://analytics.google.com https://www.google-analytics.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://calendly.com https://api.calendly.com https://assets.calendly.com",
+  "frame-src 'self' https://challenges.cloudflare.com https://www.googletagmanager.com https://calendly.com",
+  "worker-src 'self' blob:",
+  "manifest-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+].join("; ");
+
+const securityHeaders = [
+  {
+    key: "Content-Security-Policy",
+    value: baseCsp,
+  },
+  {
+    key: "Content-Security-Policy-Report-Only",
+    value: `${baseCsp}; report-uri /api/csp-report`,
+  },
+  {
+    key: "Strict-Transport-Security",
+    value: "max-age=31536000; includeSubDomains; preload",
+  },
+  {
+    key: "X-Content-Type-Options",
+    value: "nosniff",
+  },
+  {
+    key: "X-Frame-Options",
+    value: "DENY",
+  },
+  {
+    key: "Referrer-Policy",
+    value: "strict-origin-when-cross-origin",
+  },
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
+  },
+  {
+    key: "X-DNS-Prefetch-Control",
+    value: "on",
+  },
+];
+
 const nextConfig: NextConfig = {
-  poweredByHeader: false, // Security: Hide Next.js header
+  poweredByHeader: false,
   reactStrictMode: true,
   compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
+    removeConsole:
+      process.env.NODE_ENV === "production"
+        ? { exclude: ["error", "warn"] }
+        : false,
   },
   images: {
     remotePatterns: [
@@ -20,21 +90,15 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "upload.wikimedia.org",
       },
-      {
-        protocol: "https",
-        hostname: "placehold.co",
-      },
     ],
   },
-  // Disable Next.js hot reload (handled by nodemon for recompilation)
-  webpack: (config, { dev }) => {
-    if (dev) {
-      // Disable webpack's Hot Module Replacement (HMR)
-      config.watchOptions = {
-        ignored: ["**/*"], // Ignore all file changes
-      };
-    }
-    return config;
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: securityHeaders,
+      },
+    ];
   },
   async redirects() {
     return [
@@ -67,20 +131,8 @@ const nextConfig: NextConfig = {
   },
 };
 
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
+const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
-const withPWA = require("next-pwa")({
-  dest: "public",
-  disable: process.env.NODE_ENV === "development",
-  register: true,
-  skipWaiting: true,
-  // Optimization: specific limits to avoid caching huge files on initial load
-  maximumFileSizeToCacheInBytes: 50000, // ~50KB
-
-  // Important: We use src/app/manifest.ts, so we don't need next-pwa to manage it.
-  // We just need the SW generation.
-});
-
-export default withBundleAnalyzer(withPWA(nextConfig));
+export default withBundleAnalyzer(nextConfig);

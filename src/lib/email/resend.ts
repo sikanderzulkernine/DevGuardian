@@ -1,8 +1,8 @@
 import { Resend } from 'resend';
 import { logSecurityEvent } from '@/utils/logging';
 
-const EMAIL_FROM = process.env.EMAIL_FROM || 'DevGuardian <team@devguardian.site>';
-const CONTACT_TO = process.env.CONTACT_TO || 'team@devguardian.site';
+const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'DevGuardian <team@devguardian.site>';
+const CONTACT_TO_EMAIL = process.env.CONTACT_TO_EMAIL || 'team@devguardian.site';
 
 let resendClient: Resend | null = null;
 
@@ -36,7 +36,7 @@ export async function sendConfirmation({ name, email }: Pick<EmailParams, 'name'
         }
 
         const { error } = await resend.emails.send({
-            from: EMAIL_FROM,
+            from: RESEND_FROM_EMAIL,
             to: email,
             subject: 'Your message has been received',
             text: 'Hello ' + name + ',\n\nWe have received your message and will review it. We will contact you if additional information is needed.\n\nRegards,\nDevGuardian',
@@ -63,8 +63,8 @@ export async function sendNotification({ name, email, message, company }: EmailP
         }
 
         const { error } = await resend.emails.send({
-            from: EMAIL_FROM,
-            to: CONTACT_TO,
+            from: RESEND_FROM_EMAIL,
+            to: CONTACT_TO_EMAIL,
             // Security: Sanitize subject to prevent Header Injection (CRLF)
             subject: 'New Contact: ' + name.replace(/[\r\n]/g, '') + ' from ' + (company?.replace(/[\r\n]/g, '') || 'Unknown Company'),
             text: 'Name: ' + name + '\nEmail: ' + email + '\nCompany: ' + (company || 'N/A') + '\n\nMessage:\n' + message,

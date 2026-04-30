@@ -87,7 +87,7 @@ export function TestimonialsSection() {
     return (
         <section id="testimonials" className="py-20">
             <div className="mx-auto max-w-7xl">
-                <div className="mx-auto max-w-[540px]">
+                <div className="mx-auto max-w-[540px]" data-reveal="fade-up">
                     <div className="flex justify-center"></div>
                     <h2 className="mt-5 text-center fluid-h2 font-bold mb-4 relative z-10">
                         Client Success Stories
@@ -98,7 +98,7 @@ export function TestimonialsSection() {
                     </p>
                 </div>
 
-                <div className="my-16 flex max-h-[738px] justify-center gap-6 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)]">
+                <div className="my-16 flex max-h-[738px] justify-center gap-6 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)]" data-reveal="scale-in" data-reveal-delay="short">
                     <div>
                         <Marquee pauseOnHover vertical className="[--duration:20s]">
                             {firstColumn.map((testimonial) => (
@@ -124,59 +124,16 @@ export function TestimonialsSection() {
                     </div>
                 </div>
 
-                <div className="-mt-8 flex justify-center">
+                <div className="-mt-8 flex justify-center" data-reveal="fade-up">
                     <Link href="/contact">
                         <button
-                            className="group relative inline-flex items-center gap-2 rounded-full border border-white/30 bg-white px-6 py-3 text-sm font-medium text-black transition-all hover:bg-white/90 active:scale-95"
+                            className="premium-button group relative inline-flex items-center gap-2 rounded-full border border-white/30 bg-white px-6 py-3 text-sm font-medium text-black transition-all hover:bg-white/90 active:scale-95"
                         >
                             <div className="absolute inset-x-0 -top-px mx-auto h-px w-3/4 bg-gradient-to-r from-transparent via-black/40 to-transparent"></div>
                             <div className="absolute inset-x-0 -bottom-px mx-auto h-px w-3/4 bg-gradient-to-r from-transparent via-black/40 to-transparent"></div>
                             Share your experience
                         </button>
                     </Link>
-                </div>
-            </div>
-        </section>
-    )
-}
-
-export function SelectedTestimonialsSection() {
-    // Select 3 specific testimonials
-    const selectedTestimonials = [
-        testimonials[0], // Arjun Mehta
-        testimonials[2], // Devon Carter
-        testimonials[7], // Monica Reeves
-    ];
-
-    return (
-        <section id="testimonials" className="py-20 relative">
-            <div className="container mx-auto px-6">
-                <div className="text-center mb-16">
-                    <h2 className="fluid-h2 font-bold mb-4 relative z-10">Client Success Stories</h2>
-                    <p className="fluid-lead text-foreground/80 max-w-2xl mx-auto text-glow-dark">
-                        Hear what our clients have to say about working with us
-                    </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {selectedTestimonials.map((testimonial, index) => (
-                        <div key={index} className="relative w-full overflow-hidden rounded-3xl border border-white/10 bg-black/80 backdrop-blur-md p-8 shadow-[0px_2px_0px_0px_rgba(255,255,255,0.1)_inset] flex flex-col">
-                            <div className="text-white/90 leading-relaxed mb-6 flex-grow">"{testimonial.body}"</div>
-
-                            <div className="flex items-center gap-3 mt-auto">
-                                <Image
-                                    src={testimonial.img || "/placeholder.svg"}
-                                    alt={testimonial.name}
-                                    height={40}
-                                    width={40}
-                                    className="h-10 w-10 rounded-full object-cover"
-                                />
-                                <div className="flex flex-col">
-                                    <div className="leading-5 font-medium tracking-tight text-white">{testimonial.name}</div>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
                 </div>
             </div>
         </section>

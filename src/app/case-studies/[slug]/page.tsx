@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { caseStudies } from '@/data/case-studies';
 import { CaseStudyDetailClient } from '@/components/case-study-detail-client';
 import { JsonLd } from '@/components/seo/json-ld';
+import { absoluteUrl } from '@/lib/site';
 
 type PageProps = {
     params: Promise<{
@@ -33,7 +34,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     const title = `${study.title} | DevGuardian`;
     const description = study.subtitle || study.situation;
-    const canonical = `https://devguardian.site/case-studies/${study.slug}`;
+    const canonical = absoluteUrl(`/case-studies/${study.slug}`);
 
     return {
         title,
@@ -74,14 +75,14 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
     const schema = {
         '@context': 'https://schema.org',
         '@type': 'CaseStudy',
-        '@id': `https://devguardian.site/case-studies/${study.slug}#case-study`,
+        '@id': absoluteUrl(`/case-studies/${study.slug}#case-study`),
         name: study.title,
         description: study.subtitle || study.situation,
-        url: `https://devguardian.site/case-studies/${study.slug}`,
-        image: `https://devguardian.site${study.image}`,
+        url: absoluteUrl(`/case-studies/${study.slug}`),
+        image: absoluteUrl(study.image),
         about: study.tags,
         provider: {
-            '@id': 'https://devguardian.site/#organization',
+            '@id': absoluteUrl('/#organization'),
         },
     };
 

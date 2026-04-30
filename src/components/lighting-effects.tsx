@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type EffectPosition = 'fixed' | 'absolute';
 
@@ -78,16 +78,6 @@ export function LightingEffects({ position = 'fixed' }: { position?: EffectPosit
           animationDelay: '1s',
         }}
       />
-    </div>
-  );
-}
-
-// Scroll-triggered lighting effect
-export function ScrollLighting({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="relative">
-      <ScrollLightingOverlay />
-      {children}
     </div>
   );
 }
@@ -180,17 +170,5 @@ export function ScrollLightingOverlay({ position = 'fixed' }: { position?: Effec
         }}
       />
     </>
-  );
-}
-
-// Interactive card lighting
-export function CardLighting({ children, className = '' }: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={`relative ${className}`}>
-      {children}
-    </div>
   );
 }

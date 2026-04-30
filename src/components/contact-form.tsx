@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { Send, CheckCircle, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -34,6 +33,7 @@ export function ContactForm({
     hp_field: '', // Honeypot
   });
   const [turnstileToken, setTurnstileToken] = useState<string>('');
+  const [turnstileKey, setTurnstileKey] = useState(0);
   const [mountTime, setMountTime] = useState<number>(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -110,6 +110,8 @@ export function ContactForm({
       // Reset
       setFormData({ fullName: '', email: '', company: '', message: '', hp_field: '' });
       setTurnstileToken('');
+      setTurnstileKey((current) => current + 1);
+      setMountTime(Date.now());
       setErrors({});
 
     } catch (error: unknown) {
@@ -123,14 +125,14 @@ export function ContactForm({
         description: errorMessage,
         variant: "destructive",
       });
-      // Force Turnstile reset on error via key change or just clear token
       setTurnstileToken('');
+      setTurnstileKey((current) => current + 1);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const isFormValid = formData.fullName && formData.email && formData.message.length >= 10;
+  const isFormValid = Boolean(formData.fullName && formData.email && formData.message.length >= 10 && turnstileToken);
 
   if (isSubmitted) {
     return (
@@ -138,7 +140,10 @@ export function ContactForm({
         <CheckCircle className="h-16 w-16 text-green-400 mx-auto mb-4" />
         <h3 className="text-2xl font-bold mb-2 text-white">Message Sent!</h3>
         <p className="text-zinc-400 mb-6">Thank you for contacting us. We'll get back to you soon.</p>
-        <Button onClick={() => setIsSubmitted(false)}>Send Another Message</Button>
+        <Button onClick={() => {
+          setMountTime(Date.now());
+          setIsSubmitted(false);
+        }}>Send Another Message</Button>
       </div>
     );
   }
@@ -232,6 +237,7 @@ export function ContactForm({
             {/* Turnstile Widget */}
             <div className="flex flex-col gap-2">
               <TurnstileWidget
+                key={turnstileKey}
                 onVerify={onVerify}
                 onError={onError}
                 theme={variant === 'solid' ? 'dark' : 'auto'}

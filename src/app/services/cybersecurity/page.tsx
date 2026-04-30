@@ -8,7 +8,6 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { GlobalContact } from '@/components/global-contact';
 import { SurfaceCard } from '@/components/ui/surface-card';
-import { TestimonialsSection } from '@/components/testimonials';
 import { FeaturedCaseStudies } from '@/components/featured-case-studies';
 
 import { CountUp } from '@/components/ui/count-up';
@@ -16,17 +15,18 @@ import { CompanyMarquee } from '@/components/company-marquee';
 import Link from 'next/link';
 import { JsonLd } from '@/components/seo/json-ld';
 import Image from 'next/image';
+import { absoluteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
     title: 'Cybersecurity Services & Pen Testing | DevGuardian',
     description: 'Proactive cybersecurity solutions: Penetration Testing, Vulnerability Assessments (VAPT), and ISO Compliance Audits to protect your business assets.',
     alternates: {
-        canonical: 'https://devguardian.site/services/cybersecurity',
+        canonical: absoluteUrl('/services/cybersecurity'),
     },
     openGraph: {
         title: 'Cybersecurity Services & Pen Testing | DevGuardian',
         description: 'Proactive cybersecurity solutions: Penetration Testing, Vulnerability Assessments (VAPT), and ISO Compliance Audits to protect your business assets.',
-        url: 'https://devguardian.site/services/cybersecurity',
+        url: absoluteUrl('/services/cybersecurity'),
         type: 'website',
         images: [
             {
@@ -147,7 +147,7 @@ export default function CybersecurityPage() {
         '@context': 'https://schema.org',
         '@type': 'Service',
         name: 'Cybersecurity Audits & VAPT',
-        provider: { '@id': 'https://devguardian.site/#organization' },
+        provider: { '@id': absoluteUrl('/#organization') },
         description: 'Comprehensive security assessments, penetration testing, and compliance audits for enterprise infrastructure.',
         areaServed: 'Global',
         serviceType: 'ComputerSecurity',
@@ -186,7 +186,7 @@ export default function CybersecurityPage() {
             <main className="flex-grow relative z-10">
                 {/* Hero Section */}
                 <section className="relative py-24 md:py-32">
-                    <div className="container px-6 mx-auto text-center">
+                    <div className="container px-6 mx-auto text-center" data-reveal="fade-up">
                         <Badge variant="outline" className="mb-6 px-4 py-1 text-sm font-medium rounded-full text-red-500 border-red-500/20 bg-red-500/5">
                             Defensive Security
                         </Badge>
@@ -211,7 +211,7 @@ export default function CybersecurityPage() {
                 {/* Overview Stats */}
                 <section className="py-12 border-y border-white/10 bg-zinc-900/30">
                     <div className="container px-6 mx-auto">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center" data-reveal-stagger>
                             <div>
                                 <div className="text-3xl font-bold text-white mb-1"><CountUp value="350" />+</div>
                                 <div className="text-sm text-zinc-500 uppercase tracking-wide">Audits Conducted</div>
@@ -237,14 +237,14 @@ export default function CybersecurityPage() {
                 {/* Features Grid */}
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
-                        <div className="text-center max-w-3xl mx-auto mb-16">
+                        <div className="text-center max-w-3xl mx-auto mb-16" data-reveal="fade-up">
                             <h2 className="fluid-h2 font-bold mb-6 text-white">Comprehensive Protection</h2>
                             <p className="fluid-lead text-zinc-400">
                                 A multi-layered approach to security that covers networks, applications, and cloud infrastructure.
                             </p>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-6">
+                        <div className="grid md:grid-cols-2 gap-6" data-reveal-stagger>
                             {features.map((feature, index) => (
                                 <SurfaceCard key={index} className="p-8 bg-zinc-900 border-white/10">
                                     <div className="mb-6 p-3 bg-white/5 w-fit rounded-lg border border-white/10">
@@ -267,7 +267,7 @@ export default function CybersecurityPage() {
                 <section className="py-24 bg-zinc-900/50">
                     <div className="container px-6 mx-auto">
                         <h2 className="fluid-h2 font-bold mb-16 text-center text-white">Our Audit Workflow</h2>
-                        <div className="grid md:grid-cols-5 gap-4">
+                        <div className="grid md:grid-cols-5 gap-4" data-reveal-stagger>
                             {process.map((item, index) => (
                                 <div key={index} className="relative group">
                                     <div className="text-6xl font-bold text-white mb-4 select-none transition-colors">
@@ -290,14 +290,14 @@ export default function CybersecurityPage() {
                 {/* Client Feedback Section */}
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
-                        <div className="text-center max-w-3xl mx-auto mb-16">
+                        <div className="text-center max-w-3xl mx-auto mb-16" data-reveal="fade-up">
                             <h2 className="fluid-h2 font-bold mb-6 text-white">Security Stories</h2>
                             <p className="fluid-lead text-zinc-400">
                                 Trusted by businesses to protect their most critical assets.
                             </p>
                         </div>
 
-                        <div className="grid md:grid-cols-3 gap-8">
+                        <div className="grid md:grid-cols-3 gap-8" data-reveal-stagger>
                             {[
                                 {
                                     name: "Sara Lin",
@@ -350,14 +350,14 @@ export default function CybersecurityPage() {
                 {/* Pricing Section */}
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
-                        <div className="text-center max-w-3xl mx-auto mb-16">
+                        <div className="text-center max-w-3xl mx-auto mb-16" data-reveal="fade-up">
                             <h2 className="fluid-h2 font-bold mb-6 text-white">Security Investment</h2>
                             <p className="fluid-lead text-zinc-400">
                                 Transparent packages for audits. No hidden fees, just actionable results.
                             </p>
                         </div>
 
-                        <div className="grid md:grid-cols-3 gap-8">
+                        <div className="grid md:grid-cols-3 gap-8" data-reveal-stagger>
                             {pricing.map((plan, index) => (
                                 <SurfaceCard
                                     key={index}

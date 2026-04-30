@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { Layout, Smartphone, Code, Rocket, Layers, CheckCircle, ArrowRight, ChevronDown, Globe, FileCode, Server, Database } from 'lucide-react';
+import { Layout, Smartphone, Rocket, Layers, CheckCircle, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CalendlyButton } from '@/components/calendly-button';
 import { Badge } from '@/components/ui/badge';
@@ -8,7 +8,6 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { GlobalContact } from '@/components/global-contact';
 import { SurfaceCard } from '@/components/ui/surface-card';
-import { TestimonialsSection } from '@/components/testimonials';
 import { FeaturedCaseStudies } from '@/components/featured-case-studies';
 
 import { CountUp } from '@/components/ui/count-up';
@@ -16,17 +15,18 @@ import { CompanyMarquee } from '@/components/company-marquee';
 import Link from 'next/link';
 import { JsonLd } from '@/components/seo/json-ld';
 import Image from 'next/image';
+import { absoluteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
     title: 'Web Development Services | Next.js & React Experts',
     description: 'Custom, high-performance web applications built with Next.js, React, and Tailwind CSS. Scalable, secure, and SEO-optimized architecture.',
     alternates: {
-        canonical: 'https://devguardian.site/services/web-development',
+        canonical: absoluteUrl('/services/web-development'),
     },
     openGraph: {
         title: 'Web Development Services | Next.js & React Experts',
         description: 'Custom, high-performance web applications built with Next.js, React, and Tailwind CSS. Scalable, secure, and SEO-optimized architecture.',
-        url: 'https://devguardian.site/services/web-development',
+        url: absoluteUrl('/services/web-development'),
         type: 'website',
         images: [
             {
@@ -211,7 +211,7 @@ export default function WebDevelopmentPage() {
         '@context': 'https://schema.org',
         '@type': 'Service',
         name: 'Web Application Development',
-        provider: { '@id': 'https://devguardian.site/#organization' },
+        provider: { '@id': absoluteUrl('/#organization') },
         description: 'Full-cycle web development services using Next.js, React, and Cloud Infrastructure.',
         areaServed: 'Global',
         serviceType: 'WebDevelopment',
@@ -252,7 +252,7 @@ export default function WebDevelopmentPage() {
             <main className="flex-grow relative z-10">
                 {/* Hero Section */}
                 <section className="relative py-24 md:py-32">
-                    <div className="container px-6 mx-auto text-center">
+                    <div className="container px-6 mx-auto text-center" data-reveal="fade-up">
                         <Badge variant="outline" className="mb-6 px-4 py-1 text-sm font-medium rounded-full text-cyan-400 border-cyan-400/20 bg-cyan-400/5">
                             Engineering Excellence
                         </Badge>
@@ -277,7 +277,7 @@ export default function WebDevelopmentPage() {
                 {/* Overview Stats */}
                 <section className="py-12 border-y border-white/10 bg-zinc-900/30">
                     <div className="container px-6 mx-auto">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center" data-reveal-stagger>
                             <div>
                                 <div className="text-3xl font-bold text-white mb-1"><CountUp value="97" />/100</div>
                                 <div className="text-sm text-zinc-500 uppercase tracking-wide">Google Lighthouse</div>
@@ -306,14 +306,14 @@ export default function WebDevelopmentPage() {
                 {/* Features Grid */}
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
-                        <div className="text-center max-w-3xl mx-auto mb-16">
+                        <div className="text-center max-w-3xl mx-auto mb-16" data-reveal="fade-up">
                             <h2 className="fluid-h2 font-bold mb-6 text-white">Why Choose Our Dev Team?</h2>
                             <p className="fluid-lead text-zinc-400">
                                 We combine great design with solid engineering to deliver products that last.
                             </p>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-6">
+                        <div className="grid md:grid-cols-2 gap-6" data-reveal-stagger>
                             {features.map((feature, index) => (
                                 <SurfaceCard key={index} className="p-8 bg-zinc-900 border-white/10">
                                     <div className="mb-6 p-3 bg-white/5 w-fit rounded-lg border border-white/10">
@@ -336,7 +336,7 @@ export default function WebDevelopmentPage() {
                 <section className="py-24 bg-zinc-900/50">
                     <div className="container px-6 mx-auto">
                         <h2 className="fluid-h2 font-bold mb-16 text-center text-white">Development Lifecycle</h2>
-                        <div className="grid md:grid-cols-5 gap-4">
+                        <div className="grid md:grid-cols-5 gap-4" data-reveal-stagger>
                             {process.map((item, index) => (
                                 <div key={index} className="relative group">
                                     <div className="text-6xl font-bold text-white mb-4 select-none transition-colors">
@@ -363,14 +363,14 @@ export default function WebDevelopmentPage() {
                 {/* Pricing Section */}
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
-                        <div className="text-center max-w-3xl mx-auto mb-16">
+                        <div className="text-center max-w-3xl mx-auto mb-16" data-reveal="fade-up">
                             <h2 className="fluid-h2 font-bold mb-6 text-white">Development Packages</h2>
                             <p className="fluid-lead text-zinc-400">
                                 Clear milestones and deliverables. Choose the right scope for your project.
                             </p>
                         </div>
 
-                        <div className="grid md:grid-cols-3 gap-8">
+                        <div className="grid md:grid-cols-3 gap-8" data-reveal-stagger>
                             {projectPackages.map((plan, index) => (
                                 <SurfaceCard
                                     key={index}
@@ -421,7 +421,7 @@ export default function WebDevelopmentPage() {
                             </p>
                         </div>
 
-                        <div className="grid md:grid-cols-3 gap-8">
+                        <div className="grid md:grid-cols-3 gap-8" data-reveal-stagger>
                             {maintenancePlans.map((plan, index) => (
                                 <SurfaceCard
                                     key={index}

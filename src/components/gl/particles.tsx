@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { useMemo, useState, useRef, useEffect } from "react";
+import { useMemo, useState, useRef } from "react";
 import { createPortal, useFrame } from "@react-three/fiber";
 import { useFBO } from "@react-three/drei";
 
@@ -92,7 +92,6 @@ export function Particles({
 
     state.gl.setRenderTarget(target);
     state.gl.clear();
-    // @ts-ignore
     state.gl.render(scene, camera);
     state.gl.setRenderTarget(null);
 
@@ -147,8 +146,8 @@ export function Particles({
   return (
     <>
       {createPortal(
-        // @ts-ignore
-        <mesh material={simulationMaterial}>
+        <mesh>
+          <primitive object={simulationMaterial} attach="material" />
           <bufferGeometry>
             <bufferAttribute
               attach="attributes-position"
@@ -157,11 +156,10 @@ export function Particles({
             <bufferAttribute attach="attributes-uv" args={[uvs, 2]} />
           </bufferGeometry>
         </mesh>,
-        // @ts-ignore
         scene
       )}
-      {/* @ts-ignore */}
-      <points material={dofPointsMaterial} {...props}>
+      <points {...props}>
+        <primitive object={dofPointsMaterial} attach="material" />
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[particles, 3]} />
         </bufferGeometry>

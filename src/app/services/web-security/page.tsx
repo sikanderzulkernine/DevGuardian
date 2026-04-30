@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { ShieldCheck, Lock, Globe, Code, FileCode, Server, CheckCircle, ChevronDown, Activity } from 'lucide-react';
+import { ShieldCheck, Lock, Code, FileCode, Server, CheckCircle, ChevronDown, Activity } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CalendlyButton } from '@/components/calendly-button';
 import { Badge } from '@/components/ui/badge';
@@ -8,7 +8,6 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { GlobalContact } from '@/components/global-contact';
 import { SurfaceCard } from '@/components/ui/surface-card';
-import { TestimonialsSection } from '@/components/testimonials';
 import { FeaturedCaseStudies } from '@/components/featured-case-studies';
 
 import { CountUp } from '@/components/ui/count-up';
@@ -16,17 +15,18 @@ import { CompanyMarquee } from '@/components/company-marquee';
 import Link from 'next/link';
 import { JsonLd } from '@/components/seo/json-ld';
 import Image from 'next/image';
+import { absoluteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
     title: 'Web Security Services & WAF Protection',
     description: 'Secure your web apps with WAF configuration, Secure Code Review, and Real-time Threat Monitoring. Prevent SQLi, XSS, and DDoS attacks.',
     alternates: {
-        canonical: 'https://devguardian.site/services/web-security',
+        canonical: absoluteUrl('/services/web-security'),
     },
     openGraph: {
         title: 'Web Security Services & WAF Protection',
         description: 'Secure your web apps with WAF configuration, Secure Code Review, and Real-time Threat Monitoring. Prevent SQLi, XSS, and DDoS attacks.',
-        url: 'https://devguardian.site/services/web-security',
+        url: absoluteUrl('/services/web-security'),
         type: 'website',
         images: [
             {
@@ -147,7 +147,7 @@ export default function WebSecurityPage() {
         '@context': 'https://schema.org',
         '@type': 'Service',
         name: 'Web Security Hardening',
-        provider: { '@id': 'https://devguardian.site/#organization' },
+        provider: { '@id': absoluteUrl('/#organization') },
         description: 'Proactive web application security, WAF setup, and secure code review services.',
         areaServed: 'Global',
         serviceType: 'CyberSecurity',
@@ -185,7 +185,7 @@ export default function WebSecurityPage() {
             <main className="flex-grow relative z-10">
                 {/* Hero Section */}
                 <section className="relative py-24 md:py-32">
-                    <div className="container px-6 mx-auto text-center">
+                    <div className="container px-6 mx-auto text-center" data-reveal="fade-up">
                         <Badge variant="outline" className="mb-6 px-4 py-1 text-sm font-medium rounded-full text-yellow-400 border-yellow-400/20 bg-yellow-400/5">
                             Application Hardening
                         </Badge>
@@ -210,7 +210,7 @@ export default function WebSecurityPage() {
                 {/* Overview Stats */}
                 <section className="py-12 border-y border-white/10 bg-zinc-900/30">
                     <div className="container px-6 mx-auto">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center" data-reveal-stagger>
                             <div>
                                 <div className="text-3xl font-bold text-white mb-1"><CountUp value="99.9" />%</div>
                                 <div className="text-sm text-zinc-500 uppercase tracking-wide">Uptime Maintained</div>
@@ -236,14 +236,14 @@ export default function WebSecurityPage() {
                 {/* Features Grid */}
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
-                        <div className="text-center max-w-3xl mx-auto mb-16">
+                        <div className="text-center max-w-3xl mx-auto mb-16" data-reveal="fade-up">
                             <h2 className="fluid-h2 font-bold mb-6 text-white">Proactive Defense</h2>
                             <p className="fluid-lead text-zinc-400">
                                 Stop attacks at the edge and within the code. We implement defense-in-depth strategies.
                             </p>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-6">
+                        <div className="grid md:grid-cols-2 gap-6" data-reveal-stagger>
                             {features.map((feature, index) => (
                                 <SurfaceCard key={index} className="p-8 bg-zinc-900 border-white/10">
                                     <div className="mb-6 p-3 bg-white/5 w-fit rounded-lg border border-white/10">
@@ -266,7 +266,7 @@ export default function WebSecurityPage() {
                 <section className="py-24 bg-zinc-900/50">
                     <div className="container px-6 mx-auto">
                         <h2 className="fluid-h2 font-bold mb-16 text-center text-white">Hardening Process</h2>
-                        <div className="grid md:grid-cols-5 gap-4">
+                        <div className="grid md:grid-cols-5 gap-4" data-reveal-stagger>
                             {process.map((item, index) => (
                                 <div key={index} className="relative group">
                                     <div className="text-6xl font-bold text-white mb-4 select-none transition-colors">
@@ -289,14 +289,14 @@ export default function WebSecurityPage() {
                 {/* Client Feedback Section */}
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
-                        <div className="text-center max-w-3xl mx-auto mb-16">
+                        <div className="text-center max-w-3xl mx-auto mb-16" data-reveal="fade-up">
                             <h2 className="fluid-h2 font-bold mb-6 text-white">Trust & Safety</h2>
                             <p className="fluid-lead text-zinc-400">
                                 Companies that trust us to keep their applications secure.
                             </p>
                         </div>
 
-                        <div className="grid md:grid-cols-3 gap-8">
+                        <div className="grid md:grid-cols-3 gap-8" data-reveal-stagger>
                             {[
                                 {
                                     name: "Monica Reeves",
@@ -349,14 +349,14 @@ export default function WebSecurityPage() {
                 {/* Pricing Section */}
                 <section className="py-24 relative">
                     <div className="container px-6 mx-auto">
-                        <div className="text-center max-w-3xl mx-auto mb-16">
+                        <div className="text-center max-w-3xl mx-auto mb-16" data-reveal="fade-up">
                             <h2 className="fluid-h2 font-bold mb-6 text-white">Security Packages</h2>
                             <p className="fluid-lead text-zinc-400">
                                 Secure your application today. One-time hardening or ongoing protection.
                             </p>
                         </div>
 
-                        <div className="grid md:grid-cols-3 gap-8">
+                        <div className="grid md:grid-cols-3 gap-8" data-reveal-stagger>
                             {pricing.map((plan, index) => (
                                 <SurfaceCard
                                     key={index}

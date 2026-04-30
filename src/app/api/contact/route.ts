@@ -4,19 +4,34 @@ import { contactSchema } from '@/lib/validators/contactSchema';
 import { sendNotification, sendConfirmation } from '@/lib/email/resend';
 import { logSecurityEvent } from '@/utils/logging';
 
-export const dynamic = 'force-dynamic'; // Ensure no caching
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+const MAX_BODY_BYTES = 32 * 1024;
+
+type TurnstileVerifyResponse = {
+    success: boolean;
+    'error-codes'?: string[];
+    challenge_ts?: string;
+    hostname?: string;
+};
 
 export async function POST(req: NextRequest) {
+    const contentLength = Number(req.headers.get('content-length') || 0);
+    if (contentLength > MAX_BODY_BYTES) {
+        return NextResponse.json(
+            { error: 'Request body is too large.' },
+            { status: 413 }
+        );
+    }
+
     const forwardedFor = req.headers.get('x-forwarded-for');
     const ip =
-        req.headers.get('x-nf-client-connection-ip') ||
-        req.headers.get('cf-connecting-ip') ||
         req.headers.get('x-real-ip') ||
         (forwardedFor ? forwardedFor.split(',')[0].trim() : null) ||
         'unknown';
 
     // 1. Rate Limit
-    const { allowed, remaining } = await checkRateLimit(ip);
+    const { allowed } = await checkRateLimit(ip);
     if (!allowed) {
         logSecurityEvent('rate_limit_blocked', { count: 'max' });
         return NextResponse.json(
@@ -26,39 +41,66 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-        const body = await req.json();
+        let body: unknown;
+        try {
+            body = await req.json();
+        } catch {
+            return NextResponse.json(
+                { error: 'Invalid JSON payload.' },
+                { status: 400 }
+            );
+        }
 
-        // 2. Zod Validation (includes Timestamp check)
         const validation = contactSchema.safeParse(body);
         if (!validation.success) {
             logSecurityEvent('validation_failed', { errors: validation.error.flatten() });
             return NextResponse.json(
-                { error: 'Invalid form data', details: validation.error.flatten() },
+                { error: 'Invalid form data' },
                 { status: 400 }
             );
         }
 
         const data = validation.data;
 
-        // 3. Honeypot Check (Silent Failure)
         if (data.hp_field) {
             logSecurityEvent('honeypot_triggered', {});
-            // Return success to confuse the bot
             return NextResponse.json({ success: true });
         }
 
-        // 4. Turnstile Verification (Server-Side)
-        const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-            method: 'POST',
-            body: new URLSearchParams({
-                secret: process.env.TURNSTILE_SECRET_KEY || '',
-                response: data.token,
-                remoteip: ip, // Optional but good for security
-            }),
+        const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+        if (!turnstileSecret) {
+            logSecurityEvent('turnstile_missing_secret', {});
+            return NextResponse.json(
+                { error: 'Captcha verification is not configured.' },
+                { status: 503 }
+            );
+        }
+
+        const turnstileBody = new URLSearchParams({
+            secret: turnstileSecret,
+            response: data.token,
         });
 
-        const turnstileData = await turnstileRes.json();
-        if (!turnstileData.success) {
+        if (ip !== 'unknown') {
+            turnstileBody.set('remoteip', ip);
+        }
+
+        const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+            method: 'POST',
+            body: turnstileBody,
+            cache: 'no-store',
+        });
+
+        if (!turnstileRes.ok) {
+            logSecurityEvent('turnstile_request_failed', { status: turnstileRes.status });
+            return NextResponse.json(
+                { error: 'Captcha verification failed. Please try again.' },
+                { status: 400 }
+            );
+        }
+
+        const turnstileData = (await turnstileRes.json()) as TurnstileVerifyResponse;
+        if (turnstileData.success !== true) {
             logSecurityEvent('turnstile_verification_failed', { codes: turnstileData['error-codes'] });
             return NextResponse.json(
                 { error: 'Captcha verification failed. Please try again.' },
@@ -66,7 +108,6 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        // 5. Send Emails
         const emailData = { ...data, name: data.fullName };
         await Promise.all([
             sendNotification(emailData),

@@ -6,6 +6,10 @@ export function GoogleTagManager({ gtmId, delay = 5000 }: { gtmId: string; delay
     const hasLoadedRef = useRef(false);
 
     useEffect(() => {
+        if (!gtmId) {
+            return;
+        }
+
         let timerId: number | null = null;
 
         const loadGtm = () => {
@@ -18,14 +22,14 @@ export function GoogleTagManager({ gtmId, delay = 5000 }: { gtmId: string; delay
             const script = document.createElement("script");
             script.src = `https://www.googletagmanager.com/gtm.js?id=${gtmId}`;
             script.async = true;
-            document.head.appendChild(script);
 
             window.dataLayer = window.dataLayer || [];
-            function gtag(...args: any[]) {
-                (window.dataLayer as any[]).push(args);
-            }
-            gtag("js", new Date());
-            gtag("config", gtmId);
+            window.dataLayer.push({
+                "gtm.start": Date.now(),
+                event: "gtm.js",
+            });
+
+            document.head.appendChild(script);
         };
 
         const scheduleLoad = () => {
@@ -81,6 +85,6 @@ export function GoogleTagManager({ gtmId, delay = 5000 }: { gtmId: string; delay
 
 declare global {
     interface Window {
-        dataLayer: any[];
+        dataLayer: Array<Record<string, unknown>>;
     }
 }

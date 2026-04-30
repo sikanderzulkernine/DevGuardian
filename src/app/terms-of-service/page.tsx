@@ -8,6 +8,9 @@ import { GlobalContact } from '@/components/global-contact';
 export const metadata: Metadata = {
     title: 'Terms of Service | DevGuardian',
     description: 'DevGuardian Terms of Service. Please read these terms carefully before using our services.',
+    alternates: {
+        canonical: '/terms-of-service',
+    },
 };
 
 const termsFaqs = [

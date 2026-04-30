@@ -16,11 +16,7 @@ const MAX_TOKENS = Math.max(Number.parseInt(process.env.RATE_LIMIT_MAX || '', 10
 const WINDOW_MS = Number.parseInt(process.env.RATE_LIMIT_WINDOW_MS || '', 10) || DEFAULT_WINDOW_MS;
 const REFILL_RATE_MS = WINDOW_MS / MAX_TOKENS; // Refill 1 token every (window / max tokens)
 const CLEANUP_INTERVAL_MS = WINDOW_MS;
-const IS_NETLIFY = process.env.NETLIFY === 'true';
-const DEFAULT_FILE_STORE_PATH = IS_NETLIFY
-    ? path.join(os.tmpdir(), 'contact-rate-limit.json')
-    : undefined;
-const FILE_STORE_PATH = process.env.RATE_FILE_PATH?.trim() || DEFAULT_FILE_STORE_PATH;
+const FILE_STORE_PATH = process.env.RATE_FILE_PATH?.trim();
 const UPSTASH_REDIS_REST_URL = process.env.UPSTASH_REDIS_REST_URL?.trim();
 const UPSTASH_REDIS_REST_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
 const RATE_LIMIT_REDIS_PREFIX = process.env.RATE_LIMIT_REDIS_PREFIX?.trim() || 'rate_limit';
@@ -64,15 +60,13 @@ const UPSTASH_TOKEN_BUCKET_SCRIPT = [
 // In-Memory Store (Single Instance in Serverless/Node)
 const store = new Map<string, RateLimitEntry>();
 
-// Periodic Cleanup (Self-healing memory)
-setInterval(() => {
-    const now = Date.now();
+function cleanupMemoryStore(now = Date.now()) {
     for (const [ip, entry] of store.entries()) {
         if (now - entry.lastRefill > CLEANUP_INTERVAL_MS) {
             store.delete(ip);
         }
     }
-}, CLEANUP_INTERVAL_MS); // Run every hour
+}
 
 function applyTokenBucket(entry: RateLimitEntry, now: number) {
     const timePassed = now - entry.lastRefill;
@@ -95,8 +89,7 @@ function resolveFilePath(filePath: string) {
     if (path.isAbsolute(filePath)) {
         return filePath;
     }
-    const baseDir = IS_NETLIFY ? os.tmpdir() : process.cwd();
-    return path.join(baseDir, filePath);
+    return path.join(os.tmpdir(), filePath);
 }
 
 async function upstashCommand<T>(command: string, ...args: Array<string | number>) {
@@ -150,6 +143,7 @@ async function checkUpstashRateLimit(key: string, now: number) {
 
 export async function checkRateLimit(ip: string): Promise<{ allowed: boolean; remaining: number }> {
     const now = Date.now();
+    cleanupMemoryStore(now);
 
     if (UPSTASH_REDIS_REST_URL && UPSTASH_REDIS_REST_TOKEN) {
         try {

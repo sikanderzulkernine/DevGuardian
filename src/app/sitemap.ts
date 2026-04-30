@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next';
 import { caseStudies } from '@/data/case-studies';
+import { absoluteUrl } from '@/lib/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://devguardian.site';
     const lastModified = new Date();
 
     // Define route groups with specific SEO settings
@@ -28,14 +28,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ] as const;
 
     const staticRoutes = routeConfig.map(({ path, priority, freq }) => ({
-        url: `${baseUrl}${path}`,
+        url: absoluteUrl(path || '/'),
         lastModified,
         changeFrequency: freq as 'weekly' | 'monthly' | 'yearly',
         priority,
     }));
 
     const caseStudyRoutes = caseStudies.map((study) => ({
-        url: `${baseUrl}/case-studies/${study.slug}`,
+        url: absoluteUrl(`/case-studies/${study.slug}`),
         lastModified,
         changeFrequency: 'monthly' as const,
         priority: 0.6,

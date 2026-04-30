@@ -1,21 +1,23 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Shield, Users, Target, Zap, Globe, Briefcase, Award, CheckCircle, TrendingUp, ChevronDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Shield, Users, Target, Zap, Globe, Briefcase, Award, CheckCircle, TrendingUp, ChevronDown } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
-import { ContactForm } from '@/components/contact-form';
 import { GlobalContact } from '@/components/global-contact';
 import { SurfaceCard } from '@/components/ui/surface-card';
 import { CalendlyButton } from '@/components/calendly-button';
 import { CountUp } from '@/components/ui/count-up';
+import { absoluteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'About DevGuardian | Secure Digital Innovation',
   description: 'DevGuardian bridges the gap between rapid innovation and ironclad security. Meet our team of cybersecurity experts and AI engineers.',
+  alternates: {
+    canonical: '/about',
+  },
   openGraph: {
     title: 'About DevGuardian | Secure Digital Innovation',
     description: 'Empowering businesses with secure, cutting-edge digital solutions.',
@@ -83,7 +85,7 @@ export default function AboutPage() {
     '@type': 'AboutPage',
     mainEntity: {
       '@type': 'Organization',
-      '@id': 'https://devguardian.site/#organization',
+      '@id': absoluteUrl('/#organization'),
       name: 'DevGuardian',
       foundingDate: '2023', // Approximate based on context
       founder: {
@@ -106,7 +108,7 @@ export default function AboutPage() {
       <main className="flex-grow relative z-10">
         {/* Hero Section */}
         <section className="relative py-24 md:py-32 overflow-hidden">
-          <div className="container relative z-10 px-6 mx-auto text-center">
+          <div className="container relative z-10 px-6 mx-auto text-center" data-reveal="fade-up">
             <Badge variant="outline" className="mb-6 px-4 py-1 text-sm font-medium rounded-full text-white border-white/20 bg-white/5 hover:bg-white/10 transition-colors">
               Who We Are
             </Badge>
@@ -128,9 +130,9 @@ export default function AboutPage() {
           {/* Modern Straight Light Effect */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent" />
           <div className="container px-6 mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12" data-reveal-stagger>
               {stats.map((stat, index) => (
-                <div key={index} className="flex flex-col items-center text-center space-y-2">
+                <div key={index} className="flex flex-col items-center space-y-2 text-center" data-reveal="scale-in">
                   <div className="p-3 bg-white/10 rounded-full mb-2 border border-white/20 text-white">
                     {stat.icon}
                   </div>
@@ -148,7 +150,7 @@ export default function AboutPage() {
         <section className="py-24 md:py-32">
           <div className="container px-6 mx-auto">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div className="space-y-8">
+              <div className="space-y-8" data-reveal="fade-up">
                 <div className="space-y-4">
                   <h2 className="fluid-h3 font-bold text-white">Our Mission</h2>
                   <p className="text-lg text-zinc-400 leading-relaxed">
@@ -178,7 +180,7 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <div className="relative">
+              <div className="relative" data-reveal="scale-in">
                 <div className="absolute -inset-4 bg-white/5 rounded-xl opacity-20 blur-xl" />
                 <SurfaceCard className="p-8 md:p-12 shadow-2xl bg-zinc-900 border-white/10">
                   <h3 className="fluid-h3 font-semibold mb-6 text-white">Why We Exist</h3>
@@ -220,16 +222,16 @@ export default function AboutPage() {
         {/* Values Section */}
         <section className="py-24 md:py-32 relative">
           <div className="container px-6 mx-auto relative z-10">
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="mx-auto mb-16 max-w-3xl text-center" data-reveal="fade-up">
               <h2 className="fluid-h2 font-bold mb-6 text-white">Our Core Values</h2>
               <p className="text-lg text-zinc-400">
                 The principles that guide our decisions, our code, and our relationships.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
               {values.map((value, index) => (
-                <SurfaceCard key={index} className="flex flex-col h-full bg-zinc-900 p-6">
+                <SurfaceCard key={index} className="flex h-full flex-col bg-zinc-900 p-6" data-reveal="fade-up">
                   <div className="mb-6 text-white">
                     {value.icon}
                   </div>
@@ -246,16 +248,16 @@ export default function AboutPage() {
         {/* Team Section */}
         <section className="pt-24 md:pt-32 pb-12 md:pb-16">
           <div className="container px-6 mx-auto">
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="mx-auto mb-16 max-w-3xl text-center" data-reveal="fade-up">
               <h2 className="fluid-h2 font-bold mb-6 text-white">Meet The Team</h2>
               <p className="text-lg text-zinc-400">
                 The security architects, engineers, and strategists behind your protection.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
               {team.map((member, index) => (
-                <SurfaceCard key={index} className="group flex flex-col h-full bg-zinc-900 p-5 relative overflow-hidden">
+                <SurfaceCard key={index} className="group relative flex h-full flex-col overflow-hidden bg-zinc-900 p-5" data-reveal="fade-up">
                   {/* Briefcase icon positioned absolutely in top-right, stays above content */}
                   <div className="absolute top-3 right-3 opacity-5 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none">
                     <Briefcase className="h-20 w-20 text-white rotate-12" />
@@ -278,13 +280,13 @@ export default function AboutPage() {
         {/* CTA Section */}
         <section className="py-12 bg-white text-black relative overflow-hidden light-section">
           <div className="container px-6 mx-auto relative z-10">
-            <SurfaceCard className="p-8 md:p-10 text-center bg-white border-none shadow-none">
+            <SurfaceCard className="border-none bg-white p-8 text-center shadow-none md:p-10" data-reveal="fade-up">
               <h2 className="fluid-h2 font-bold mb-6 text-black">Ready to Secure Your Future?</h2>
               <p className="fluid-lead text-zinc-600 max-w-2xl mx-auto mb-8 font-medium">
                 From high-converting websites to real-time security and AI agents, we help you grow faster and stay protected 24/7.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <CalendlyButton size="lg" className="bg-black text-white hover:bg-zinc-800 font-semibold text-lg h-12 px-8 shadow-xl hover:shadow-2xl transition-all">
+                <CalendlyButton size="lg" className="premium-button h-12 bg-black px-8 text-lg font-semibold text-white shadow-xl transition-all hover:bg-zinc-800 hover:shadow-2xl">
                   Book a call
                 </CalendlyButton>
               </div>
@@ -296,16 +298,16 @@ export default function AboutPage() {
         <section className="py-24 bg-black relative">
           <div className="container px-6 mx-auto relative z-10">
             <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-12">
+              <div className="mb-12 text-center" data-reveal="fade-up">
                 <h2 className="fluid-h2 font-bold mb-6 text-white">Frequently Asked Questions</h2>
                 <p className="text-lg text-zinc-400">
                   Learn more about DevGuardian's services, expertise, and how we can help your business
                 </p>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-4" data-reveal-stagger>
                 {/* FAQ 1 */}
-                <SurfaceCard className="bg-zinc-900 border-white/10">
+                <SurfaceCard className="bg-zinc-900 border-white/10" data-reveal="fade-up">
                   <details className="group">
                     <summary className="flex justify-between items-center cursor-pointer p-6 text-lg font-semibold text-white list-none">
                       What services does DevGuardian offer?
@@ -318,7 +320,7 @@ export default function AboutPage() {
                 </SurfaceCard>
 
                 {/* FAQ 2 */}
-                <SurfaceCard className="bg-zinc-900 border-white/10">
+                <SurfaceCard className="bg-zinc-900 border-white/10" data-reveal="fade-up">
                   <details className="group">
                     <summary className="flex justify-between items-center cursor-pointer p-6 text-lg font-semibold text-white list-none">
                       Who are the team members at DevGuardian?
@@ -331,7 +333,7 @@ export default function AboutPage() {
                 </SurfaceCard>
 
                 {/* FAQ 3 */}
-                <SurfaceCard className="bg-zinc-900 border-white/10">
+                <SurfaceCard className="bg-zinc-900 border-white/10" data-reveal="fade-up">
                   <details className="group">
                     <summary className="flex justify-between items-center cursor-pointer p-6 text-lg font-semibold text-white list-none">
                       What makes DevGuardian different from other cybersecurity companies?
@@ -344,7 +346,7 @@ export default function AboutPage() {
                 </SurfaceCard>
 
                 {/* FAQ 4 */}
-                <SurfaceCard className="bg-zinc-900 border-white/10">
+                <SurfaceCard className="bg-zinc-900 border-white/10" data-reveal="fade-up">
                   <details className="group">
                     <summary className="flex justify-between items-center cursor-pointer p-6 text-lg font-semibold text-white list-none">
                       How does DevGuardian ensure web applications are secure?
@@ -357,7 +359,7 @@ export default function AboutPage() {
                 </SurfaceCard>
 
                 {/* FAQ 5 */}
-                <SurfaceCard className="bg-zinc-900 border-white/10">
+                <SurfaceCard className="bg-zinc-900 border-white/10" data-reveal="fade-up">
                   <details className="group">
                     <summary className="flex justify-between items-center cursor-pointer p-6 text-lg font-semibold text-white list-none">
                       What types of businesses does DevGuardian work with?
@@ -370,7 +372,7 @@ export default function AboutPage() {
                 </SurfaceCard>
 
                 {/* FAQ 6 */}
-                <SurfaceCard className="bg-zinc-900 border-white/10">
+                <SurfaceCard className="bg-zinc-900 border-white/10" data-reveal="fade-up">
                   <details className="group">
                     <summary className="flex justify-between items-center cursor-pointer p-6 text-lg font-semibold text-white list-none">
                       How long does it take to complete a security audit or penetration test?
@@ -383,7 +385,7 @@ export default function AboutPage() {
                 </SurfaceCard>
 
                 {/* FAQ 7 */}
-                <SurfaceCard className="bg-zinc-900 border-white/10">
+                <SurfaceCard className="bg-zinc-900 border-white/10" data-reveal="fade-up">
                   <details className="group">
                     <summary className="flex justify-between items-center cursor-pointer p-6 text-lg font-semibold text-white list-none">
                       How can I get started with DevGuardian?

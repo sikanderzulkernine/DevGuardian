@@ -2,20 +2,18 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 
-const IS_NETLIFY = process.env.NETLIFY === 'true';
 const DEFAULT_LOG_PATH = path.join(os.tmpdir(), 'contact-security.log');
 
 function resolveFilePath(filePath: string) {
     if (path.isAbsolute(filePath)) {
         return filePath;
     }
-    const baseDir = IS_NETLIFY ? os.tmpdir() : process.cwd();
-    return path.join(baseDir, filePath);
+    return path.join(os.tmpdir(), filePath);
 }
 
 const LOG_PATH = resolveFilePath(process.env.LOG_PATH || DEFAULT_LOG_PATH);
 
-export function logSecurityEvent(event: string, meta: Record<string, any> = {}) {
+export function logSecurityEvent(event: string, meta: Record<string, unknown> = {}) {
     try {
         const timestamp = new Date().toISOString();
         // Ensure absolutely NO PII is passed in meta. 

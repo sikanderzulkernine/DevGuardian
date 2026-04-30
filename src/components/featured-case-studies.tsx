@@ -1,12 +1,9 @@
-'use client';
-
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import React from 'react';
+import { ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { CardLighting } from '@/components/lighting-effects';
+import { CardLighting } from '@/components/card-lighting';
 import Link from 'next/link';
 import Image from 'next/image';
 import { caseStudies as allCaseStudies } from '@/data/case-studies';
@@ -35,52 +32,32 @@ export function FeaturedCaseStudies({ filterTag }: { filterTag?: string }) {
     // Limit to 3 items
     const displayStudies = relevantStudies.slice(0, 3);
 
-    const CaseStudyImage = ({ src, alt }: { src: string; alt: string }) => {
-        const fallbackSrc = `https://placehold.co/600x400/1a1a1a/666666?text=${encodeURIComponent(alt)}`;
-        const [imgSrc, setImgSrc] = useState(src);
-
-        return (
-            <Image
-                src={imgSrc}
-                alt={alt}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-60 group-hover:opacity-100"
-                onError={() => {
-                    if (imgSrc !== fallbackSrc) {
-                        setImgSrc(fallbackSrc);
-                    }
-                }}
-            />
-        );
-    };
-
     return (
         <section className="py-24 bg-zinc-900/30 relative">
             <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50 absolute top-0 left-0" />
             <div className="container mx-auto px-6">
-                <div className="text-center mb-16">
+                <div className="mb-16 text-center" data-reveal="fade-up">
                     <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Recent Work</h2>
                     <p className="text-lg text-zinc-400">
                         Proven results from our latest engagements.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-3" data-reveal-stagger>
                     {displayStudies.map((study, index) => (
                         <CardLighting key={index}>
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: index * 0.1 }}
-                                viewport={{ once: true }}
-                                className="h-full"
-                            >
+                            <div className="h-full" data-reveal="fade-up">
                                 <Card className="border-white/10 bg-zinc-900/50 overflow-hidden h-full flex flex-col group hover:border-white/20 transition-colors">
                                     <Link href={`/case-studies/${study.slug}`} className="block flex-grow">
                                         <div className="relative h-48 overflow-hidden">
                                             <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 to-transparent z-10" />
-                                            <CaseStudyImage src={study.image} alt={study.title} />
+                                            <Image
+                                                src={study.image}
+                                                alt={study.title}
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-60 group-hover:opacity-100"
+                                            />
                                         </div>
                                         <CardHeader>
                                             <div className="flex flex-wrap gap-2 mb-3 mt-4">
@@ -103,15 +80,15 @@ export function FeaturedCaseStudies({ filterTag }: { filterTag?: string }) {
                                         </Link>
                                     </CardContent>
                                 </Card>
-                            </motion.div>
+                            </div>
                         </CardLighting>
                     ))}
                 </div>
 
-                <div className="mt-12 flex justify-center">
+                <div className="mt-12 flex justify-center" data-reveal="fade-up">
                     <Link href="/case-studies">
                         <Button
-                            className="bg-white text-black hover:bg-zinc-200 px-8 py-6 rounded-full text-base group font-medium transition-all"
+                            className="premium-button rounded-full bg-white px-8 py-6 text-base font-medium text-black transition-all hover:bg-zinc-200 group"
                         >
                             More Case Studies
                             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />

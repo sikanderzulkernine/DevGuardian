@@ -8,6 +8,9 @@ import { GlobalContact } from '@/components/global-contact';
 export const metadata: Metadata = {
     title: 'Responsible Disclosure | DevGuardian',
     description: 'DevGuardian Responsible Disclosure Policy. Guidelines for security researchers to report vulnerabilities.',
+    alternates: {
+        canonical: '/responsible-disclosure',
+    },
 };
 
 const disclosureFaqs = [

@@ -5,14 +5,17 @@ import { Footer } from '@/components/footer';
 import { ContactForm } from '@/components/contact-form';
 import { FAQ } from '@/components/faq';
 import { SurfaceCard } from '@/components/ui/surface-card';
-import { Button } from '@/components/ui/button';
 import { CalendlyButton } from '@/components/calendly-button';
+import { absoluteUrl } from '@/lib/site';
 
-import { Mail, MapPin, Phone, Clock, Calendar } from 'lucide-react';
+import { Mail, MapPin, Phone, Clock } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Contact DevGuardian | Security & AI Experts',
   description: 'Get in touch for a free security consultation or AI automation strategy. Available 24/7 for critical infrastructure support.',
+  alternates: {
+    canonical: '/contact',
+  },
 };
 import { JsonLd } from '@/components/seo/json-ld';
 
@@ -23,7 +26,7 @@ export default function ContactPage() {
     description: 'Contact DevGuardian for cybersecurity audits and AI development.',
     mainEntity: {
       '@type': 'Organization',
-      '@id': 'https://devguardian.site/#organization',
+      '@id': absoluteUrl('/#organization'),
     },
   };
 

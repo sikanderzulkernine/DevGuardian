@@ -1,16 +1,19 @@
-"use client";
-
 import React from "react";
+
+type SurfaceCardProps = React.HTMLAttributes<HTMLDivElement> & {
+    children: React.ReactNode;
+    className?: string;
+    "data-reveal"?: string;
+};
 
 export const SurfaceCard = ({
     children,
     className = "",
-}: {
-    children: React.ReactNode;
-    className?: string;
-}) => {
+    "data-reveal": reveal = "fade-up",
+    ...props
+}: SurfaceCardProps) => {
     return (
-        <div className={`relative overflow-hidden rounded-xl border ${className}`}>
+        <div data-reveal={reveal} className={`premium-card relative overflow-hidden rounded-xl border ${className}`} {...props}>
             <div className="relative h-full">{children}</div>
         </div>
     );

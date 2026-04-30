@@ -3,14 +3,21 @@
 import React, { useState } from 'react';
 import { Button, ButtonProps } from './ui/button';
 import { Loader2 } from 'lucide-react';
+import { calendlyUrl } from '@/lib/site';
+
+declare global {
+    interface Window {
+        Calendly?: {
+            initPopupWidget: (options: { url: string }) => void;
+        };
+    }
+}
 
 export function CalendlyButton({ children, ...props }: ButtonProps) {
     const [isLoading, setIsLoading] = useState(false);
 
     const loadCalendly = (): Promise<void> => {
         return new Promise((resolve, reject) => {
-            // If already loaded, resolve immediately
-            // @ts-ignore
             if (window.Calendly) {
                 resolve();
                 return;
@@ -20,7 +27,6 @@ export function CalendlyButton({ children, ...props }: ButtonProps) {
             if (document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]')) {
                 // Poll for readiness
                 const interval = setInterval(() => {
-                    // @ts-ignore
                     if (window.Calendly) {
                         clearInterval(interval);
                         resolve();
@@ -53,8 +59,7 @@ export function CalendlyButton({ children, ...props }: ButtonProps) {
 
         try {
             await loadCalendly();
-            // @ts-ignore
-            window.Calendly.initPopupWidget({ url: 'https://calendly.com/dev-guardian/30min?hide_gdpr_banner=1' });
+            window.Calendly?.initPopupWidget({ url: calendlyUrl });
         } catch (error) {
             console.error("Failed to load Calendly:", error);
         } finally {

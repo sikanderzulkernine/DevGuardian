@@ -219,14 +219,14 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed isolate top-4 left-1/2 transform -translate-x-1/2 z-50 rounded-2xl border border-border/20 transition-all duration-300 ${isScrolled ? 'w-[90%] max-w-6xl' : 'w-[95%] max-w-7xl'
-          } ${isScrolled ? '' : 'hover:scale-[1.02]'} transition-transform`}
+        className={`fixed isolate left-3 right-3 z-50 rounded-2xl border border-border/20 transition-[top,width,max-width,box-shadow,border-color,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:left-1/2 sm:right-auto sm:-translate-x-1/2 ${isScrolled ? 'top-3 shadow-2xl shadow-black/25 sm:w-[88%] sm:max-w-6xl' : 'top-4 sm:w-[95%] sm:max-w-7xl'
+          }`}
       >
-        <div className={`header-glass hover:border-primary/30 transition-colors rounded-2xl px-6 py-4 ${isOverLight ? 'header-glass-strong' : ''}`}>
-          <nav className="flex items-center justify-between">
+        <div className={`header-glass rounded-2xl px-4 sm:px-6 transition-[padding,background-color,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-primary/30 ${isScrolled ? 'py-3' : 'py-4'} ${isOverLight || isScrolled ? 'header-glass-strong' : ''}`}>
+          <nav className="flex items-center justify-between gap-4">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-2 group">
-              <div className="relative w-8 h-8 transition-transform duration-200 ease-out group-hover:scale-[1.05] group-hover:rotate-[5deg]">
+            <Link href="/" className="group flex min-w-0 items-center space-x-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+              <div className={`relative shrink-0 transition-[height,width,transform] duration-300 ease-out group-hover:scale-[1.04] ${isScrolled ? 'h-7 w-7' : 'h-8 w-8'}`}>
                 <Image
                   src="/logo.webp"
                   alt="DevGuardian Logo"
@@ -234,7 +234,7 @@ export function Header() {
                   className="object-contain"
                 />
               </div>
-              <span className="text-xl font-bold transition-colors text-foreground group-hover:text-primary">
+              <span className={`truncate font-bold text-foreground transition-[font-size,color] duration-300 group-hover:text-primary ${isScrolled ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}>
                 DevGuardian
               </span>
             </Link>
@@ -248,7 +248,7 @@ export function Header() {
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuLink asChild>
-                      <Link href="/" className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                      <Link href="/" className="group inline-flex h-10 w-max cursor-pointer items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-[color,background-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 motion-reduce:hover:translate-y-0">
                         Home
                       </Link>
                     </NavigationMenuLink>
@@ -256,7 +256,7 @@ export function Header() {
 
                   <NavigationMenuItem value={servicesMenuValue}>
                     <NavigationMenuTrigger
-                      className="bg-transparent hover:bg-accent"
+                      className="bg-transparent transition-[color,background-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:bg-accent motion-reduce:hover:translate-y-0"
                       onPointerEnter={openServicesMenu}
                       onPointerLeave={handleMenuPointerLeave}
                       onClick={openServicesMenu}
@@ -276,7 +276,7 @@ export function Header() {
                             <NavigationMenuLink key={service.href} asChild>
                               <Link
                                 href={service.href}
-                                className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-[color,background-color,transform] duration-200 ease-out hover:translate-x-1 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground motion-reduce:hover:translate-x-0"
                               >
                                 <div className="flex items-center space-x-2 text-sm font-medium leading-none text-white">
                                   {service.icon}
@@ -295,7 +295,7 @@ export function Header() {
 
                   <NavigationMenuItem>
                     <NavigationMenuLink asChild>
-                      <Link href="/about" className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                      <Link href="/about" className="group inline-flex h-10 w-max cursor-pointer items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-[color,background-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none data-[active]:bg-accent/50 data-[state=open]:bg-accent/50 motion-reduce:hover:translate-y-0">
                         About
                       </Link>
                     </NavigationMenuLink>
@@ -303,15 +303,15 @@ export function Header() {
                 </NavigationMenuList>
               </NavigationMenu>
 
-              <Button asChild className="glow-primary hover-lighting">
+              <Button asChild className="premium-button glow-primary hover-lighting">
                 <Link href="/contact">Contact</Link>
               </Button>
             </div>
 
             {/* Mobile Menu */}
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-              <SheetTrigger asChild className="md:hidden">
-                <Button variant="ghost" size="icon" aria-label="Open menu">
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" aria-label="Open menu" className="absolute right-4 top-1/2 shrink-0 -translate-y-1/2 text-white hover:text-white md:hidden">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
@@ -319,7 +319,7 @@ export function Header() {
                 <div className="flex flex-col space-y-6 mt-12 px-2">
                   <Link
                     href="/"
-                    className="text-lg font-medium hover:text-primary transition-colors py-2"
+                    className="py-2 text-lg font-medium transition-[color,transform] duration-200 ease-out hover:translate-x-1 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:hover:translate-x-0"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Home
@@ -332,7 +332,7 @@ export function Header() {
                         <Link
                           key={service.href}
                           href={service.href}
-                          className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1"
+                          className="block py-1 text-sm text-muted-foreground transition-[color,transform] duration-200 ease-out hover:translate-x-1 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:hover:translate-x-0"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           {service.title}
@@ -343,14 +343,14 @@ export function Header() {
 
                   <Link
                     href="/about"
-                    className="text-lg font-medium hover:text-primary transition-colors py-2"
+                    className="py-2 text-lg font-medium transition-[color,transform] duration-200 ease-out hover:translate-x-1 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:hover:translate-x-0"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     About
                   </Link>
 
                   <div className="pt-4">
-                    <Button asChild className="glow-primary w-full h-12 text-base">
+                    <Button asChild className="premium-button glow-primary h-12 w-full text-base">
                       <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
                         Contact
                       </Link>

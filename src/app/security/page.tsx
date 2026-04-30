@@ -10,6 +10,9 @@ import { SurfaceCard } from '@/components/ui/surface-card';
 export const metadata: Metadata = {
     title: 'Security | DevGuardian',
     description: 'Our commitment to security. Learn about DevGuardian\'s infrastructure, data protection, and compliance standards.',
+    alternates: {
+        canonical: '/security',
+    },
 };
 
 const securityFaqs = [

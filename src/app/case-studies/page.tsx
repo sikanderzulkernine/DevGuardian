@@ -5,10 +5,14 @@ import { caseStudies } from '@/data/case-studies';
 import { Metadata } from 'next';
 import { JsonLd } from '@/components/seo/json-ld';
 import { CaseStudiesList } from '@/components/case-studies-list';
+import { absoluteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
     title: 'Case Studies | DevGuardian - Success Stories & ROI',
     description: 'Explore how DevGuardian delivers value. Real-world case studies in AI Agents, Cybersecurity audits, and Secure Web Development.',
+    alternates: {
+        canonical: '/case-studies',
+    },
 };
 
 export default function CaseStudiesPage() {
@@ -23,7 +27,7 @@ export default function CaseStudiesPage() {
             itemListElement: caseStudies.map((study, index) => ({
                 '@type': 'ListItem',
                 position: index + 1,
-                url: `https://devguardian.site/case-studies/${study.slug}`,
+                url: absoluteUrl(`/case-studies/${study.slug}`),
                 name: study.title,
                 description: study.subtitle || study.situation,
             })),

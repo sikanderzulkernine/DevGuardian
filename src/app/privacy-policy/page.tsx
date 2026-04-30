@@ -8,6 +8,9 @@ import { GlobalContact } from '@/components/global-contact';
 export const metadata: Metadata = {
     title: 'Privacy Policy | DevGuardian',
     description: 'DevGuardian Privacy Policy. Learn how we collect, use, and protect your information.',
+    alternates: {
+        canonical: '/privacy-policy',
+    },
 };
 
 const privacyFaqs = [

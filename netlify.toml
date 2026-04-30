@@ -1,9 +1,0 @@
-[build]
-  command = "npm run build"
-  publish = ".next"
-
-[build.environment]
-  SECRETS_SCAN_OMIT_KEYS = "CONTACT_TO,EMAIL_FROM,LOG_PATH,NEXT_PUBLIC_TURNSTILE_SITE_KEY,RATE_FILE_PATH,RATE_LIMIT_MAX,RATE_LIMIT_REDIS_PREFIX,RATE_LIMIT_WINDOW_MS"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"

@@ -3,9 +3,12 @@ node_modules/
 out/
 
 *.log
+*.tsbuildinfo
+viewport-shots/
 lighthouse_report.html
 
 .env*
+!.env.example
 
 .secure/
 .DS_Store

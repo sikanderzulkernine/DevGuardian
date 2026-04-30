@@ -1,4 +1,3 @@
-"use client";
 import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, Phone, Linkedin, Calendar } from 'lucide-react';
@@ -16,9 +15,9 @@ export function Footer({ className }: FooterProps = {}) {
       <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50" />
       <div className="container mx-auto px-6 py-12">
         {/* Main content columns */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-4" data-reveal-stagger>
           {/* Branding & Socials Column (Left Side) */}
-          <div className="flex flex-col space-y-6">
+          <div className="flex flex-col space-y-6" data-reveal="fade-up">
             <div className="flex items-center space-x-3">
               <div className="relative w-8 h-8">
                 <Image
@@ -39,14 +38,14 @@ export function Footer({ className }: FooterProps = {}) {
             <div className="flex space-x-4">
               <Link
                 href="https://linkedin.com/company/devguardian"
-                className="p-2 rounded-lg glass hover:bg-accent transition-colors"
+                className="premium-button rounded-lg glass p-2 transition-colors hover:bg-accent"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="h-4 w-4" />
               </Link>
               <Link
                 href="https://twitter.com/devguardian"
-                className="p-2 rounded-lg glass hover:bg-accent transition-colors group"
+                className="premium-button group rounded-lg glass p-2 transition-colors hover:bg-accent"
                 aria-label="X (formerly Twitter)"
               >
                 <svg
@@ -59,7 +58,7 @@ export function Footer({ className }: FooterProps = {}) {
               </Link>
               <Link
                 href="https://wa.me/8801644425655"
-                className="p-2 rounded-lg glass hover:bg-accent transition-colors group"
+                className="premium-button group rounded-lg glass p-2 transition-colors hover:bg-accent"
                 aria-label="WhatsApp"
               >
                 <svg
@@ -74,7 +73,7 @@ export function Footer({ className }: FooterProps = {}) {
           </div>
 
           {/* Services Column */}
-          <div>
+          <div data-reveal="fade-up">
             <h4 className="font-semibold text-foreground mb-4">Services</h4>
             <ul className="space-y-2">
               <li>
@@ -101,7 +100,7 @@ export function Footer({ className }: FooterProps = {}) {
           </div>
 
           {/* Legal & Security Column */}
-          <div>
+          <div data-reveal="fade-up">
             <h4 className="font-semibold text-foreground mb-4">Legal & Security</h4>
             <ul className="space-y-2">
               <li>
@@ -133,7 +132,7 @@ export function Footer({ className }: FooterProps = {}) {
           </div>
 
           {/* Contact Column */}
-          <div>
+          <div data-reveal="fade-up">
             <h4 className="font-semibold text-foreground mb-4">Contact</h4>
             <div className="space-y-3">
               <a
@@ -168,7 +167,7 @@ export function Footer({ className }: FooterProps = {}) {
         </div>
 
         {/* Bottom row */}
-        <div className="border-t border-border/20 pt-8">
+        <div className="border-t border-border/20 pt-8" data-reveal="fade-in">
           <div className="flex justify-center items-center">
             <p className="text-muted-foreground text-sm">
               (c) {currentYear} DevGuardian. All rights reserved.

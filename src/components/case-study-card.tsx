@@ -1,29 +1,20 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CardLighting } from '@/components/lighting-effects';
+import { CardLighting } from '@/components/card-lighting';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CaseStudy } from '@/data/case-studies';
 
 interface CaseStudyCardProps {
     study: CaseStudy;
-    index: number;
-    delay?: number;
 }
 
-export function CaseStudyCard({ study, index, delay = 0.1 }: CaseStudyCardProps) {
+export function CaseStudyCard({ study }: CaseStudyCardProps) {
     return (
         <CardLighting>
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * delay }}
-                viewport={{ once: true }}
-                className="h-full"
-            >
+            <div className="h-full" data-reveal="fade-up">
                 <Link href={`/case-studies/${study.slug}`} className="block h-full group">
                     <Card className="card-solid overflow-hidden h-full flex flex-col hover:border-primary/50 transition-colors duration-300">
                         <div className="relative h-48 overflow-hidden bg-zinc-900 border-b border-border/10">
@@ -54,7 +45,7 @@ export function CaseStudyCard({ study, index, delay = 0.1 }: CaseStudyCardProps)
                         </CardContent>
                     </Card>
                 </Link>
-            </motion.div>
+            </div>
         </CardLighting>
     );
 }

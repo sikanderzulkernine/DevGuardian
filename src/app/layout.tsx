@@ -1,29 +1,32 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
-import { ThemeProvider } from "next-themes";
 import { BackToTop } from "@/components/back-to-top";
 import { GlobalJsonLd } from "@/components/seo/json-ld";
 import { GoogleTagManager } from "@/components/google-tag-manager";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ServiceWorkerCleanup } from "@/components/service-worker-cleanup";
+import { AnimationObserver } from "@/components/animation-observer";
+import { gtmId, siteName, siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://devguardian.site'),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "DevGuardian - Your Partner for Secure Online Growth",
     template: "%s | DevGuardian"
   },
   description: "AI agents, secure web apps, and cybersecurity guidance for modern organizations.",
-  keywords: ["AI Agents", "Cybersecurity", "Secure Web Development", "Penetration Testing", "AI Automation"],
   authors: [{ name: "DevGuardian Team" }],
   icons: {
     icon: "/logo.webp",
+    shortcut: "/logo.webp",
     apple: "/logo.webp",
   },
   openGraph: {
-    title: "DevGuardian- Your Partner for Secure Online Growth",
+    title: "DevGuardian - Your Partner for Secure Online Growth",
     description: "secure web apps, AI agents, and cybersecurity guidance for modern organizations.",
-    url: "https://devguardian.site",
-    siteName: "DevGuardian",
+    url: siteUrl,
+    siteName,
     locale: 'en_US',
     type: "website",
     images: [
@@ -37,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "DevGuardian- Your Partner for Secure Online Growth",
+    title: "DevGuardian - Your Partner for Secure Online Growth",
     description: "secure web apps, AI agents, and cybersecurity guidance for modern organizations.",
     images: ["/og-image.webp"],
   },
@@ -64,16 +67,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        {/* Delayed GTM */}
-      </head>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body
         className={`font-sans antialiased bg-background text-foreground`}
       >
-        <GoogleTagManager gtmId="GTM-T5MJ5MRQ" />
-        <GlobalJsonLd />
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          forcedTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <GoogleTagManager gtmId={gtmId} />
+          <ServiceWorkerCleanup />
+          <AnimationObserver />
+          <GlobalJsonLd />
           {children}
           <BackToTop />
           <Toaster />
