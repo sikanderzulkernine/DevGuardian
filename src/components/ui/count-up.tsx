@@ -8,7 +8,7 @@ interface CountUpProps {
   className?: string;
 }
 
-export function CountUp({ value, duration = 900, className }: CountUpProps) {
+export function CountUp({ value, duration = 3600, className }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
 
   const stringValue = value.toString();

@@ -16,9 +16,9 @@ export function CaseStudyCard({ study }: CaseStudyCardProps) {
         <CardLighting>
             <div className="h-full" data-reveal="fade-up">
                 <Link href={`/case-studies/${study.slug}`} className="block h-full group">
-                    <Card className="card-solid overflow-hidden h-full flex flex-col hover:border-primary/50 transition-colors duration-300">
-                        <div className="relative h-48 overflow-hidden bg-zinc-900 border-b border-border/10">
-                            <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent z-10" />
+                    <Card className="case-study-surface overflow-hidden h-full flex flex-col transition-colors duration-300">
+                        <div className="relative h-48 overflow-hidden bg-zinc-900 border-b border-white/15">
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/28 to-transparent z-10" />
                             <Image
                                 src={study.image}
                                 alt={study.title}

@@ -289,6 +289,28 @@
     box-shadow: 0 12px 30px color-mix(in srgb, var(--existential-angst) 45%, transparent);
 }
 
+.case-study-surface {
+    background:
+        linear-gradient(180deg,
+            color-mix(in srgb, var(--inkwell-inception) 86%, transparent) 0%,
+            color-mix(in srgb, var(--existential-angst) 88%, transparent) 100%);
+    border-color: color-mix(in srgb, var(--pixel-white) 22%, transparent);
+    box-shadow:
+        0 0 0 1px color-mix(in srgb, var(--pixel-white) 7%, transparent) inset,
+        0 18px 48px color-mix(in srgb, var(--existential-angst) 58%, transparent),
+        0 0 38px color-mix(in srgb, var(--pixel-white) 5%, transparent);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+.case-study-surface:hover {
+    border-color: color-mix(in srgb, var(--pixel-white) 42%, transparent);
+    box-shadow:
+        0 0 0 1px color-mix(in srgb, var(--pixel-white) 13%, transparent) inset,
+        0 22px 56px color-mix(in srgb, var(--existential-angst) 64%, transparent),
+        0 0 52px color-mix(in srgb, var(--pixel-white) 9%, transparent);
+}
+
 /* Header glass for readable nav across light and dark sections */
 .header-glass {
     background: color-mix(in srgb, var(--existential-angst) 58%, transparent);
@@ -388,6 +410,130 @@
     animation: pulse-glow 2s ease-in-out infinite;
 }
 
+/* Premium hero lighting: CSS-only, broad moving light fields. */
+.hero-ambient-lighting {
+    position: absolute;
+    inset: -28% -12% -18%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0.92;
+    contain: paint;
+}
+
+.hero-ambient-lighting::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 50% 0%,
+            rgb(var(--hero-light-primary) / 0.22) 0%,
+            rgb(var(--hero-light-secondary) / 0.12) 28%,
+            transparent 62%),
+        linear-gradient(115deg,
+            transparent 8%,
+            rgb(var(--hero-light-accent) / 0.08) 32%,
+            transparent 58%);
+    filter: blur(34px);
+    transform: translate3d(-2%, -1%, 0) scale(1.04);
+    animation: hero-light-drift 13s var(--ease-premium) infinite alternate;
+}
+
+.hero-ambient-lighting::after {
+    content: "";
+    position: absolute;
+    top: 20%;
+    left: -18%;
+    width: 136%;
+    height: 32%;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgb(var(--hero-light-primary) / 0.04) 24%,
+            rgb(var(--hero-light-accent) / 0.18) 48%,
+            rgb(var(--hero-light-secondary) / 0.06) 70%,
+            transparent 100%);
+    filter: blur(24px);
+    transform: rotate(-7deg) translate3d(-6%, 0, 0);
+    animation: hero-light-sweep 11s ease-in-out infinite alternate;
+}
+
+.hero-ambient-lighting__plane,
+.hero-ambient-lighting__beam,
+.hero-ambient-lighting__edge {
+    position: absolute;
+    inset: 0;
+}
+
+.hero-ambient-lighting__plane {
+    background:
+        linear-gradient(180deg,
+            rgb(var(--hero-light-primary) / 0.16) 0%,
+            rgb(10 10 10 / 0.06) 36%,
+            rgb(10 10 10 / 0.74) 92%),
+        radial-gradient(ellipse at 50% 82%, rgb(219 219 219 / 0.08), transparent 52%);
+    mix-blend-mode: screen;
+}
+
+.hero-ambient-lighting__beam {
+    top: 12%;
+    left: 50%;
+    width: min(68rem, 105vw);
+    height: 1px;
+    margin-left: calc(min(68rem, 105vw) / -2);
+    background: linear-gradient(90deg,
+            transparent,
+            rgb(var(--hero-light-accent) / 0.8),
+            transparent);
+    box-shadow:
+        0 0 40px rgb(var(--hero-light-primary) / 0.22),
+        0 0 110px rgb(var(--hero-light-secondary) / 0.14);
+    transform-origin: center;
+    animation: hero-light-line 8s ease-in-out infinite alternate;
+}
+
+.hero-ambient-lighting__edge {
+    background:
+        radial-gradient(ellipse at 0% 22%, rgb(var(--hero-light-secondary) / 0.18), transparent 42%),
+        radial-gradient(ellipse at 100% 18%, rgb(var(--hero-light-primary) / 0.16), transparent 42%),
+        radial-gradient(ellipse at 50% 100%, rgb(10 10 10 / 0.88), transparent 58%);
+}
+
+@keyframes hero-light-drift {
+    from {
+        transform: translate3d(-3%, -2%, 0) scale(1.02);
+        opacity: 0.72;
+    }
+
+    to {
+        transform: translate3d(3%, 1%, 0) scale(1.08);
+        opacity: 0.96;
+    }
+}
+
+@keyframes hero-light-sweep {
+    from {
+        transform: rotate(-8deg) translate3d(-8%, -3%, 0);
+        opacity: 0.42;
+    }
+
+    to {
+        transform: rotate(-5deg) translate3d(8%, 4%, 0);
+        opacity: 0.72;
+    }
+}
+
+@keyframes hero-light-line {
+    from {
+        transform: translateY(0) scaleX(0.74);
+        opacity: 0.28;
+    }
+
+    to {
+        transform: translateY(22px) scaleX(1);
+        opacity: 0.62;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -400,6 +546,10 @@
 
     [data-reveal],
     .reveal-up,
+    .hero-ambient-lighting,
+    .hero-ambient-lighting::before,
+    .hero-ambient-lighting::after,
+    .hero-ambient-lighting__beam,
     .animate-marquee,
     .animate-marquee-vertical,
     .animate-float,

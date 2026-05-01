@@ -42,7 +42,11 @@ const services = [
   },
 ];
 
-export function Header() {
+interface HeaderProps {
+  reserveSpace?: boolean;
+}
+
+export function Header({ reserveSpace = true }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOverLight, setIsOverLight] = useState(false);
@@ -363,8 +367,7 @@ export function Header() {
         </div>
       </header>
 
-      {/* Spacer for fixed header */}
-      <div className="h-24" />
+      {reserveSpace ? <div className="h-24" /> : null}
     </>
   );
 }

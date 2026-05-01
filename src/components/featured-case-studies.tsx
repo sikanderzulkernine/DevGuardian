@@ -47,10 +47,10 @@ export function FeaturedCaseStudies({ filterTag }: { filterTag?: string }) {
                     {displayStudies.map((study, index) => (
                         <CardLighting key={index}>
                             <div className="h-full" data-reveal="fade-up">
-                                <Card className="border-white/10 bg-zinc-900/50 overflow-hidden h-full flex flex-col group hover:border-white/20 transition-colors">
+                                <Card className="case-study-surface overflow-hidden h-full flex flex-col group transition-colors">
                                     <Link href={`/case-studies/${study.slug}`} className="block flex-grow">
-                                        <div className="relative h-48 overflow-hidden">
-                                            <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 to-transparent z-10" />
+                                        <div className="relative h-48 overflow-hidden border-b border-white/15">
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/28 to-transparent z-10" />
                                             <Image
                                                 src={study.image}
                                                 alt={study.title}

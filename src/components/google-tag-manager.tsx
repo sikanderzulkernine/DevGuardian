@@ -71,6 +71,10 @@ export function GoogleTagManager({ gtmId, delay = 5000 }: { gtmId: string; delay
         };
     }, [gtmId, delay]);
 
+    if (!gtmId) {
+        return null;
+    }
+
     return (
         <noscript>
             <iframe

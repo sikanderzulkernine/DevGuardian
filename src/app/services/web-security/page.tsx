@@ -15,6 +15,7 @@ import { CompanyMarquee } from '@/components/company-marquee';
 import Link from 'next/link';
 import { JsonLd } from '@/components/seo/json-ld';
 import Image from 'next/image';
+import { HeroAmbientLighting } from '@/components/hero-ambient-lighting';
 import { absoluteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -180,12 +181,13 @@ export default function WebSecurityPage() {
             {/* Background Ambience */}
             <div className="absolute top-0 right-1/2 translate-x-1/2 w-[600px] h-[600px] bg-yellow-500/5 rounded-full blur-[120px] pointer-events-none" />
 
-            <Header />
+            <Header reserveSpace={false} />
 
             <main className="flex-grow relative z-10">
                 {/* Hero Section */}
-                <section className="relative py-24 md:py-32">
-                    <div className="container px-6 mx-auto text-center" data-reveal="fade-up">
+                <section className="relative isolate overflow-hidden py-24 md:py-32">
+                    <HeroAmbientLighting tone="security" />
+                    <div className="container relative z-10 px-6 mx-auto text-center" data-reveal="fade-up">
                         <Badge variant="outline" className="mb-6 px-4 py-1 text-sm font-medium rounded-full text-yellow-400 border-yellow-400/20 bg-yellow-400/5">
                             Application Hardening
                         </Badge>

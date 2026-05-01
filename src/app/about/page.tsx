@@ -10,6 +10,7 @@ import { GlobalContact } from '@/components/global-contact';
 import { SurfaceCard } from '@/components/ui/surface-card';
 import { CalendlyButton } from '@/components/calendly-button';
 import { CountUp } from '@/components/ui/count-up';
+import { HeroAmbientLighting } from '@/components/hero-ambient-lighting';
 import { absoluteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -103,11 +104,12 @@ export default function AboutPage() {
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-white/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-white/5 rounded-full blur-[100px] pointer-events-none" />
 
-      <Header />
+      <Header reserveSpace={false} />
 
       <main className="flex-grow relative z-10">
         {/* Hero Section */}
-        <section className="relative py-24 md:py-32 overflow-hidden">
+        <section className="relative isolate overflow-hidden py-24 md:py-32">
+          <HeroAmbientLighting tone="neutral" />
           <div className="container relative z-10 px-6 mx-auto text-center" data-reveal="fade-up">
             <Badge variant="outline" className="mb-6 px-4 py-1 text-sm font-medium rounded-full text-white border-white/20 bg-white/5 hover:bg-white/10 transition-colors">
               Who We Are

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AlertCircle } from 'lucide-react';
 
 declare global {
@@ -32,8 +32,8 @@ export function TurnstileWidget({ onVerify, onError, theme = 'auto' }: Turnstile
     const widgetIdRef = useRef<string | null>(null);
     const onVerifyRef = useRef(onVerify);
     const onErrorRef = useRef(onError);
+    const [loadError, setLoadError] = useState(false);
     const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
-    const isProduction = process.env.NODE_ENV === 'production';
 
     useEffect(() => {
         onVerifyRef.current = onVerify;
@@ -47,9 +47,12 @@ export function TurnstileWidget({ onVerify, onError, theme = 'auto' }: Turnstile
         let isCancelled = false;
 
         if (!siteKey) {
+            setLoadError(true);
             onErrorRef.current?.();
             return;
         }
+
+        setLoadError(false);
 
         const ensureTurnstile = () =>
             new Promise<void>((resolve, reject) => {
@@ -91,15 +94,24 @@ export function TurnstileWidget({ onVerify, onError, theme = 'auto' }: Turnstile
             widgetIdRef.current = window.turnstile.render(containerRef.current, {
                 sitekey: siteKey,
                 theme,
-                callback: (token) => onVerifyRef.current(token),
-                'error-callback': () => onErrorRef.current?.(),
+                callback: (token) => {
+                    setLoadError(false);
+                    onVerifyRef.current(token);
+                },
+                'error-callback': () => {
+                    setLoadError(true);
+                    onErrorRef.current?.();
+                },
                 'expired-callback': () => onErrorRef.current?.(),
             });
         };
 
         ensureTurnstile()
             .then(renderWidget)
-            .catch(() => onErrorRef.current?.());
+            .catch(() => {
+                setLoadError(true);
+                onErrorRef.current?.();
+            });
 
         return () => {
             isCancelled = true;
@@ -110,11 +122,20 @@ export function TurnstileWidget({ onVerify, onError, theme = 'auto' }: Turnstile
         };
     }, [siteKey, theme]);
 
-    if (!siteKey && !isProduction) {
+    if (!siteKey) {
         return (
             <div className="flex min-h-[65px] max-w-full items-center gap-2 rounded-md border border-amber-400/30 bg-amber-950/30 px-3 py-2 text-sm text-amber-100">
                 <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
-                <span>Set NEXT_PUBLIC_TURNSTILE_SITE_KEY to show Cloudflare Turnstile.</span>
+                <span>Cloudflare Turnstile is not configured. Set NEXT_PUBLIC_TURNSTILE_SITE_KEY.</span>
+            </div>
+        );
+    }
+
+    if (loadError) {
+        return (
+            <div className="flex min-h-[65px] max-w-full items-center gap-2 rounded-md border border-amber-400/30 bg-amber-950/30 px-3 py-2 text-sm text-amber-100">
+                <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
+                <span>Cloudflare Turnstile could not load. Check the site key domain and browser blockers.</span>
             </div>
         );
     }

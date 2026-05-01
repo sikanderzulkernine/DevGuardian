@@ -143,6 +143,13 @@ export function HeroEffects() {
       const isSlowConnection =
         effectiveType === "slow-2g" || effectiveType === "2g" || effectiveType === "3g";
 
+      const shouldUseGL = !(
+        reducedMotionQuery.matches ||
+        saveData ||
+        isSlowConnection ||
+        isMobile
+      );
+
       if (reducedMotionQuery.matches) {
         setQuality(REDUCED_QUALITY);
       } else if (isLowPower || saveData || isSlowConnection) {
@@ -153,7 +160,7 @@ export function HeroEffects() {
         setQuality(DEFAULT_QUALITY);
       }
 
-      setCanUseGL(!reducedMotionQuery.matches);
+      setCanUseGL(shouldUseGL);
     };
 
     updateQuality();
