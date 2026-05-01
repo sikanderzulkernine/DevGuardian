@@ -7,6 +7,7 @@ import { GoogleTagManager } from "@/components/google-tag-manager";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ServiceWorkerCleanup } from "@/components/service-worker-cleanup";
 import { AnimationObserver } from "@/components/animation-observer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { gtmId, siteName, siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -85,6 +86,7 @@ export default function RootLayout({
           {children}
           <BackToTop />
           <Toaster />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
