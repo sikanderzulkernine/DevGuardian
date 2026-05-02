@@ -1,12 +1,11 @@
 import { CalendlyButton } from "./calendly-button";
-import { HeroEffects } from "./hero-effects";
+import { HeroBackground } from "./hero-background";
 import { Badge } from "./ui/badge";
 
 export function Hero() {
   return (
-    <section className="flex flex-col h-svh items-center relative -mt-24">
-      <HeroEffects />
-
+    <section className="relative isolate -mt-24 flex h-svh flex-col items-center overflow-hidden bg-background">
+      <HeroBackground />
       <div className="flex-1" />
 
       <div className="relative z-10 flex flex-col items-center gap-6 pb-6">
@@ -27,7 +26,6 @@ export function Hero() {
         </div>
         <CalendlyButton
           size="lg"
-          data-hero-gl-trigger
           data-reveal="fade-up"
           data-reveal-delay="short"
           className="premium-button h-12 bg-white px-8 text-lg text-black hover:bg-zinc-200 max-sm:hidden"
@@ -36,7 +34,6 @@ export function Hero() {
         </CalendlyButton>
         <CalendlyButton
           size="sm"
-          data-hero-gl-trigger
           data-reveal="fade-up"
           data-reveal-delay="short"
           className="premium-button h-10 bg-white px-6 text-base text-black hover:bg-zinc-200 sm:hidden"

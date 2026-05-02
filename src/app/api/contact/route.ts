@@ -42,8 +42,25 @@ export async function POST(req: NextRequest) {
 
     try {
         let body: unknown;
+        let rawBody: string;
         try {
-            body = await req.json();
+            rawBody = await req.text();
+        } catch {
+            return NextResponse.json(
+                { error: 'Invalid request body.' },
+                { status: 400 }
+            );
+        }
+
+        if (new TextEncoder().encode(rawBody).byteLength > MAX_BODY_BYTES) {
+            return NextResponse.json(
+                { error: 'Request body is too large.' },
+                { status: 413 }
+            );
+        }
+
+        try {
+            body = JSON.parse(rawBody);
         } catch {
             return NextResponse.json(
                 { error: 'Invalid JSON payload.' },

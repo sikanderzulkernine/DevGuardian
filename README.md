@@ -8,10 +8,10 @@ Production Next.js 15 App Router site for DevGuardian.
 - Tailwind CSS 4 and PostCSS
 - Radix/shadcn-style UI primitives
 - next-themes in forced-dark mode
-- Three.js / React Three Fiber for the deferred hero WebGL effect
 - Resend contact email
 - Cloudflare Turnstile bot protection
 - Vercel deployment
+- Vercel Speed Insights
 
 ## Local Development
 
@@ -72,5 +72,7 @@ LOG_PATH=
 ## Deployment Notes
 
 Deploy with Vercel's Next.js preset. The app uses framework-native `next.config.ts` redirects and security headers; no custom build wrapper is required.
+
+Enable Speed Insights in the Vercel project dashboard after deployment. The `@vercel/speed-insights` component is already installed and mounted in the root layout; it does not require an environment variable.
 
 PWA service worker generation is intentionally not enabled. The site keeps its web app manifest and icons, but avoids a service worker for this marketing/contact site to prevent stale content and analytics/contact-form caching issues.

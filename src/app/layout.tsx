@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { BackToTop } from "@/components/back-to-top";
@@ -70,6 +72,7 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
         className={`font-sans antialiased bg-background text-foreground`}
+        suppressHydrationWarning
       >
         <ThemeProvider
           attribute="class"
@@ -85,6 +88,8 @@ export default function RootLayout({
           {children}
           <BackToTop />
           <Toaster />
+          <Analytics />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>

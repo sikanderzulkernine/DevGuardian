@@ -12,6 +12,7 @@ export class DofPointsMaterial extends THREE.ShaderMaterial {
       uniform float uFov;
       uniform float uBlur;
       uniform float uPointSize;
+      uniform float uViewportHeight;
       varying float vDistance;
       varying float vPosY;
       varying vec3 vWorldPosition;
@@ -25,7 +26,9 @@ export class DofPointsMaterial extends THREE.ShaderMaterial {
         vPosY = pos.y;
         vWorldPosition = pos;
         vInitialPosition = initialPos;
-        gl_PointSize = max(vDistance * uBlur * uPointSize, 3.0);
+        // Scale point size based on viewport height for consistent appearance
+        float viewportScale = uViewportHeight / 800.0;
+        gl_PointSize = max(vDistance * uBlur * uPointSize * viewportScale, 2.0);
       }`,
       fragmentShader: /* glsl */ `
       uniform float uOpacity;
@@ -128,7 +131,8 @@ export class DofPointsMaterial extends THREE.ShaderMaterial {
         uPointSize: { value: 2.0 },
         uOpacity: { value: 1.0 },
         uRevealFactor: { value: 0.0 },
-        uRevealProgress: { value: 0.0 }
+        uRevealProgress: { value: 0.0 },
+        uViewportHeight: { value: 800.0 }
       },
       transparent: true,
       // blending: THREE.AdditiveBlending,

@@ -14,6 +14,7 @@ const scriptSrc = [
 
 if (isDev) {
   scriptSrc.push("'unsafe-eval'");
+  scriptSrc.push("https://va.vercel-scripts.com");
 }
 
 const baseCsp = [

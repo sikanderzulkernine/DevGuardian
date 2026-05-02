@@ -12,7 +12,7 @@ declare global {
                     sitekey: string;
                     theme?: 'light' | 'dark' | 'auto';
                     callback?: (token: string) => void;
-                    'error-callback'?: () => void;
+                    'error-callback'?: (errorCode?: string) => void;
                     'expired-callback'?: () => void;
                 }
             ) => string;
@@ -33,6 +33,7 @@ export function TurnstileWidget({ onVerify, onError, theme = 'auto' }: Turnstile
     const onVerifyRef = useRef(onVerify);
     const onErrorRef = useRef(onError);
     const [loadError, setLoadError] = useState(false);
+    const [errorCode, setErrorCode] = useState<string | null>(null);
     const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
     useEffect(() => {
@@ -53,6 +54,7 @@ export function TurnstileWidget({ onVerify, onError, theme = 'auto' }: Turnstile
         }
 
         setLoadError(false);
+        setErrorCode(null);
 
         const ensureTurnstile = () =>
             new Promise<void>((resolve, reject) => {
@@ -96,9 +98,11 @@ export function TurnstileWidget({ onVerify, onError, theme = 'auto' }: Turnstile
                 theme,
                 callback: (token) => {
                     setLoadError(false);
+                    setErrorCode(null);
                     onVerifyRef.current(token);
                 },
-                'error-callback': () => {
+                'error-callback': (code) => {
+                    setErrorCode(code ?? null);
                     setLoadError(true);
                     onErrorRef.current?.();
                 },
@@ -109,6 +113,7 @@ export function TurnstileWidget({ onVerify, onError, theme = 'auto' }: Turnstile
         ensureTurnstile()
             .then(renderWidget)
             .catch(() => {
+                setErrorCode(null);
                 setLoadError(true);
                 onErrorRef.current?.();
             });
@@ -135,7 +140,10 @@ export function TurnstileWidget({ onVerify, onError, theme = 'auto' }: Turnstile
         return (
             <div className="flex min-h-[65px] max-w-full items-center gap-2 rounded-md border border-amber-400/30 bg-amber-950/30 px-3 py-2 text-sm text-amber-100">
                 <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
-                <span>Cloudflare Turnstile could not load. Check the site key domain and browser blockers.</span>
+                <span>
+                    Cloudflare Turnstile could not load
+                    {errorCode ? ` (${errorCode})` : ''}. Check the site key domain and browser blockers.
+                </span>
             </div>
         );
     }

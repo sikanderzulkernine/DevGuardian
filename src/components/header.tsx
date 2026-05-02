@@ -235,6 +235,7 @@ export function Header({ reserveSpace = true }: HeaderProps) {
                   src="/logo.webp"
                   alt="DevGuardian Logo"
                   fill
+                  sizes="32px"
                   className="object-contain"
                 />
               </div>

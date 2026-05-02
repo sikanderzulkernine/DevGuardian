@@ -1,7 +1,6 @@
 import * as THREE from "three";
-import { useMemo, useState, useRef } from "react";
+import { useMemo, useRef, useEffect } from "react";
 import { createPortal, useFrame } from "@react-three/fiber";
-import { useFBO } from "@react-three/drei";
 
 import { DofPointsMaterial } from "./shaders/pointMaterial";
 import { SimulationMaterial } from "./shaders/simulationMaterial";
@@ -40,19 +39,28 @@ export function Particles({
 }) {
   // Reveal animation state
   const revealStartTime = useRef<number | null>(null);
-  const [isRevealing, setIsRevealing] = useState(true);
   const revealDuration = 3.5; // seconds
   // Create simulation material with scale parameter
   const simulationMaterial = useMemo(() => {
-    return new SimulationMaterial(planeScale);
-  }, [planeScale]);
+    return new SimulationMaterial(planeScale, size);
+  }, [planeScale, size]);
 
-  const target = useFBO(size, size, {
-    minFilter: THREE.NearestFilter,
-    magFilter: THREE.NearestFilter,
-    format: THREE.RGBAFormat,
-    type: THREE.FloatType,
-  });
+  useEffect(() => () => simulationMaterial.dispose(), [simulationMaterial]);
+
+  const target = useMemo(
+    () =>
+      new THREE.WebGLRenderTarget(size, size, {
+        minFilter: THREE.NearestFilter,
+        magFilter: THREE.NearestFilter,
+        format: THREE.RGBAFormat,
+        type: THREE.FloatType,
+        depthBuffer: false,
+        stencilBuffer: false,
+      }),
+    [size]
+  );
+
+  useEffect(() => () => target.dispose(), [target]);
 
   const dofPointsMaterial = useMemo(() => {
     const m = new DofPointsMaterial();
@@ -62,18 +70,23 @@ export function Particles({
     return m;
   }, [simulationMaterial]);
 
-  const [scene] = useState(() => new THREE.Scene());
-  const [camera] = useState(
-    () => new THREE.OrthographicCamera(-1, 1, 1, -1, 1 / Math.pow(2, 53), 1)
+  useEffect(() => () => dofPointsMaterial.dispose(), [dofPointsMaterial]);
+
+  const scene = useMemo(() => new THREE.Scene(), []);
+  const camera = useMemo(
+    () => new THREE.OrthographicCamera(-1, 1, 1, -1, 1 / Math.pow(2, 53), 1),
+    []
   );
-  const [positions] = useState(
+  const positions = useMemo(
     () =>
       new Float32Array([
         -1, -1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0,
-      ])
+      ]),
+    []
   );
-  const [uvs] = useState(
-    () => new Float32Array([0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0])
+  const uvs = useMemo(
+    () => new Float32Array([0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0]),
+    []
   );
 
   const particles = useMemo(() => {
@@ -92,6 +105,7 @@ export function Particles({
 
     state.gl.setRenderTarget(target);
     state.gl.clear();
+    // @ts-ignore
     state.gl.render(scene, camera);
     state.gl.setRenderTarget(null);
 
@@ -113,10 +127,6 @@ export function Particles({
     // Map progress to reveal factor (0 = fully hidden, higher values = more revealed)
     // We want to start from center (0) and expand outward (higher values)
     const revealFactor = easedProgress * 4.0; // Doubled the radius for larger coverage
-
-    if (revealProgress >= 1.0 && isRevealing) {
-      setIsRevealing(false);
-    }
 
     dofPointsMaterial.uniforms.uTime.value = currentTime;
 
@@ -141,13 +151,15 @@ export function Particles({
     dofPointsMaterial.uniforms.uOpacity.value = opacity;
     dofPointsMaterial.uniforms.uRevealFactor.value = revealFactor;
     dofPointsMaterial.uniforms.uRevealProgress.value = easedProgress;
+
+    // Update viewport height for responsive point sizing
+    dofPointsMaterial.uniforms.uViewportHeight.value = state.size.height;
   });
 
   return (
     <>
       {createPortal(
-        <mesh>
-          <primitive object={simulationMaterial} attach="material" />
+        <mesh material={simulationMaterial}>
           <bufferGeometry>
             <bufferAttribute
               attach="attributes-position"
@@ -158,8 +170,7 @@ export function Particles({
         </mesh>,
         scene
       )}
-      <points {...props}>
-        <primitive object={dofPointsMaterial} attach="material" />
+      <points material={dofPointsMaterial} {...props}>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[particles, 3]} />
         </bufferGeometry>

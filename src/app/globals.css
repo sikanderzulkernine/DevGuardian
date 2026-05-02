@@ -617,18 +617,33 @@
     opacity: 1;
 }
 
-#webgl {
+.hero-webgl-fallback {
     position: absolute;
     inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at 50% 36%, rgb(95 96 98 / 0.24), transparent 48%),
+        radial-gradient(ellipse at 50% 90%, rgb(31 31 32 / 0.75), transparent 64%),
+        #000;
+}
+
+.hero-webgl-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at center, transparent 38%, rgb(0 0 0 / 0.4) 72%, rgb(0 0 0 / 0.84) 100%),
+        linear-gradient(180deg, rgb(0 0 0 / 0.32) 0%, transparent 34%, rgb(0 0 0 / 0.54) 100%);
+}
+
+#webgl {
     height: 100%;
     width: 100%;
-    z-index: 0;
-    pointer-events: none;
 }
 
 #webgl canvas {
-    width: 100%;
     height: 100%;
+    width: 100%;
 }
 
 @layer utilities {
