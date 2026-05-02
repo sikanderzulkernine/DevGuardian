@@ -9,7 +9,7 @@ export function Hero() {
       <div className="flex-1" />
 
       <div className="relative z-10 flex flex-col items-center gap-6 pb-6">
-        <div className="flex flex-col items-center px-6 text-center" data-reveal="fade-up">
+        <div className="flex flex-col items-center px-6 text-center">
           <Badge variant="outline" className="mb-6 rounded-full border-white/40 bg-black/60 px-4 py-1 text-sm font-medium text-white shadow-lg backdrop-blur-md transition-all hover:border-white/50 hover:bg-black/70">
             Built for Scale
           </Badge>
@@ -26,16 +26,12 @@ export function Hero() {
         </div>
         <CalendlyButton
           size="lg"
-          data-reveal="fade-up"
-          data-reveal-delay="short"
           className="premium-button h-12 bg-white px-8 text-lg text-black hover:bg-zinc-200 max-sm:hidden"
         >
           Book a call
         </CalendlyButton>
         <CalendlyButton
           size="sm"
-          data-reveal="fade-up"
-          data-reveal-delay="short"
           className="premium-button h-10 bg-white px-6 text-base text-black hover:bg-zinc-200 sm:hidden"
         >
           Book a call
